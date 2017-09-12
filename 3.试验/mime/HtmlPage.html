@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../14.clipborad/javascript/JavaScript.js"></script>
+</head>
+<body>
+    <div>
+        <input type="file" accept="*/*" multiple />
+    </div>
+    <div>
+        <textarea id="output" cols="40" rows="10"></textarea>
+    </div>
+    <div>
+        <button>复制到剪贴板</button>
+    </div>
+    <script>
+        var output = document.querySelector("textarea");
+
+        function getFileMime(file) {
+            return file.type;
+        }
+
+        document.querySelector("[type=file]").addEventListener("change", function (evt) {
+            var mimes = [];
+            for (var i = 0, file; file = evt.target.files[i]; i++) {
+                mimes.push("".concat(file.name.split(".").pop(), ":", file.type));
+            }
+            output.value = mimes.join("\r\n");
+        });
+
+        document.querySelector("button").addEventListener("click", function (evt) {
+            clipboard.setData(output.value);
+        });
+    </script>
+</body>
+</html>

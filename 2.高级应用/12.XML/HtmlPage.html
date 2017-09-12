@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
+    //序列化
+    var oSerializer = new XMLSerializer();
+    var sXML = oSerializer.serializeToString(document);
+    alert(sXML);
+
+    //反序列化
+    var dp = new DOMParser();
+    var o2 = dp.parseFromString(sXML, "application/xml");
+    console.log(typeof o2);
+</script>
+</body>
+</html>

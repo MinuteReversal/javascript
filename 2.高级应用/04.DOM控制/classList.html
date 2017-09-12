@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        .bgRed {
+            background-color: red;
+        }
+
+        .bgBlue {
+            background-color: blue;
+        }
+    </style>
+    <button>改变背景</button>
+    <div class="bgBlue">helloworld</div>
+    <script>
+        var btn = document.querySelector("button"),
+            div = document.querySelector("div");
+
+        btn.addEventListener("click", function (e) {
+            if (div.classList.contains("bgBlue")) {
+                div.classList.remove("bgBlue");
+                div.classList.add("bgRed");
+            } else {
+                div.classList.remove("bgRed");
+                div.classList.add("bgBlue");
+            }
+        });
+    </script>
+</body>
+</html>

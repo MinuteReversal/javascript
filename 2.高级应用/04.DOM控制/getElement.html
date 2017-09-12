@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+</head>
+<body>
+    <div id="xxx" class="yyy" name="zzz" xlmname=""></div>
+    <script>
+        document.getElementById("xxx").style.backgroundColor = "red";
+        document.getElementsByClassName("yyy")[0].width = "40px";
+        document.getElementsByName("zzz")[0].height = "30px";
+        document.getElementsByTagName("div")[0].innerText = "hello";
+        document.getElementsByTagNameNS("http://www.w3.org/1999/xhtml", "html")[0].style.fontWeight = "bolder";
+    </script>
+</body>
+</html>

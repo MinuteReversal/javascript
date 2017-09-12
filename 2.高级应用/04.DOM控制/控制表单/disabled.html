@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>禁用</button>
+    <input type="text" value="大家好" />
+    <script>
+        document.querySelector("button").addEventListener("click", function (e) {
+            var input = this.nextElementSibling;
+            input.disabled = !input.disabled;
+            if (input.disabled) {
+                this.innerText = "解禁";
+            } else {
+                this.innerText = "禁用";
+            }
+        });
+    </script>
+</body>
+</html>

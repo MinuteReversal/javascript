@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>选中</button>
+    <input id="Music" type="checkbox" /><label for="Music">爱好音乐</label>
+    <script>
+        var btn = document.querySelector("button"),
+            checkbox = document.querySelector("input[type=checkbox]");
+
+        btn.addEventListener("click", function (e) {
+            checkbox.checked = !checkbox.checked;
+        });
+    </script>
+</body>
+</html>

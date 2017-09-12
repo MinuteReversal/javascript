@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+        /*
+        *       Employee
+        *          |
+        *     -------------
+        *     |           |
+        * Manager      WorkerBee
+        *                 |
+        *             -----------
+        *             |          |
+        *       SalesPerson     Engineer
+        *
+        *
+        */
+
+
+        /*#region Employee*/
+
+        //@Constructor
+        function Employee(name, dept) {
+            this.name = name || "";
+            this.dept = dept || "general";
+        }
+        Employee.prototype.getName = function () {
+            var me = this;
+            return me.name;
+        }
+        Employee.prototype.say = function () {
+            return "Hi";
+        }
+        /*#endregion*/
+
+        /*#region Manager*/
+
+        //@Constructor
+        function Manager(name, reps) {
+            this.base = Employee;
+            this.base(name);
+            this.reports = reps || [];
+        }
+        Manager.prototype = new Employee;
+        /*#endregion*/
+
+        /*#region WorkerBee*/
+
+        //@Constructor
+        function WorkerBee(name, projs) {
+            this.base = Employee;
+            this.base(name);
+            this.projects = projs || [];
+        }
+
+        WorkerBee.prototype = new Employee;
+        WorkerBee.prototype.say = function () {
+            var me = this;
+            return me.base.prototype.say() + " My Name is " + me.name;
+        }
+
+        /*#endregion*/
+
+        /*#region SalesPerson*/
+
+        //@Constructor
+        function SalesPerson(name) {
+            this.base = WorkerBee;
+            this.base(name);
+            this.dept = "sales";
+            this.quota = 100;
+        }
+
+        SalesPerson.prototype = new WorkerBee;
+        /*#endregion*/
+
+        /*#region Engineer*/
+
+        //@Constructor
+        function Engineer(name, mach) {
+            this.base = WorkerBee;
+            this.base(name);
+            this.dept = "engineering";
+            this.machine = mach || "";
+        }
+
+        Engineer.prototype = new WorkerBee;
+        /*#endregion*/
+
+        var employee = new Employee("张三");
+
+        var manager = new Manager("李四", ["day", "week", "month", "year"]);
+
+        var workerbee = new WorkerBee("王五", ["javascript"]);
+
+        var salespersion = new SalesPerson("强力");
+
+        var engineer = new Engineer("宇哥", "alpha");
+    </script>
+</body>
+</html>

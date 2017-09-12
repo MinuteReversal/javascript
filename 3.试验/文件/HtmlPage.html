@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../下载文件/FileSaver.js/FileSaver.js-master/FileSaver.js-master/FileSaver.min.js"></script>
+</head>
+<body>
+    <script>
+        var file = new File(["foo"], "foo.txt", {
+            type: "text/plain",
+        });
+        saveAs(file, "foo.txt");
+    </script>
+</body>
+</html>

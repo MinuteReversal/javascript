@@ -1,0 +1,17 @@
+思想上的反转
+1.CSS选择器
+.a
+<class="a">
+
+
+.a .b
+.a [name=""]{ background-color:red; }
+
+
+2.方法和事件
+js库  jQuery(".a").addClass();
+
+document.addEventLisenter("click",function(){});
+
+
+3.依赖注入

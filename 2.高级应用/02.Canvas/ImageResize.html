@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=" content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <input type="file" accept="image/*" /><br />
+    <input type="number" placeholder="宽(px)" /><br />
+    <input type="number" placeholder="高(px)" /><br />
+    <img alt="preview" />
+    <script>
+        var inputs = document.querySelectorAll("input"),
+            fileBrowser = inputs[0],
+            i = document.querySelector("img");
+
+        fileBrowser.addEventListener("change", function (e) {
+            var fr = new FileReader();
+            fr.addEventListener("load", function (fileLoadEvent) {
+                var img = new Image();
+                img.addEventListener("load", function (imageLoadEvent) {
+                    i.src = imageResize(imageLoadEvent.target, parseInt(inputs[1].value), parseInt(inputs[2].value));
+                });
+                img.src = fileLoadEvent.target.result;
+            });
+            fr.readAsDataURL(e.target.files[0]);
+            e.target.value = "";
+        });
+
+        /*
+            *@method:imageResize
+            *@param {Image} image
+            *[@param {Number} width]
+            *[@param {Number} height]
+            */
+        function imageResize(image, width, height) {
+            if (!image.complete) { console.log("image was not loaded in browser."); return ""; }
+            var c = document.createElement("canvas"),
+                ctx = c.getContext("2d"),
+                w = image.width,
+                h = image.height,
+                aspectRatio = w / h;
+
+            if (width && height) {
+                w = width;
+                h = height;
+            }
+            else if (width) {
+                w = width;
+                h = width / aspectRatio;
+            }
+            else if (height) {
+                w = height * aspectRatio;
+                h = height;
+            }
+
+            c.width = w;
+            c.height = h;
+            ctx.drawImage(image, 0, 0, w, h);
+            return c.toDataURL({ type: "image/png" });
+        }
+
+    </script>
+</body>
+</html>

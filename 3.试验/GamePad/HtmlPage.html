@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<div id="output"></div>
+<script>
+    var outPut = document.getElementById("output");
+    function canGamePads() {
+        return "getGamepads" in navigator;
+    }
+
+    outPut.innerHTML = "getGamepads:" + canGamePads();
+
+    window.addEventListener("gamepadconnected", function (e) {
+        var gp = navigator.getGamepads()[0];
+        outPut.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". " + gp.buttons.length + " buttons, " + gp.axes.length + " axes.";
+    });
+
+    window.addEventListener("gamepaddisconnected",function(e) {
+        outPut.innerHTML = "";
+    });
+</script>
+</body>
+</html>

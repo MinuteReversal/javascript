@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="../CanvasToBlob/CanvasToBlob.js"></script>
+    <script src="../下载文件/DownloadFile.js"></script>
+</head>
+<body>
+    <label for="imageLoader">背景</label> <input id="imageLoader" type="file" /><br />
+    <label for="logoloader">logo</label><input id="logoloader" type="file" /><br />
+    <label for="text">文字</label><input id="text" type="text" value="@优瑞科技" />
+    <label for="preview">预览</label>
+    <button id="btnBuildlogo" type="button">生成logo</button>
+    <button id="btnBuildtext" type="button">生成落款</button>
+    <button id="btnDownload" type="button">下载</button><br />
+    <canvas id="preview" width="400" height="300"></canvas>
+    <script>
+        var imageloader = document.querySelector("#imageLoader");
+        var logoloader = document.querySelector("#logoloader");
+        var text = document.querySelector("#text");
+        var priview = document.querySelector("#preview");
+        var btnBuildlogo = document.querySelector("#btnBuildlogo");
+        var btnBuildtext = document.querySelector("#btnBuildtext");
+        var btnDownload = document.querySelector("#btnDownload");
+        var context = priview.getContext("2d");
+
+        var image = null, logo = null;
+
+        imageloader.addEventListener("change", function (e) {
+            var me = this;
+            var file = e.target.files[0];
+            if (file) {
+                var fd = new FileReader();
+                fd.addEventListener("load", function (efd) {
+                    var img = new Image();
+                    img.addEventListener("load", function () {
+                        image = this;
+                    });
+                    img.src = efd.target.result;
+                });
+                fd.readAsDataURL(file);
+            }
+            me.value = "";
+        });
+
+        logoloader.addEventListener("change", function (e) {
+            var me = this;
+            var file = e.target.files[0];
+            if (file) {
+                var fd = new FileReader();
+                fd.addEventListener("load", function (efd) {
+                    var img = new Image();
+                    img.addEventListener("load", function () {
+                        logo = this;
+                    });
+                    img.src = efd.target.result;
+                });
+                fd.readAsDataURL(file);
+            } me.value = "";
+        });
+
+        btnBuildlogo.addEventListener("click", function () {
+            watermarklogo(image, logo);
+        });
+
+        btnBuildtext.addEventListener("click", function () {
+            watermarktext(image, text.value);
+        });
+
+        btnDownload.addEventListener("click", function () {
+            new DownloadFile(priview.toBlob(), "1.png").Download();
+        });
+
+        function watermarklogo(image, logo) {
+            context.canvas.width = image.width;
+            context.canvas.height = image.height;
+            context.drawImage(image, 0, 0);
+            context.drawImage(logo, image.naturalWidth - logo.naturalWidth, image.naturalHeight - logo.naturalWidth);
+        }
+
+        function watermarktext(image, text) {
+            context.canvas.width = image.width;
+            context.canvas.height = image.height;
+            context.drawImage(image, 0, 0);
+            context.fillStyle = "#ffffff";
+            context.font = "12px 微软雅黑";
+            var size = context.measureText(text); // TextMetrics object
+            context.fillText(text, image.naturalWidth - size.width, image.naturalHeight - 12);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <!--https://developer.mozilla.org/en-US/docs/Web/API/Element/closest-->
+    <button>#div-03最近的article父节点</button>
+    <article>
+        <div id="div-01">
+            Here is div-01
+            <div id="div-02">
+                Here is div-02
+                <div id="div-03">Here is div-03</div>
+            </div>
+        </div>
+    </article>
+    <script>
+        var btn = document.querySelector("button"),
+            div03 = document.querySelector("#div-03");
+        btn.addEventListener("click",function() {
+            div03.closest("article").backgroundColor = "red";
+        });
+    </script>
+</body>
+</html>

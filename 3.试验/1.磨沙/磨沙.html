@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .mainbox {
+            display: block;
+            position: fixed;
+            background: url(bg.jpg) fixed;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .move {
+            position: relative;
+            display: block;
+            width: 100px;
+            height: 100px;
+            background-image: url(bg2.jpg);
+            margin-left: 500px;
+            margin-top: 100px;
+            border: #191970 1px solid;
+        }
+    </style>
+    <script type="text/javascript">
+        //注册事件
+        window.onload = function () {
+            var mainbox = document.getElementsByClassName("mainbox")[0];
+            mainbox.onscroll = function () {
+                var moves = document.getElementsByClassName("move");
+                for (var i = 0, item; item = moves[i]; i++) {
+                    item.style.backgroundPositionX = (-1 * item.offsetLeft) + "px";
+                    item.style.backgroundPositionY = (-1 * item.offsetTop) + mainbox.scrollTop + "px";
+                    item.innerText = -1 * item.offsetLeft + ";" + -1 * (item.offsetTop + mainbox.scrollTop);
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+    <div class="mainbox">
+        <div class="move">
+            aaaaaa
+        </div>
+        <div class="move">
+            aaaaaa
+        </div>
+        <div class="move">
+            aaaaaa
+        </div>
+        <div class="move">
+            aaaaaa
+        </div>
+        <div class="move">
+            aaaaaa
+        </div>
+        <div class="move">
+            aaaaaa
+        </div>
+    </div>
+</body>
+</html>

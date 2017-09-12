@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=" content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+    <pre class="output"></pre>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/Events/deviceorientation
+        var output = document.querySelector('.output');
+        function handleOrientation(event) {
+            var absolute = event.absolute;
+            var alpha = event.alpha;
+            var beta = event.beta;
+            var gamma = event.gamma;
+
+            output.innerHTML = "absolute:" + absolute + "<br/>alpha:" + alpha + "<br/>beta:" + beta + "<br/>gamma:" + gamma;
+        }
+
+        window.addEventListener('deviceorientation', handleOrientation);
+    </script>
+</body>
+</html>

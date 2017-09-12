@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="querystringConvert.js"></script>
+</head>
+<body>
+    <script>
+        var tree = {
+            name: "root",
+            children: [
+                {
+                    name: "1",
+                    children: [{
+                        name: "2",
+                        children: [
+                            {
+                                name: "3",
+                                children: [
+                                    {
+                                        name: "4",
+                                        children: [],
+                                        level: 4
+                                    }
+                                ],
+                                level: 3
+                            }
+                        ],
+                        level: 2
+                    }],
+                    level: 1
+                },
+                {
+                    name: "6",
+                    children: [],
+                    level: 1
+                }
+            ]
+        };
+
+        var simpleObject = {
+            name: "Zhy",
+            age: 32,
+            is80s: true
+        };
+
+        var binaryTree = {
+            value: "a",
+            left: {
+                value: "b",
+                left: {
+                    value: "d",
+                    left: null,
+                    right: null
+                },
+                right: null
+            },
+            right: {
+                value: "c",
+                left: null,
+                right: {
+                    value: "e",
+                    left: null,
+                    right: null
+                }
+            }
+        };
+
+        var arrayInObject = {
+            languages: [
+                { name: "C++" },
+                { name: "C#" },
+                { name: "Java" },
+                { name: "ECMAScript" }
+            ]
+        };
+
+        var objectInArray = [
+            { name: "name", value: "lily" },
+            { name: "name", value: "lucy" },
+            { name: "name", value: "lilei" },
+            { name: "name", value: "hanmeimei" }
+        ];
+
+        function toQueryString(evt) {
+            textQueryString.value = querystringConvert.serializeObject(textJson.value === "" ? "" : JSON.parse(textJson.value));
+        }
+
+        function toObject(evt) {
+            textJson.value = JSON.stringify(querystringConvert.deserializeObject(textQueryString.value));
+        }
+
+        function fillJson(dataType) {
+            var data = null;
+            switch (dataType) {
+                case "binaryTree":
+                    data = binaryTree;
+                    break;
+                case "tree":
+                    data = tree;
+                    break;
+                case "object":
+                    data = simpleObject;
+                    break;
+                case "arrayInObject":
+                    data = arrayInObject;
+                    break;
+                case "objectInArray":
+                    data = objectInArray;
+                    break;
+                default:
+                    data = '';
+                    break;
+            }
+            textJson.value = data === "" ? data : JSON.stringify(data);
+        }
+
+        window.addEventListener("load", function (evt) {
+            fillJson("object");
+        });
+    </script>
+    <div>
+        <div><textarea cols="40" rows="20" id="textQueryString" placeholder="querystring"></textarea></div>
+        <div><button onclick="toQueryString()">ToQueryString&uarr;</button><button onclick="toObject()">ToObject&darr;</button></div>
+        <div><textarea cols="40" rows="20" id="textJson"></textarea></div>
+        <div>
+            <button onclick="fillJson('binaryTree')">binaryTree</button>
+            <button onclick="fillJson('tree')">tree</button>
+            <button onclick="fillJson('object')">object</button>
+            <button onclick="fillJson('arrayInObject')">arrayInObject</button>
+            <button onclick="fillJson('objectInArray')">objectInArray</button>
+            <button onclick="fillJson('clear')">clear</button>
+        </div>
+    </div>
+</body>
+</html>

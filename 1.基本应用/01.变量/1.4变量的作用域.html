@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        x = 8888;           //全局变量
+        var i = 6;          //全局变量
+        function fn() {
+            var a = 100;    //函数内部局部变量
+            console.log(i);
+            console.log(a);
+            console.log(x);
+        }
+
+        function fn2() {
+            console.log(x);
+            console.log(i);
+            //console.log(a);//无法访问局部变量
+        }
+
+        fn();
+        fn2();
+    </script>
+    <script type="text/javascript">
+        console.log(x);
+        console.log(i);
+    </script>
+</body>
+</html>

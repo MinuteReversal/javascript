@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title></title>
+</head>
+<body>
+    <input type="text" onkeypress="keypress(event);" />
+    <div id="output"></div>
+    <script>
+        var output = document.querySelector("#output");
+
+        function keypress(evt) {
+            output.innerHTML = evt.target.value;
+        }
+    </script>
+</body>
+</html>

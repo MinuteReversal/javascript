@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <!--<audio src="C200001fpbwS2TUTjV.m4a" controls="controls" autoplay="autoplay"></audio>-->
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video
+        //https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLMediaElement
+        //https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+
+        var audio = new Audio();
+        audio.addEventListener("canplay", function (e) {
+            audio.play();
+        });
+        audio.src = "C200001fpbwS2TUTjV.m4a";
+        setTimeout(function () {
+            audio.play();
+        },1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        function ClassA() {
+            this.Name = "hello";
+        }
+
+        ClassA.prototype.hi = function () {
+            return this.Name + "Class A";
+        };
+
+        function ClassB() {
+            ClassA.call(this);
+        }
+
+        ClassB.prototype = Object.create(ClassA.prototype);
+        ClassB.prototype.hi = function () {
+            return ClassA.prototype.hi.call(this) + "bbb";
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        try {
+            throw new notSupportException("不支持此操作!");
+        }
+        catch (e) {
+            console.log(e.message);
+        }
+
+        function exception(message) {
+            this.message = message;
+            return this;
+        }
+
+        function notSupportException(message) {
+            exception.call(this, message);
+            return this;
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

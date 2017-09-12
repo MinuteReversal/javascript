@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        div {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: red;
+            transition: transform 0.5s linear;
+        }
+
+            div:hover {
+                transform: rotateZ(360deg);
+            }
+    </style>
+    <div></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitionstart
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitionend
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitioncancel
+
+        var el = document.querySelector("div");
+        el.addEventListener("transitionstart", function (e) { console.log("transitionstart"); });
+        el.addEventListener("transitionend", function (e) { console.log("transitionend"); });
+        el.addEventListener("transitioncancel", function (e) { console.log("transitioncancel"); });
+    </script>
+</body>
+</html>

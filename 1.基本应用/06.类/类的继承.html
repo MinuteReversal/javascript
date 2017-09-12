@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
+
+        /*#region 定义 Animal 类*/
+        function Animal(name) {
+            this.name = "Ketty";
+            if (name) this.name = name;
+        }
+        Animal.prototype.eat = function (foodname) {
+            console.log(this.name+ " Eat " + foodname);
+        };
+        /*#endregion*/
+
+        /*#region 定义 Cat 类*/
+        function Cat(name, color) {
+            Animal.call(this, name);//关键点:调用父类构造器
+            this.color = color;
+        }
+        Cat.prototype = Object.create(Animal.prototype);    //关键点:继承自Animal
+        Cat.prototype.constructor = Cat;                 //关键点：
+
+        Cat.prototype.run = function () {
+            console.log(this.name + " run fast");
+        };
+        /*#endregion*/
+
+        /*#region 定义Tiger*/
+        function Tiger(name) {
+            Animal.call(this, name);
+        }
+        Tiger.prototype = Object.create(Animal.prototype);
+        Tiger.prototype.constructor = Tiger;
+        //override
+        Tiger.prototype.eat = function (meatName) {
+            console.log(this.name + " 吃 " + meatName);
+        };
+        /*#endregion*/
+
+
+        //使用
+        var coffee = new Cat("coffee", "yellow");
+        coffee.eat("choc");
+        coffee.run();
+
+        //老虎
+        var tiger = new Tiger("大王");
+        tiger.eat("牛肉");
+
+        //coffee是否是派生自动物
+        console.log("coffee是否是派生自动物", coffee instanceof Animal);
+
+        //老虎是否派生自动物
+        console.log("老虎是否派生自动物", tiger instanceof Animal);
+
+    </script>
+</body>
+</html>

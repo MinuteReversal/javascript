@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <select onchange="onChange(event);">
+        <option value="" selected="selected">请选择</option>
+        <option value="800,600">800X600</option>
+        <option value="1024,768">1024X768</option>
+        <option value="1440,900">1440X900</option>
+        <option value="1920,1080">1920X1080</option>
+        <option value="2560,1440">2560X1440</option>
+    </select>
+    <script>
+        function onChange(evt) {
+            var s = evt.target;
+            var v = s.value;
+            if (v === "") return;
+
+            var p = v.split(",").map(function (x) { return parseInt(x); });
+            window.resizeTo(p[0], p[1]);
+        }
+    </script>
+</body>
+</html>

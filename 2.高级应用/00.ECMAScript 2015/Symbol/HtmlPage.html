@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+    var sym1 = Symbol();
+    var sym2 = Symbol("foo");
+    var sym3 = Symbol("foo");
+
+    Symbol("foo") === Symbol("foo"); // false
+
+    var sym = new Symbol(); // TypeError
+
+    var sym = Symbol("foo");
+    typeof sym;     // "symbol" 
+    var symObj = Object(sym);
+    typeof symObj;  // "object"
+</script>
+</body>
+</html>

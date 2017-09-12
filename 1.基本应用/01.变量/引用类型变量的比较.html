@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var a = { name: "zhy" };
+        var b = { name: "zhy" };
+        var c = a;//修改a引用的对象的成员会 影响到 c、a变量
+
+        console.log(a === b);
+        console.log(c === a);
+    </script>
+</body>
+</html>

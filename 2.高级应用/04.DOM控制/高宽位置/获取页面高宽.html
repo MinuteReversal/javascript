@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+        var domRect = document.documentElement.getBoundingClientRect();
+        var output = document.querySelector("#output");
+        output.innerHTML = `height:${domRect.height} <br/>`;
+        output.innerHTML += `width:${domRect.width} <br/>`;
+        output.innerHTML += `top:${domRect.top} <br/>`;
+        output.innerHTML += `right:${domRect.right} <br/>`;
+        output.innerHTML += `bottom:${domRect.bottom} <br/>`;
+        output.innerHTML += `left:${domRect.left}`;
+    </script>
+</body>
+</html>

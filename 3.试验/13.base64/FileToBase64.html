@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <script src="../14.clipborad/javascript/JavaScript.js"></script>
+</head>
+<body>
+    <input type="file" /><br />
+    <label for="outputBase64">base64:</label><br />
+    <textarea id="outputBase64" rows="10" cols="40"></textarea><br />
+    <button id="copyToClipboard">复制至剪贴版</button>
+    <button id="btnShow">将base64显示在图片里</button><br />
+    <img id="img" src="#" />
+    <script>
+        var ifile = document.querySelector("[type=\"file\"]");
+        var outputBase64 = document.querySelector("#outputBase64");
+        var btnCopy = document.querySelector("#copyToClipboard");
+        var btnShow = document.querySelector("#btnShow");
+
+        var img = document.querySelector("#img");
+
+        //监测选中了文件
+        ifile.addEventListener("change", function (e) {
+            var file = e.target.files[0];
+            var fr = new FileReader();//文件读取器
+            fr.addEventListener("load", function (ev) {
+                var base64 = ev.target.result;
+                outputBase64.value = base64;
+                img.src = base64;
+            });
+            if (file) fr.readAsDataURL(file);//读取为base64
+            ifile.value = "";
+        });
+
+        btnCopy.addEventListener("click", function (e) {
+            clipboard.setData(outputBase64.value);
+        });
+
+        btnShow.addEventListener("click", function (e) {
+            img.src = outputBase64.value;
+        });
+    </script>
+</body>
+</html>

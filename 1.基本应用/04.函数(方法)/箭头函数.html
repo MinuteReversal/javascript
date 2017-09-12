@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+        //方法有什么 有参数 方法体 有返回值  
+
+
+        function aaaa(/*参数*/) {
+            /*方法体*/
+            console.log("hello");
+        }
+
+        aaaa();//调用
+
+        function power(x/*参数*/) {
+            /*方法体*/
+            return x * x;/*返回值*/
+        }
+
+        (function (/*参数*/) {/*方法体*/ console.log("hello"); })();//定义并调用
+
+        var bbb = function (/*参数*/) {/*方法体*/ };
+
+        
+
+        ((/*参数*/) => {/*方法体*/  console.log("hello"); })();//定义并调用
+
+        var ccc = (/*参数*/) => { /*方法体*/ };
+
+
+        var ddd = (/*参数*/) => { /*方法体*/
+            console.log("world");
+        };
+        ddd();//调用
+    </script>
+</body>
+</html>

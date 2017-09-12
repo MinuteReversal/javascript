@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var d = { name: "zhy", age: 18 };
+        //var c = { name: "", age: 0 };
+
+        //c.name = d.name;
+        //c.age = d.age;
+        var c=Object.assign({}, d);
+        
+
+        //copy clone
+        //引用类型希望互不关联
+        console.log(d);
+        console.log(c);
+
+        c.age = 28;
+        console.log(d);
+        console.log(c);
+
+
+        //var d1 = new Date();
+        //var d2 = new Date(d1.getTime());
+
+        //d1.setDate(18);
+        
+        //console.log(d1);
+        //console.log(d2);
+    </script>
+</body>
+</html>

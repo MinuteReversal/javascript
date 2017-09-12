@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../MathExtend.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /*
+        * y1 = a * x1 * x1 + b * x1 + c
+        * y2 = a * x2 * x2 + b * x2 + c
+        * point1:{x:20, y:30};
+        * point2:{x.440, y:500};
+        * 已知 a a>0 开口向上 a<0 开口向下
+        * 求解 b c
+        */
+
+        var can = document.querySelector("canvas"),
+            ctx = can.getContext("2d");
+
+        document.body.style.margin = 0;
+        document.body.style.overflow = "hidden";
+
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+
+        ctx.strokeStyle = "black";
+
+        var p1 = { x: 100, y: 400 };
+        var p2 = { x: 500, y: 400 };
+        var a = 0.004;
+
+        var params = getParameter(p1, p2);//获取抛物线参数
+
+        for (var x = 0; x < window.innerWidth; x++) {
+            var y = getParabolaY(params.a, params.b, params.c, x);//获得当前坐标
+            drawPoint(x + p1.x, y + p1.y); //偏移
+        }
+        ctx.strokeStyle = "red";
+        drawPoint(p1.x, p1.y);
+        drawPoint(p2.x, p2.y);
+
+
+        /*
+        *
+            c = y1 -a*x1^2 - b*x1;
+            b =(y2- a*x2^2 -c)/x2;
+
+            b=(y2- a*x2^2 -c)/x2;
+            b=(y2- a*x2^2 -( y1 -a*x1^2 - b*x1))/x2;
+            b=y2/x2- a*x2^2/x2 -( y1/x2 -a*x1^2/x2 - b*x1/x2);
+            b=y2/x2 - a*x2 - y1/x2 + a*x1^2/x2;
+            b-b*x1/x2=y2/x2 - a*x2 - y1/x2 + a*x1^2/x2;
+            b(1-x1/x2)=(y2/x2 - a*x2 - y1/x2 + a*x1^2/x2)
+            b=(y2/x2 - a*x2 - y1/x2 + a*x1^2/x2)/(1-x1/x2)
+
+            c = y1 -a*x1^2 - b*x1;
+            b =(y2- a*x2^2 -c)/x2;
+
+            c=y1 - a*x1^2 - ((y2- a*x2^2 -c)/x2)*x1;
+            c=y1 - a*x1^2 - (y2*x1- a*x2^2*x1 -c*x1)/x2;
+            c=y1 - a*x1^2 - y2*x1/x2 - a*x2*x1 -c*x1/x2;
+            c+c*x1/x2=y1 - a*x1^2 - y2*x1/x2 - a*x2*x1
+            c(1+x1/x2)=(y1 - a*x1^2 - y2*x1/x2 - a*x2*x1)
+            c=(y1 - a*x1^2 - y2*x1/x2 - a*x2*x1)/(1+x1/x2)
+        *
+        */
+        function getParameter(startPoint, endPoint) {
+            var x1 = 0;//移动到原点
+            var y1 = 0;//移动到原点
+            var x2 = Math.abs(endPoint.x - startPoint.x);//整体移动
+            var y2 = Math.abs(endPoint.y - startPoint.y);//整体移动
+
+            return {
+                a: a,
+                b: (y2 - a * Math.pow(x2, 2) - y1 + a * Math.pow(x1, 2)) / (x2 - x1),
+                c: (y1 - a * Math.pow(x1, 2) - y2 * x1 / x2 - a * x2 * x1) / (1 + x1 / x2)
+            };
+        }
+
+        function getParabolaY(a, b, c, x) {
+            return a * Math.pow(x, 2) + b * x + c;
+        }
+
+        function drawPoint(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 0.5, 0, 2 * Math.PI, true);
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

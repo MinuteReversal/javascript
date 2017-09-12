@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+    <canvas id="canvas" width="422" height="422"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var centerPoint = { x: canvas.width / 2, y: canvas.height / 2 };
+        var radius = 90;
+
+        //渐变
+        var CanvasGradient = ctx.createRadialGradient(centerPoint.x, centerPoint.y, 20, centerPoint.x, centerPoint.y, radius);
+        CanvasGradient.addColorStop(0, "rgba(253, 250, 3, 1)");
+        CanvasGradient.addColorStop(1, "rgba(252, 155, 2, 1)");
+
+        //外边
+        ctx.fillStyle = CanvasGradient;
+        ctx.arc(centerPoint.x, centerPoint.y, radius, 0, Math.PI * 2, false);
+
+        //外边
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 10;
+        ctx.arc(centerPoint.x, centerPoint.y, radius, 0, Math.PI * 2, false);
+
+        ctx.fill();
+        ctx.stroke();
+
+        //指针
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(centerPoint.x, centerPoint.y - radius - 30);
+        ctx.lineTo(centerPoint.x - 20, centerPoint.y - radius);
+        ctx.lineTo(centerPoint.x + 20, centerPoint.y - radius);
+        ctx.closePath();
+        ctx.fill();
+
+        //文字
+        ctx.font = "bolder 30px yahei";
+        ctx.shadowColor = "gray";
+        ctx.shadowOffsetY = 1;
+        ctx.shadowOffsetX = 1;
+        ctx.fillStyle = "red";
+        var text = "您还有1次抽奖机会";
+        var TextMetrics1 = ctx.measureText(text.substr(0, 5));
+        var TextMetrics2 = ctx.measureText(text.substr(5, text.length));
+
+        ctx.fillText(text.substr(0, 5), centerPoint.x - TextMetrics1.width / 2, centerPoint.y);
+        ctx.fillText(text.substr(5, text.length), centerPoint.x - TextMetrics2.width / 2, centerPoint.y+30);
+    </script>
+</body>
+</html>

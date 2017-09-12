@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>男</button><button>女</button>
+    <input id="male" name="gender" value="男" type="radio" /><label for="male">男</label>
+    <input id="female" name="gender" value="女" type="radio" /><label for="female">女</label>
+    <script>
+        var btnMale = document.querySelectorAll("button")[0],
+            btnFemale = document.querySelectorAll("button")[1],
+            radioMale = document.querySelector("#male"),
+            radioFemale = document.querySelector("#female");
+
+        btnMale.addEventListener("click", function () {
+            radioMale.checked = true;
+        });
+
+        btnFemale.addEventListener("click", function () {
+            radioFemale.checked = true;
+        });
+    </script>
+</body>
+</html>

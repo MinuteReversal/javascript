@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    
+    /*#region 定义一个类*/
+    function Car(brand) {
+        this.brand = "国产汔车";
+        if (brand) {
+            this.brand = brand;
+        }
+    }
+    Car.prototype.go = function () {
+        console.log(this.brand + "开走了");
+    };
+    /*#endregion*/
+
+    /*实例化类*/
+
+
+    var car1 = new Car("法拉力");
+    car1.go();
+
+    var car2 = new Car("夏利");
+    car2.go();
+
+    var car3 = new Car();
+    car3.go();
+</script>
+</body>
+</html>

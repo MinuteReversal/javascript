@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        div {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+            div:hover {
+                animation: a 1s linear;
+            }
+
+        @keyframes a {
+            from {
+                transform: rotateZ(0);
+            }
+
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        @-webkit-keyframes a {
+            from {
+                -webkit-transform: rotateZ(0);
+            }
+
+            to {
+                -webkit-transform: rotateZ(360deg);
+            }
+        }
+
+        div:hover {
+            transform: rotateZ(360deg);
+        }
+    </style>
+    <div></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitionstart
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitionend
+        //https://developer.mozilla.org/en-US/docs/Web/Events/transitioncancel
+
+        var el = document.querySelector("div");
+        el.addEventListener("animationstart", function () { console.log("animationstart"); });
+        el.addEventListener("animationend", function () { console.log("animationend"); });
+        el.addEventListener("animationiteration", function () { console.log("animationiteration"); /*iteration*/ });
+
+    </script>
+</body>
+</html>

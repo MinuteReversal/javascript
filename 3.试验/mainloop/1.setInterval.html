@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        //http://www.playmycode.com/blog/2011/08/building-a-game-mainloop-in-javascript/
+        var ONE_FRAME_TIME = 1000 / 60;//一秒种60帧
+        var output = document.getElementById("output");
+        var time,lastTime;
+
+        function updateGame() {
+            lastTime = time;
+            time = new Date();
+        }
+
+        function drawGame() {
+            output.innerHTML = time.toDateString() + "<br/>"+ (1000/(time - lastTime)).toFixed(2) +  "帧/秒";
+        }
+
+        var mainloop = function () {
+            updateGame();
+            drawGame();
+        };
+        setInterval(mainloop, ONE_FRAME_TIME);
+    </script>
+</body>
+</html>

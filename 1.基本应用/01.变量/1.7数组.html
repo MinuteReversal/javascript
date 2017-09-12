@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        var a = new Array('h', 'e', 'l', 'l', 'o'); //创建一个数组
+        console.log(a[0]);                          //访问数组中第1个元素的值
+        for (var i in a) console.log(a[i]);         /*遍历（全部访问一遍）数组的内容*/
+
+        var b = ['h', 'e', 'l', 'l', 'o'];  //创建一个数组
+        console.log(b[3]);                  //访问数组中第4个元素的值
+        for (var i = 0; i < b.length; i++) console.log(b[i]);/*遍历（全部访问一遍）数组的内容*/
+
+        a[0] = "k"; //修改数组中第一个元素的值
+        console.log(a[0]);
+    </script>
+</body>
+</html>

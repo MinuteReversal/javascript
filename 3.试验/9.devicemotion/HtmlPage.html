@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
+        window.addEventListener('devicemotion', function (event) {
+            document.querySelector("#output").innerHTML =
+                "acceleration.x:" + event.acceleration.x + 'm/s2<br/>' +
+                "acceleration.y:" + event.acceleration.y + 'm/s2<br/>' +
+                "acceleration.z:" + event.acceleration.z + 'm/s2<br/>' +
+                "accelerationIncludingGravity.x:" + event.accelerationIncludingGravity.x + "<br/>" +
+                "accelerationIncludingGravity.y:" + event.accelerationIncludingGravity.y + "<br/>" +
+                "accelerationIncludingGravity.z:" + event.accelerationIncludingGravity.z + "<br/>" +
+                "rotationRate.alpha:" + event.rotationRate.alpha + "<br/>" +
+                "rotationRate.beta:" + event.rotationRate.beta + "<br/>" +
+                "rotationRate.gamma:" + event.rotationRate.gamma + "<br/>" +
+                "interval:" + event.interval + "milliseconds";
+        });
+    </script>
+</body>
+</html>

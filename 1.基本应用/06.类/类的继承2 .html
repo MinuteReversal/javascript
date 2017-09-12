@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        function A() {
+        }
+
+        A.prototype.name = "A";
+        A.prototype.printName = function () {
+            console.log(this.name);
+        }
+
+
+        function B() {
+           //A.call(this);   //调用父类构造将会获得父类的方法和属性
+            this.prototype =new A();//设置prototype获得父类的属性
+        }
+
+
+        var b = new B();
+        console.log(b.name);
+
+        console.log(typeof b);
+        console.log(b instanceof B);
+        console.log(b.prototype);
+        console.log(B.prototype);
+
+    </script>
+</body>
+</html>

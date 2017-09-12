@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var phone = {
+            _power: 3,
+            _events: [],
+            Use: function () {
+                var me = this;
+                me._power -= 1;
+                if (me._power === 0) {
+                    me.dispatchEvent("NoPower");
+                }
+            },
+            addEventListener: function (eventName, fn) {
+                this._events.push({ "eventName": eventName, "fn": fn });
+            },
+            dispatchEvent: function (eventName) {
+                for (var i = 0, fn; fn = this._events[i]; i++) {
+                    if (fn.eventName === eventName) fn.fn();
+                }
+            },
+            removeEventListener: function (eventName, fn) {
+                for (var i = 0, _fn; _fn = this._events[i]; i++) {
+                    if (_fn.eventName === fn) { _fn.slice(i, 1); }
+                }
+            }
+        };
+
+        phone.addEventListener("NoPower", function () {
+            console.log("木有电啦");
+        });
+
+        phone.addEventListener("NoPower", function () {
+            console.log("木有电啦2");
+        });
+    </script>
+</body>
+</html>

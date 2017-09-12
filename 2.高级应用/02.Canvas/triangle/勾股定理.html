@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        /*
+        *      A
+        *      /|
+        *     / |
+        * c=5/  |
+        *   /   |  b=4
+        *  /    |
+        *B ------ C
+        *    a=3
+        *
+        *
+        *   正弦（sin）        sinA=a/c
+        *
+        *
+        *   余弦（cos）        cosA=b/c
+        *
+        *
+        *   正切（tan或tg）    tanA=a/b
+        *
+        *
+        *   余切（cot或ctg）   cotA=b/a
+        *
+        *
+        *   正割（sec）        secA=c/b
+        *
+        *
+        *   余割（csc）        cscA=c/a
+        *
+        * 1度=PI/180弧度
+        * 1弧度=180弧度/PI
+        * a*a+b*b=c*c
+        */
+
+        var a = 3, b = 4, c = 5;
+        var sinA =  a/c;
+        var A = Math.asin(sinA);
+        var ADeg = A * (180 / Math.PI);
+        console.log("A:" + A + "," + ADeg);
+        var sinB = b / c;
+        var B = Math.asin(sinB);
+        var BDeg = B * (180 / Math.PI);
+        console.log("B:" + B + "," + BDeg );
+        console.log("C:" + (180 -ADeg - BDeg));
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+﻿https://msdn.microsoft.com/en-us/library/ms536473(vs.85).aspx

@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div style="position:absolute;width:400px;height:300px;top:10px;left:20px;background-color:red;"></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+        var domRect = document.querySelector("div").getBoundingClientRect();
+        console.log(`bottom:${domRect.bottom}\r\nheight:${domRect.height}\r\nleft:${domRect.left}\r\nright:${domRect.right}\r\ntop:${domRect.top}\r\nwidth:${domRect.width}\r\nx:${domRect.x}\r\ny:${domRect.y}`);
+    </script>
+</body>
+</html>

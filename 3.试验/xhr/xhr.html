@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>XMLHttpRequest</title>
+</head>
+<body>
+    <label for="url">url:</label><input id="url" placeholder="url" value="http://10.10.0.6/field/JavaScript示例/3.试验田/xhr/textfile.txt" /><br />
+    <label for="header">header:</label><input id="header" placeholder="text/plain" value="text/plain" /><br />
+    <label for="method">method:</label><select id="method"><option value="GET" selected="selected">GET</option><option value="POST">POST</option><option value="PUT">PUT</option><option value="DELETE">DELETE</option></select><br />
+    <label for="sendData">sendData:</label><textarea id="sendData" placeholder="发送内容"></textarea><br />
+    <label for="responseText">responseText:</label><textarea id="responseText"></textarea><br />
+    <button type="button" id="btnRequest">Request</button>
+
+    <script type="text/javascript">
+        var xhr = new XMLHttpRequest();
+        var url = document.getElementById("url");
+        var header = document.getElementById("header");
+        var method = document.getElementById("method");
+        var sendData = document.getElementById("sendData");
+        var responseText = document.getElementById("responseText");
+        var btnRequest = document.getElementById("btnRequest");
+
+        xhr.addEventListener("load", function (e) {
+            responseText.innerHTML = e.target.responseText;
+        });
+
+        xhr.addEventListener("error", function (e) {
+            alert(e.message);
+        });
+
+        btnRequest.addEventListener("click", function (e) {
+            xhr.open(method.value, url.value, false);
+            xhr.setRequestHeader("Content-Type", header.value);
+            try {
+                xhr.send(sendData.value);
+            } catch (e) {
+                alert(e.message);
+            } 
+        });
+    </script>
+</body>
+</html>

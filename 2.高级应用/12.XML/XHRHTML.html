@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        var dp = new DOMParser();
+        xhr.addEventListener("load", function (e) {
+            var d = dp.parseFromString(e.target.responseText,"text/html");
+            alert(d.querySelector("body").innerHTML);
+        });
+        xhr.open("GET", "Content.html");
+        xhr.send();
+    </script>
+</body>
+</html>

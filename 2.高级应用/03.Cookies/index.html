@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="cookies.js"></script>
+    <script type="text/javascript">
+        var item = docCookies.getItem("1");
+        if (item) {
+            alert(item);
+        }
+        else {
+            docCookies.setItem("1", JSON.stringify({ Name: "张三", Age: "30", Date: new Date() }));
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

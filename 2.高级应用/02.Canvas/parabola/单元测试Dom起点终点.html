@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="lib/polyfill/Object.assign.js"></script>
+    <script src="lib/parabola/index.js"></script>
+</head>
+<body>
+    <script>
+        with (document.body.style) {
+            position = "absolute";
+            margin = 0;
+            top = 0;
+            right = 0;
+            bottom = 0;
+            left = 0;
+        }
+
+        //左上右下
+        //var p1 = { x: 200, y: 200 };
+        //var p2 = { x: 600, y: 250 };
+
+        //右上左下
+        var p1 = { x: 354.8800048828125, y: 209.51998901367187 };
+        var p2 = { x: 24.84000015258789, y: 784.5599975585937 };
+
+        var a = 0.004;
+
+        var color = "red";
+        drawPoint(p1.x, p1.y);
+        drawPoint(p2.x, p2.y);
+        color = "black";
+
+        function drawPoint(x, y) {
+            var div = document.createElement("div");
+            var s = div.style;
+            s.position = "absolute";
+            s.left = x + "px";
+            s.top = y + "px";
+            s.backgroundColor = "black"
+            s.width = "2px";
+            s.height = "2px";
+            document.body.appendChild(div);
+        }
+
+        var p = new Parabola({
+            startPoint: p1,
+            endPoint: p2,
+            a: a,
+            duration: 1000,
+            onFrame: function (point) {
+                drawPoint(point.x, point.y);
+            },
+            onComplete: function (p) {
+                alert("complete,x:" + p.x + ",y:" + p.y);
+            }
+        });
+        p.play();
+
+
+    </script>
+</body>
+</html>

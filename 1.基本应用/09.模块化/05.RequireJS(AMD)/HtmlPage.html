@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="require.js"></script>
+</head>
+<body>
+    <script>
+        //requirejs.config({
+        //    //By default load any module IDs from js/lib
+        //    baseUrl: './',
+        //    //except, if the module ID starts with "app",
+        //    //load it from the js/app directory. paths
+        //    //config is relative to the baseUrl, and
+        //    //never includes a ".js" extension since
+        //    //the paths config could be for a directory.
+        //    paths: {
+        //        app: 'Car'
+        //    }
+        //});
+
+        requirejs(["Car"], function (Car) {
+            var car = new Car("Swift");
+            car.go();
+        });
+    </script>
+</body>
+</html>

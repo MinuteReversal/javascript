@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>XMLHttpRequest</title>
+    <link href="../../美化/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../美化/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <script src="../../美化/jquery/jquery-2.2.0.min.js"></script>
+    <script src="../../美化/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <style>
+        .tab-content {
+            border: solid #ddd;
+            border-width: 0 1px 1px 1px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="url">url:</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div id="method" class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="methodText">GET</span><span class="caret"></span></button>
+                            <ul id="methodOptions" class="dropdown-menu">
+                                <li><a href="#">GET</a></li>
+                                <li><a href="#">POST</a></li>
+                                <li><a href="#">PUT</a></li>
+                                <li><a href="#">DELETE</a></li>
+                            </ul>
+                        </div>
+                        <input id="url" type="text" class="form-control" aria-label="url" placeholder="http://localhost" value="http://10.10.0.6/field/JavaScript示例/3.试验田/xhr/textfile.txt">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="btnHeaderSetting">header:</label>
+            <div>
+                <button id="btnHeaderSetting" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span>Setting</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sendData">sendData:</label>
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#json" aria-controls="home" role="tab" data-toggle="tab">json/xml/text</a></li>
+                    <li role="presentation"><a href="#formdata" aria-controls="formdata" role="tab" data-toggle="tab">formdata</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="json">
+                        <textarea id="sendData" class="form-control" placeholder="发送内容" rows="3"></textarea>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="formdata">
+                        <div id="formdataItemList">
+
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-primary" id="btnAddFormdataItem" type="button">Append</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="responseText">responseText:</label>
+            <textarea id="responseText" class="form-control" placeholder="接收内容" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="button" id="btnRequest" class="btn btn-default"><span class="glyphicon glyphicon-upload"></span> Request</button>
+        </div>
+        <!-- Message -->
+        <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="messageTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="messageTitle">Message</h4>
+                    </div>
+                    <div id="messageContent" class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- headerSetting -->
+        <div class="modal fade" id="headerSetting" tabindex="-1" role="dialog" aria-labelledby="headerSettingTitle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Remove"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="headerSettingTitle">headers</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="headerSettingList" class="modal-body"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button id="btnAddHeader" type="button" class="btn btn-primary">Add header</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var xhr = new XMLHttpRequest(),
+            url = $("#url"),
+            header = $("#header"),
+            method = $("#method"),
+            sendData = $("#sendData"),
+            responseText = $("#responseText"),
+            btnRequest = $("#btnRequest"),
+            btnHeaderSetting = $("#btnHeaderSetting"),
+            btnAddHeader = $("#btnAddHeader"),
+            methodText = $("#methodText"),
+            methodOptions = $("#methodOptions"),
+            btnAddFormdataItem = $("#btnAddFormdataItem"),
+            formdataItemList = $("#formdataItemList");
+
+        /*#region 事件订阅*/
+        xhr.addEventListener("load", function (e) {
+            responseText.val(e.target.responseText);
+        });
+
+        xhr.addEventListener("error", function (e) {
+            message(e.message);
+        });
+
+        btnRequest.on("click", function () {
+            xhr.open(methodText.text(), url.val(), false);
+            var headers = getSetHeaders();
+            for (var i = 0, item; item = headers[i]; i++) {
+                xhr.setRequestHeader(item.key, item.value);
+            }
+
+            //sendData
+            var data = null;
+            if ($("#formdata").hasClass("active")) {
+                data = getFormdata();
+            }
+            else {
+                data = $("#sendData").val();
+            }
+
+            try {
+                xhr.send(data);
+            } catch (e) {
+                message(e.message);
+            }
+        });
+
+        btnHeaderSetting.on("click", function () {
+            $("#headerSetting").modal("show");
+        });
+
+        methodOptions.find("li").on("click", function () {
+            var $li = $(this);
+            methodText.text($li.find("a").text());
+        });
+
+        /*#endregion*/
+
+        /*#region http*/
+        btnAddHeader.on("click", function () {
+            addHeaderItem();
+        });
+        //添加http头
+        function addHeaderItem() {
+            var headerItem = $('<div class="row">' +
+                                '<div class="col-sm-4 form-group">' +
+                                '<input class="form-control" type="text" name="key" value="Content-Type" />' +
+                                '</div>' +
+                                '<div class="col-sm-5 form-group">' +
+                                '<input class="form-control" type="text" name="value" value="text/plain" />' +
+                                '</div>' +
+                                '<div class="col-sm-3 form-group">' +
+                                '<button class="btn btn-default col-xs-12"><span class="glyphicon glyphicon-remove"></span>Remove</button>' +
+                                '</div>' +
+                                '</div>');
+
+            headerItem.find("button").on("click", function () {
+                headerItem.remove();
+            });
+
+            $("#headerSettingList").append(headerItem);
+        }
+        addHeaderItem();
+
+        //获取http头
+        function getSetHeaders() {
+            var headers = [];
+            $("#headerSetting").find(".row").each(function (index, element) {
+                headers.push({
+                    key: element.querySelector('[name="key"]').value,
+                    value: element.querySelector('[name="value"]').value
+                });
+            });
+            return headers;
+        }
+        /*#endregion*/
+
+        /*#region sendData*/
+        btnAddFormdataItem.on("click", function () {
+            appendFormdataItem();
+        });
+
+        function appendFormdataItem() {
+            var formdataItem = $('<div class="row">' +
+                                    '<div class="col-sm-4 form-group">' +
+                                        '<input name="name" class="form-control" type="text" placeholder="Name">' +
+                                    '</div>' +
+                                    '<div class="col-sm-5 form-group">' +
+                                        '<div class="input-group">' +
+                                            '<div class="input-group-btn">' +
+                                                '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span data-role="dropDownText">text</span><span class="caret"></span></button>' +
+                                                '<ul class="dropdown-menu">' +
+                                                    '<li><a href="#">text</a></li>' +
+                                                    '<li><a href="#">file</a></li>' +
+                                                '</ul>' +
+                                            '</div>' +
+                                            '<input name="value" type="text" class="form-control" aria-label="value" placeholder="Value">' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="col-sm-3 form-group">' +
+                                        '<button data-role="btnRemove" class="btn btn-default col-xs-12"><span class="glyphicon glyphicon-remove"></span>Remove</button>' +
+                                    '</div>' +
+                                '</div>');
+
+            formdataItem.find(".dropdown-menu > li").on("click", function () {
+                var $a = $(this).find("a");
+                formdataItem.find('[data-role="dropDownText"]').text($a.text());
+                formdataItem.find('[name="value"]').attr("type", $a.text());
+            });
+
+            formdataItem.find('[data-role="btnRemove"]').on("click", function () {
+                formdataItem.remove();
+            });
+
+            $("#formdataItemList").append(formdataItem);
+        }
+        appendFormdataItem();
+
+        //获取表单数据
+        function getFormdata() {
+            var formdata = new FormData();
+            $("#formdataItemList > .row").each(function (index, element) {
+                var name = element.querySelector('[name="name"]').value;
+                var v = element.querySelector('[name="value"]');
+                var vType = v.getAttribute("type");
+                var value = null;
+                if (vType === "text") {
+                    value = v.value;
+                }
+                else if (vType === "file") {
+                    value = v.files[0];
+                }
+                formdata.append(name, value);
+            });
+            return formdata;
+        }
+        /*#endregion*/
+
+        /*#region 弹出消息*/
+        //弹出消息
+        function message(text, title) {
+            if (!title) title = "消息";
+
+            $("#message")
+                .find("#messageTitle").text(title).end()
+                .find("#messageContent").text(text).end()
+                .modal("show");
+        }
+        /*#endregion*/
+    </script>
+</body>
+</html>

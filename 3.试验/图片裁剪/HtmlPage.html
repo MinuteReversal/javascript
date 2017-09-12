@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>文件裁剪</title>
+    <script src="../CanvasToBlob/CanvasToBlob.js"></script>
+    <link href="cropperjs-master/dist/cropper.min.css" rel="stylesheet" />
+    <script src="cropperjs-master/dist/cropper.min.js"></script>
+    <style>
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+        }
+
+        .img-container {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+            .img-container img {
+                width: 100%;
+            }
+
+        #preview {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" onchange="onPreview(event);"><br />
+    <img id="preview" src="" alt="预览"><br />
+    <label for="range">质量</label><input id="range" type="range" min="0" max="100" value="80" /><br />
+    <button onclick="onMinus90(event);">-90</button>
+    <button onclick="onRotate90(event);">+90</button>
+    <button onclick="onCrop(event);">裁剪</button><br />
+    <img id="cropResult" alt="裁剪结果" />
+    <script>
+        var cropResult = document.getElementById("cropResult"),
+            range = document.querySelector("[type=range]"),
+            cropper = new Cropper(document.querySelector('img'), {
+                dragMode: 'move',
+                viewMode: 0,
+                aspectRatio: 1 / 1,
+                autoCropArea: 0.8,
+                restore: true,
+                guides: true,
+                center: true,
+                highlight: false,
+                cropBoxMovable: true,
+                cropBoxResizable: true
+            });
+
+        function onPreview(changeEvent) {
+            var fb = changeEvent.target;
+            var file = fb.files[0];
+            var reader = new FileReader();
+            reader.addEventListener("load", function () {
+                cropper.replace(this.result);
+            });
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function onMinus90() {
+            cropper.rotate(-90);
+        }
+
+        function onRotate90() {
+            cropper.rotate(90);
+        }
+
+        function onCrop() {
+            cropper.getCroppedCanvas({ width: 300, height: 300 }).toBlob(function (blob) {
+                cropResult.src = URL.createObjectURL(blob);
+            }, "image/png", parseFloat(range.value)/100);
+        }
+    </script>
+</body>
+</html>

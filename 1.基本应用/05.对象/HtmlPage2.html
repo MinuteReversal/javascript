@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var car = {
+            "brand": "宝马",
+            "go": function () {
+                //this (代表调用它的对象)谁调用此方法，它就指向谁。
+                //arguments  (获取调用此方法的 参数个数 具体值)
+                console.log(this.brand + " 开走了");
+            }
+        }
+
+        car.go();
+
+    </script>
+</body>
+</html>

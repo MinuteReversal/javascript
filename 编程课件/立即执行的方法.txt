@@ -1,0 +1,10 @@
+function hello()
+{
+alert("hello");
+}
+
+hello();
+
+(function(){
+alert("hello");
+})()

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>上传到资源服务器</title>
+    <meta charset="utf-8" />
+    <style>
+        #output{
+            border:20px;
+            min-height:300px;
+            border:#808080 dotted 2px;
+            word-break:break-all;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" accept="image/*" />
+    <div id="progress"></div>
+    <img alt="图片预览" />
+    <div id="output"></div>
+    <script>
+        var uploadUrl = "http://pub.yibalian.cn/21D64038F994400F9248AAA2B39EFDB7/image/upload";
+        var fileBroswer = document.querySelector("input[type=file]");
+        var progress = document.querySelector("#progress");
+        var output = document.querySelector("#output");
+        var imgPreview = document.querySelector("img");
+        var fr = new FileReader();
+
+        /*#region file*/
+        fr.addEventListener("load", function (event) {
+            var self = this;
+            imgPreview.src = self.result;
+        });
+
+        fileBroswer.addEventListener("change", function (event) {
+            var self = this;
+            if (self.files.length > 0) {
+                var file = self.files[0];//get first file
+                fr.readAsDataURL(file);  //read file and show
+                var fd = new FormData();
+                fd.append("xFile", file);
+                uploadFile(uploadUrl, fd);
+            }
+            self.value = "";
+        });
+        /*#endregion*/
+
+        /*#region xhr*/
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", function (event) {
+            var self = this;
+            progress.innerText += "上传完成";
+            output.innerText=self.responseText;
+        });
+        xhr.addEventListener("progress", function (progressEvent) {
+            var self = this;
+            progress.innerText = progressEvent.loaded + "bytes/" + progressEvent.total + "bytes";
+        });
+
+        function uploadFile(url, formdata) {
+            console.assert(url, "url is null");
+            console.assert((formdata instanceof FormData), "formdata is null");
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.send(formdata);
+        }
+        /*#endregion*/
+    </script>
+</body>
+</html>

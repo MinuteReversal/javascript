@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script type="text/javascript">           
+            window.onload=function(event){
+            document.getElementById("btnSet").onclick=function(event){
+                sessionStorage.setItem("UserInfo", JSON.stringify({
+                    Name: "张三",
+                    Age: 30,
+                    Time: new Date()
+                }));
+            };
+                
+            document.getElementById("btnShow").onclick=function(event){
+                alert(sessionStorage.getItem("UserInfo"));
+            };
+            
+            document.getElementById("btnClear").onclick=function(event){
+                sessionStorage.clear();
+            };
+            };
+        </script>
+    </head>
+    
+    <body>
+        <a href="#" id="btnSet">设置sessionStorage中的信息</a>
+        <a href="#" id="btnShow">显示sessionStorage中的信息</a>
+        <a href="#" id="btnClear">清除sessionStorage中的信息</a>
+    </body>
+
+</html>

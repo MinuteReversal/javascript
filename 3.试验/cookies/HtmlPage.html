@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../2.高级应用/03.Cookies/cookies.js"></script>
+    <script>
+        function save() {
+            docCookies.setItem("txt", txt.value,Infinity);
+        }
+
+        window.addEventListener("load", function (evt) {
+            txt.value = docCookies.getItem("txt");
+        });
+    </script>
+</head>
+<body>
+    <a></a>
+    <div><textarea id="txt" rows="20" cols="40"></textarea></div>
+    <div><button onclick="save();">保存到cookie中</button><button onclick="alert(document.cookie)">显示cookie</button></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        //https://developer.mozilla.org/zh-CN/docs/Web/API/Document/documentElement
+        //Document.documentElement 是一个会返回文档对象（document）的根元素的只读属性（如HTML文档的 <html> 元素）。
+        var rootElement = document.documentElement;
+        var firstTier = rootElement.childNodes;
+
+        // firstTier 是由跟元素的所有子节点组成的一个 NodeList
+        for (var i = 0; i < firstTier.length; i++) {
+            // 使用根节点的每个子节点
+            // 如 firstTier[i]
+            console.log(firstTier[i]);
+        }
+    </script>
+</body>
+</html>

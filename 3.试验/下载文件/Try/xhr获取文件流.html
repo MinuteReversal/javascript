@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button id="btnGetFile">获取文件<span id="progress"></span></button>
+    <script>
+        "use strict";
+        function Download(url, postData, fileName, fnProgress) {
+            var setting = {
+                url: "",
+                postData: null,
+                method: "POST",
+                fileName: "1.txt",
+                fnProgress: function (e) { console.log(e.loaded + "bytes/" + e.total + "bytes"); }
+            };
+
+            if (url !== "") {
+                setting.url = url;
+            }
+
+            if (postData) {
+                setting.postData = postData;
+            }
+
+            if (fileName) {
+                setting.fileName = fileName;
+            }
+
+            if (fnProgress && typeof fnProgress === "function") {
+                setting.fnProgress = fnProgress;
+            }
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function (e) {
+                var me = e.target;
+                if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(me.response, setting.fileName);
+                } else {
+                    var anchor = document.createElement("a");
+                    anchor.href = URL.createObjectURL(me.response);
+                    anchor.setAttribute("download", setting.fileName);
+                    anchor.text = "下载";
+                    anchor.style.visibility = "hidden";
+
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    document.body.removeChild(anchor);
+                }
+            });
+            xhr.addEventListener("progress", function (e) {
+                setting.fnProgress(e);
+            });
+            xhr.open(setting.method, setting.url);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.responseType = "blob";
+            xhr.send(JSON.stringify(setting.postData));
+        }
+
+        var progress = document.getElementById("progress");
+        var fileName = "1.zip";
+        document.getElementById("btnGetFile").addEventListener("click", function () {
+            Download("http://res.uxiang.cn/21D64038F994400F9248AAA2B39EFDB7/Qr/BatchZip",
+                [
+                    {
+                        "FileName": "sample string 1",
+                        "Content": "sample string 2"
+                    },
+                    {
+                        "FileName": "sample string 1",
+                        "Content": "sample string 2"
+                    }
+                ],
+                fileName,
+                function (e) {
+                    progress.innerText = parseInt(e.loaded / e.total * 100) + "%";
+                });
+        });
+    </script>
+</body>
+</html>

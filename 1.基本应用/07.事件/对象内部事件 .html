@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        //水壶
+        function Kettle() {
+            var me = this;
+            me.temperature = 0;
+            me.warming = function () {
+                me.temperature = 0;
+                var timer= setInterval(function () {
+                    me.temperature += 1;
+                    console.log(me.temperature);
+                    if (me.temperature >= 100) {
+                        clearInterval(timer);
+                        me.dispatchEvent("OnAlarm");
+                    }
+                }, 10);
+            };
+            me._events = new Array();
+            me.addEventListener = function (eventName, fn) {
+                var instance = this;
+                instance._events.push({ eventName: eventName, instance: instance, fn: fn });
+            };
+            me.dispatchEvent = function (eventName) {
+                var instance = this;
+                for (var i = 0, item; item = instance._events[i]; i++) {
+                    if (item.eventName == eventName)
+                        item.fn();
+                }
+            };
+            me.removeEventListener = function (eventName) {
+                var instance = this;
+                for (var i = 0, item; item = instance._events[i]; i++) {
+                    if (item.eventName == eventName && item.instance == instance)
+                        instance._events.splice(i, 1);
+                }
+            };
+        }
+
+        var kettle1 = new Kettle();
+        
+        kettle1.addEventListener("OnAlarm", function (e) {alert("");});
+        kettle1.warming();
+
+        kettle1.removeEventListener("OnAlarm");
+        kettle1.warming();
+        
+        kettle1.addEventListener("OnAlarm", function (e) { alert(""); });
+        kettle1.warming();
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

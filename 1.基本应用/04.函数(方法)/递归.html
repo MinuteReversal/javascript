@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>functions</title>
+    <script type="text/javascript">
+        function r(j) {
+            if (j < 10)
+                return r(++j);
+            else
+                return j;
+        }
+        console.log(r(1));
+
+        console.log((function a(i) { return i < 10 ? a(++i) : i; })(1));
+    </script>
+</head>
+<body>
+</body>
+</html>

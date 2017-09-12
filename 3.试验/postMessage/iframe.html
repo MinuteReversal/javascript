@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <label for="sendMessageOrigin">sendMessageOrigin</label><br />
+    <input id="sendMessageOrigin" type="text" /><br />
+    <label for="sendMessage">postMessage</label><br />
+    <textarea id="sendMessage"></textarea><br />
+    <button id="btnSend">发送信息</button><br />
+    <label for="getMessageOrigin">getMessageOrigin</label><br />
+    <input id="getMessageOrigin" type="text" /><br />
+    <label for="receiveMessage">getMessage</label><br />
+    <textarea id="receiveMessage"></textarea><br/>
+    <iframe width="600" height="600"></iframe>
+    <script>
+        /*
+        * https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+        * In window A's scripts, with A being on <http://example.com:8080>:
+        */
+
+        var sendMessageOrigin = document.getElementById("sendMessageOrigin"),
+            sendMessage = document.getElementById("sendMessage"),
+            receiveMessage = document.getElementById("receiveMessage"),
+            getMessageOrigin = document.getElementById("getMessageOrigin");
+            btnSend = document.getElementById("btnSend"),
+            source = document.querySelector("iframe").contentWindow,
+            origin = "http://" + window.location.host;
+
+            sendMessageOrigin.value = origin;
+            document.querySelector("iframe").src = "popup.html";
+
+        /*
+        *监听消息
+        */
+        window.addEventListener("message", function (event) {
+            getMessageOrigin.value = event.origin;
+            receiveMessage.value = event.data;
+        });
+
+        /*
+        *发送信息
+        */
+        btnSend.addEventListener("click", function (e) {
+            source.postMessage(sendMessage.value, origin);
+        });
+    </script>
+</body>
+</html>

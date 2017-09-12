@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <input type="number" />
+    <script>
+        document.querySelector("input").onkeypress =
+            function (event) {
+                //只要数字和一个点
+                if ((event.charCode >= 48 && event.charCode <= 57) || (event.charCode === 46 && this.value.indexOf(".") === -1)) {
+                    return true;
+                }
+
+                return false;
+            }
+    </script>
+</body>
+</html>

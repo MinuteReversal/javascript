@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var rec = { x: 0, y: 0 };
+        var linearGradient = ctx.createLinearGradient(0, 0, 200, 0);
+        linearGradient.addColorStop(0, "green");
+        linearGradient.addColorStop(1, "white");
+        ctx.fillStyle = linearGradient;
+        ctx.fillRect(0, 0, 200, 100);
+
+        var cycle = { x: 100, y: 200, radius: 100 };
+        var radialGradient = ctx.createRadialGradient(cycle.x, cycle.y, 0, cycle.x, cycle.y, cycle.radius);
+        radialGradient.addColorStop(0, "green");
+        radialGradient.addColorStop(1, "white");
+        ctx.fillStyle = radialGradient;
+        ctx.fillRect(0, 100, 200, 200);
+    </script>
+</body>
+</html>

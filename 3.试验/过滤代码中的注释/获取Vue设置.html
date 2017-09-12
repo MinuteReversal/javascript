@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script id="js" type="text/template">
+        var vm = new Vue({
+            el: "#List",
+            compomets: $f.allCompomets,
+            data: {
+                /*
+                *
+                *表单
+                *
+                */
+                form: {
+                    name: '',
+                    region: '',
+                    date1: '',
+                    date2: '',
+                    delivery: false,
+                    type: [],
+                    resource: '',
+                    desc: ''
+                },
+                //规则
+                rules: {
+                    name: [
+                      { required: true, message: '请输入活动名称', trigger: 'blur' },
+                      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                    ],
+                    region: [
+                      { required: true, message: '请选择活动区域', trigger: 'change' }
+                    ],
+                    date1: [
+                      { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+                    ],
+                    date2: [
+                      { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+                    ],
+                    type: [
+                      { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+                    ],
+                    resource: [
+                      { required: true, message: '请选择活动资源', trigger: 'change' }
+                    ],
+                    desc: [
+                      { required: true, message: '请填写活动形式', trigger: 'blur' }
+                    ]
+                },
+                /*详情*/
+                detail: {
+
+                    isVisible: false
+                },
+                /*列表*/
+                list: {
+                    loading: false,
+                    pageSize: 10,
+                    tableData: [],
+                    currentPage: 1,
+                    total: 0
+                }
+            },
+            //方法
+            methods: {
+                handleSizeChange: function (val) {
+                    this.list.pageSize = val;
+                    this.loadData();
+                },
+                handleCurrentChange: function (val) {
+                    this.list.currentPage = val;
+                    this.loadData();
+                },
+                onAdd: function () {
+                    var me = this;
+                    me.detail.isVisible = true;
+                },
+                onEdit: function (i, m) {
+                    var me = this;
+                    me.detail.isVisible = true;
+                },
+                onDelete: function (i, m) {
+                    var me = this;
+                    me.$confirm("确定删除？", "确定");
+                },
+                submitDetail: function () {
+                    this.detail.isVisible = false;
+                },
+                getSkip: function () {
+                    var me = this;
+                    return (me.list.currentPage - 1) * me.list.pageSize;
+                },
+                loadData: function () {
+                    var me = this;
+                    me.$http.get("/data/demolist.json", {
+                        params: {
+                            skip: me.getSkip(),
+                            top: me.list.pageSize
+                        }
+                    })
+                    .then(function (response) {
+                        me.list.total = response.data.Total;
+                        me.list.tableData = response.data.Data;
+                    });
+                }
+            },
+            /*
+            *
+            *挂载
+            *
+            */
+            mounted: function () {
+                var me = this;
+                //me.loadData();
+            }
+        });
+    </script>
+    <script>
+        var js = document.getElementById("js").innerHTML;
+        var start = js.search(/(?!new Vue\(){/);
+        var end = js.search(/(?=\);s*\r?\n\s*$)/);
+        var ostr = js.substring(start, end);
+        console.log(`start:${start},end:${end}`);
+        console.log(ostr);
+    </script>
+</body>
+</html>

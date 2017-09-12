@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <label>
+        正则表达式
+        <textarea id="expression"></textarea>
+    </label>
+    <label id="replace" class="hide">
+        替换为
+        <textarea id="treplace"></textarea>
+    </label>
+    <label>
+        内容
+        <textarea id="content"></textarea>
+    </label>
+    <label>
+        操作
+        <select id="op">
+            <option value="matches" selected="selected">查找</option>
+            <option value="replace">替换</option>
+            <option value="validate">校验</option>
+        </select>
+    </label>
+    <input id="btndo" type="button" value="执行" />
+    <label>
+        结果
+        <textarea id="result"></textarea>
+    </label>
+    <script type="text/javascript">
+        var expression = document.getElementById("expression");
+        var content = document.getElementById("content");
+        var treplace = document.getElementById("treplace");
+        var op = document.getElementById("op");
+        var btndo = document.getElementById("btndo");
+        var result = document.getElementById("result");
+
+        btndo.onclick = function (e) {
+            exec();
+        };
+
+        expression.onchange = function (e) {
+            exec();
+        };
+
+        content.onchange = function (e) {
+            exec();
+        };
+
+        function exec() {
+            result.value = "";
+            var reg = new RegExp(expression.value);
+            reg.global = true;
+            switch (op.value) {
+                case 'matches':
+                    var matches = reg.exec(content.value);/*正则匹配 正则 文本*/
+                    if (matches)
+                        for (var i = 0, item; item = matches[i]; i++)
+                            result.value += item + '\n';
+                    break;
+                case 'replace':
+                    result.value = content.value.replace(reg, treplace);/*正则替换 正则 ，文本 ，要替换的文本*/
+                    break;
+                case 'validate':
+                    result.value = reg.test(content.value);/*正则校验  正则 文本*/
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>

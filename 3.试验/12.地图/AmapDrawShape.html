@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=9594c8dad9ede5935c38d750ed93d8b0"></script>
+
+    <title>高德地图</title>
+    <style>
+        html, body {
+            color: #5d5d5d;
+            font-size: 12px;
+            font-family: "Microsoft YaHei UI",'Arial Narrow',"Arial","Helvetica","sans-serif";
+            background-color: white;
+            /*禁止选中任何文字*/
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            overflow: hidden;
+            margin: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        @-ms-viewport {
+            width: device-width;
+            height: device-height;
+        }
+
+        [data-role='header'] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            text-align: center;
+            background-repeat: no-repeat;
+            -ms-background-size: 280px 37.3px;
+            background-size: 267px 56px;
+            background-position: 50%;
+            -webkit-box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            -ms-box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            background-color: #ffffff;
+            padding: 0 10px;
+            z-index: 99;
+        }
+
+            [data-role='header'] .title {
+                margin: auto;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 32.7px;
+                color: black;
+            }
+
+            [data-role='header'] .title {
+                font-size: 22px;
+                height: 70px;
+                line-height: 70px;
+                color: black;
+                font-weight: normal;
+            }
+
+            [data-role='header'] .btn {
+                text-decoration: none;
+                font-size: 16px;
+                line-height: 70px;
+                color: #565658;
+                vertical-align: middle;
+            }
+
+            [data-role='header'] .icon {
+                margin-top: -3px;
+                margin-left: 3px;
+            }
+
+
+        [data-role="viewport"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-position: 0 0;
+            -ms-background-origin: border-box;
+            background-origin: border-box;
+            background-repeat: no-repeat;
+            -ms-background-size: 18px 18px;
+            background-size: 18px 18px;
+            vertical-align: middle;
+        }
+
+        .goBack {
+            background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjMyLjAxOHB4IiBoZWlnaHQ9IjMyLjk5M3B4IiB2aWV3Qm94PSIwIDAgMzIuMDE4IDMyLjk5MyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIuMDE4IDMyLjk5MyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWdvbiBmaWxsPSIjNTY1NjU4IiBwb2ludHM9IjI1LjM0MiwtMC4wMDMgMjUuMzQyLDMuNzE4IDEwLjg5NSwxNi40ODggMjUuMzQyLDI5LjI3NSAyNS4zNDIsMzIuOTk3IDYuNjc0LDE2LjQ4OCAiLz4NCjwvc3ZnPg0K");
+        }
+
+        .location {
+            background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjI0Ljc3NHB4IiBoZWlnaHQ9IjI2cHgiIHZpZXdCb3g9IjAgMCAyNC43NzQgMjYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0Ljc3NCAyNiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8ZyBvcGFjaXR5PSIwLjUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjNUQ1RDVEIiBkPSJNMTIuMzg4LDIyLjYzNGMtMC4yMDMsMC0wLjM2NS0wLjE2NC0wLjM2Ny0wLjM2NWMwLTAuMDAxLDAtMC4wMDEsMC0wLjAwMQ0KCQkJYzAtMC4wNDYtMC4wNjgtNC41MzItNC42NjYtOC4zMTljLTAuMTI1LTAuMTA5LTIuNzg5LTIuNTEtMi43ODktNi4yMkM0LjU2Niw0LjYxMSw3LjA1MiwwLDEyLjM4OCwwDQoJCQljNS4zMzQsMCw3LjgyMSw0LjYxMSw3LjgyMSw3LjcyOWMwLDMuODY4LTIuNjc0LDYuMTI1LTIuNzg4LDYuMjJjLTQuNTk4LDMuNzg3LTQuNjY3LDguMjczLTQuNjY3LDguMzE5YzAsMCwwLDAsMCwwLjAwMQ0KCQkJQzEyLjc1MiwyMi40NywxMi41ODksMjIuNjM0LDEyLjM4OCwyMi42MzR6IE0xMi4zODgsMC43MzJjLTQuODM3LDAtNy4wOSw0LjE3Ni03LjA5LDYuOTk3YzAsMy4zODQsMi41MDYsNS42NCwyLjUzMSw1LjY2Mg0KCQkJYzIuODU0LDIuMzUxLDQuMDU0LDQuOTI3LDQuNTU5LDYuNjk3YzAuNTA1LTEuNzcxLDEuNzA3LTQuMzUxLDQuNTY4LTYuNzA1YzAuMDIzLTAuMDIxLDIuNTE5LTIuMTQsMi41MTktNS42NTQNCgkJCUMxOS40NzUsNC45MDgsMTcuMjIyLDAuNzMyLDEyLjM4OCwwLjczMnoiLz4NCgkJPGNpcmNsZSBmaWxsPSIjNUQ1RDVEIiBjeD0iMTIuMzg4IiBjeT0iNy41MiIgcj0iMi41NTgiLz4NCgkJPHBhdGggZmlsbD0iIzVENUQ1RCIgZD0iTTE3LjY5MSwxOC4wNDJjMS40NTEsMC42OTQsMi4zNTksMS42NjgsMi4zNTksMi43NWMwLDIuMTA1LTMuNDMxLDIuODk0LTcuNjYzLDIuODk0DQoJCQljLTQuMjMyLDAtNy42NjUtMC43ODgtNy42NjUtMi44OTRjMC0xLjA4MiwwLjkwOS0yLjA1NiwyLjM2Mi0yLjc1Yy0yLjI1LDAuODAxLTMuNzE3LDIuMDk0LTMuNzE3LDMuNTU2DQoJCQljMCwyLjQzMiw0LjAzOCw0LjQwMiw5LjAyLDQuNDAyYzQuOTgyLDAsOS4wMTgtMS45NzEsOS4wMTgtNC40MDJDMjEuNDA2LDIwLjEzNiwxOS45MzksMTguODQzLDE3LjY5MSwxOC4wNDJ6Ii8+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=");
+        }
+
+        #AMap {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .amap-marker-label {
+            width: 200px;
+            height: 60px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .float-left {
+            float: left;
+        }
+
+        .float-right {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header data-role="header">
+        <span class="float-left text-left">
+            <a class="btn"><i class="icon location"></i>编辑模式</a>
+        </span>
+        <span class="title">高德地图</span>
+        <span class="float-right text-right">
+            <a class="btn" onclick="onClear();">清除</a>
+            <a class="btn" onclick="getData();">完成</a>
+        </span>
+    </header>
+    <div data-role="viewport">
+        <section id="AMap"></section>
+        <script>
+            var map = null;
+            var polygon = null;
+            var markers = [];
+
+            window.addEventListener("load", function (e) {
+                map = new AMap.Map('AMap', {
+                    resizeEnable: true,
+                    zoom: 16
+                });
+                map.on("click", function (e) {
+                    addMarker(e.lnglat);
+                    drawShape();
+                });
+                polygon = new AMap.Polygon({
+                    map: map,
+                    path: [],
+                    strokeColor: "#0000ff",
+                    strokeOpacity: 1,
+                    strokeWeight: 3,
+                    fillColor: "#f5deb3",
+                    fillOpacity: 0.35
+                });
+                polygon.on("click", function (e) {
+                    
+                });
+            });
+
+            //添加
+            function addMarker(lnglat) {
+                var marker = new AMap.Marker({
+                    position: lnglat,
+                    draggable: true
+                });
+                markers.push(marker);
+                marker.setMap(map);
+                marker.on("dragging", function (e) {
+                    drawShape();
+                });
+                marker.on("click", function (e) {
+                    map.remove(e.target);
+                    markers.splice(markers.indexOf(e.target), 1);
+                    drawShape();
+                });
+                return marker;
+            }
+
+            function drawShape() {
+                polygon.setPath(getPositions());
+            }
+
+            function onClear() {
+                map.remove(markers);
+                markers = [];
+                drawShape();
+            }
+
+            /**
+             * 获取坐标集
+             */
+            function getPositions() {
+                return markers.map(function (x) { return x.getPosition(); });
+            }
+
+            function getData() {
+                alert(JSON.stringify(getPositions()));
+            }
+        </script>
+    </div>
+</body>
+</html>

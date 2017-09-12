@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var cat = {
+            name: "mini",
+            eat: function (fish) {
+                console.log(this.name + "eat:" + fish);
+            }
+        }
+
+        Object.preventExtensions(cat);
+        console.log(Object.isExtensible(cat));
+        cat.age = 3;
+        console.log(cat.age);
+    </script>
+</body>
+</html>

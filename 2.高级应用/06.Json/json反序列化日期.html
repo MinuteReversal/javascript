@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //序列化
+        var json = JSON.stringify({ name: "zhy", age: 31, now: new Date(), msDate: "\/Date(1450800000000)\/" });
+
+        //反序列化
+        var o = JSON.parse(json, function (k, v) {
+            //2016-09-18T03:46:11.893Z
+            if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(v))
+                return new Date(v.replace("T", ""));
+            else if (/\/Date\(-?\d+\)\//.test(v)) {
+                //Microsoft json Date \/Date(1450800000000)\/ \/Date(-62135596800000)\/
+                return new Date(parseInt(v.substring(6)));
+            }
+            return v;
+        });
+    </script>
+</body>
+</html>

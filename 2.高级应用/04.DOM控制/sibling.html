@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>添加元素</button>
+    <div>
+        <span>大家好</span>
+    </div>
+    <script>
+        var span = document.querySelector("span"),
+            button = document.querySelector("button");
+
+        function highlight() {
+            this.style.backgroundColor = "yellow";
+            for (var prev = this; prev = prev.previousElementSibling;) { prev.style.backgroundColor = "transparent"; }
+            for (var next = this; next = next.nextElementSibling;) { next.style.backgroundColor = "transparent"; }
+
+        }
+        span.addEventListener("click", highlight);
+
+        button.addEventListener("click", function () {
+            var newspan = span.cloneNode(true);
+            newspan.addEventListener("click", highlight);
+            span.parentElement.appendChild(newspan);
+        });
+
+    </script>
+</body>
+</html>

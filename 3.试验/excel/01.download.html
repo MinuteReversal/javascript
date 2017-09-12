@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="xlsx.full.min.js"></script>
+    <script src="../下载文件/FileSaver.js/FileSaver.js-master/FileSaver.js-master/FileSaver.min.js"></script>
+</head>
+<body>
+    <button>下载excel</button>
+    <script>
+        var btnDownLoad = document.querySelector("button");
+
+        btnDownLoad.addEventListener("click", function () {
+            var workbook = XLSX.utils.aoa_to_sheet([{ "Name": "zhy", "Age": 32 }]);
+            var wopts = { bookType: 'xlsx', bookSST: false, type: 'binary' };
+            var wbout = XLSX.write(workbook, wopts);
+
+            function s2ab(s) {
+                var buf = new ArrayBuffer(s.length);
+                var view = new Uint8Array(buf);
+                for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+                return buf;
+            }
+
+            /* 
+            the saveAs call downloads a file on the local machine
+            */
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), "test.xlsx");
+        });
+    </script>
+</body>
+</html>

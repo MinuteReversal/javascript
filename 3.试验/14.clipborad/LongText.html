@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <script src="javascript/JavaScript.js"></script>
+</head>
+<body>
+    <script>
+            var html = [];
+            for (var i = 0; i < 100; i++) {
+                html.push(i.toString());
+            }
+            document.write(html.join("<br/>"));
+    </script>
+    <label for="input">输入一些文字</label><br />
+    <textarea id="input">这些文字会被复制到剪贴板中</textarea><br />
+    <button>复制到剪贴板中</button>
+    <script>
+        document.querySelector("button").addEventListener("click", function () {
+            clipboard.setData(document.getElementById("input").value);
+        });
+    </script>
+    <script>
+        var html = [];
+        for (var i = 0; i < 100; i++) {
+            html.push(i.toString());
+        }
+        document.write(html.join("<br/>"));
+    </script>
+    
+</body>
+</html>

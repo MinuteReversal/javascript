@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*创建一个猫的对象*/
+        //定义的方式生产一个对象
+        var Cat = {
+            name: '猫',
+            age: 3,
+            color: '白',
+            eat: function () {
+                console.log(this.color + this.name + "吃鱼");
+            }
+        };
+
+        //使用new关键字生产一个对象
+        var  Cat2 =  new  Object();
+        Cat2.name = 'coffee';
+        Cat2.age = 10;
+        Cat2.height = 0;
+
+        //调用工厂的方式生产一个对象
+        var Cat3 = Object.create({
+            name: '猫',
+            age: 3,
+            color: '黄',
+            eat: function () {
+                console.log(this.color + this.name + "吃虾");
+            }
+        });
+
+        //调用对象的方法
+        Cat.eat();
+
+        Cat.color = "黑";         //修改对象的属性color
+        console.log(Cat.eat());   //调用对象的方法eat
+    </script>
+</body>
+</html>

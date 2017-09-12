@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <!--http://stackoverflow.com/questions/4079280/javascript-communication-between-browser-tabs-windows-->
+    <h1>Sender</h1>
+
+    <p>
+        Type into the text box below and watch the text
+        appear automatically in the receiver.
+    </p>
+
+    <form name="sender">
+        <input type="text" name="message" size="30" value="">
+        <input type="reset" value="Clean">
+    </form>
+
+    <script type="text/javascript">
+
+        function setCookie(value) {
+            document.cookie = "cookie-msg-test=" + value + "; path=/";
+            return true;
+        }
+        function updateMessage() {
+            var t = document.forms['sender'].elements['message'];
+            setCookie(t.value);
+            setTimeout(updateMessage, 100);
+        }
+        updateMessage();
+    </script>
+</body>
+</html>

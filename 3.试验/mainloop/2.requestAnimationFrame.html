@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="output"></div>
+    <script>
+        var output = document.getElementById("output");
+        var time, lastTime;;
+
+        function updateGame() {
+            lastTime = time;
+            time = new Date();
+        }
+
+        function drawGame() {
+            output.innerHTML = time.toDateString() + "<br/>" + (1000 / (time - lastTime)).toFixed(2) + "帧/秒";
+        }
+
+        var mainloop = function () {
+            updateGame();
+            drawGame();
+        };
+
+        var animFrame = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            null;
+
+        var recursiveAnim = function () {
+            mainloop();
+            animFrame(recursiveAnim);
+        };
+
+        // start the mainloop
+        animFrame(recursiveAnim);
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<p>点击下面任意一行</p>
+<ul></ul>
+<script>
+    var ul = document.querySelector("ul");
+    var list = ["我是第一名", "我是第二名", "我是第三名", "我是第四名", "我是第五名", "我是第六名", "我是第七名"];
+
+    function onLiClick(e /*系统传入的事件对象*/) {
+        var currentLi = e.target; //触发点击的元素会被传入到e这个参数的target属性中
+        alert("你点击了" + currentLi.innerText + "li元素");
+    }
+
+    for (var i = 0; i < list.length; i++) {
+        var li = document.createElement("li"); //生成一个li元素
+        li.innerText = list[i]; //修改li元素里的内容
+        li.addEventListener("click", onLiClick /*方法名字*/); //将li点击绑定到onLiClick方法上
+        ul.appendChild(li); //将li添加到ul元素中
+    }
+
+</script>
+</body>
+</html>

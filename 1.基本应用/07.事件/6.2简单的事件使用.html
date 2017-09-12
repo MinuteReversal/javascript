@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div>有我有效果</div>
+<script type="text/javascript">
+    //资料 https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Creating_and_triggering_events
+    //订阅事件：addEventListener，触发事件：dispatchEvent，取消订阅事件：removeEventListener
+    //定义函数
+    function message() {
+        alert("点了div");
+    }
+
+    //获取div元素
+    var div = document.getElementsByTagName("div")[0];
+    document.getElementById("");//单个元素
+
+    /*#region 添加div对象点击事件的订阅*/
+    div.addEventListener("click"/*事件名称*/, message/*订阅的函数*/);
+    div.addEventListener("click"/*事件名称*/, function() {});
+    /*#endregion*/
+
+
+    /*#region 触发div的点击事件*/
+    //创建一个鼠标事件对象
+    var eClick = document.createEvent('MouseEvents');
+    eClick.initEvent('click', true, true);//设置为点击事件
+
+    //触发div的点击事件
+    div.dispatchEvent(eClick);
+    //以上代码(27-30行)可以写成这样
+    //div.click();//直接调用div对象的click方法来触发点击事件
+    /*#endregion*/
+
+
+    /*#region 删除一个对div click事件的订阅*/
+    div.removeEventListener("click"/*事件名称*/, message/*订阅的函数*/);
+    /*#endregion*/
+</script>
+</body>
+</html>

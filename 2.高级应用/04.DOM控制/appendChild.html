@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button id="btnAdd">添加元素</button>
+    <ul></ul>
+<script>
+    var ul = document.querySelector("ul");
+    var btnAdd = document.querySelector("#btnAdd");
+    var index = 0;
+    function add() {
+        var li = document.createElement("li");
+        li.innerText = "我是" + ++index + "楼";
+        ul.appendChild(li);
+    }
+
+    btnAdd.addEventListener("click",function() {
+        add();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
+
+        var str = '<parsererror xmlns="http://www.mozilla.org/newlayout/xml/parsererror.xml">\r\n' +
+            '(error description)\r\n' +
+            '<sourcetext>(a snippet of the source XML)</sourcetext>\r\n' +
+            '</parsererror>';
+
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, "application/xml");
+
+        var s= doc.querySelector("sourcetext");
+        s.classList.add("");
+
+
+         var body= document.body.querySelector("body");
+         body.innerHTML="";
+         body.outerHTML="";
+         body.style="";
+         s.classList.add("");
+
+    </script>
+</body>
+</html>

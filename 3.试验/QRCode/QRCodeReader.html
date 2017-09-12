@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>QR Code</title>
+    <script src="qrcode-reader/dist/index.js"></script>
+</head>
+<body>
+    <div>
+        <input type="file" accept="image/*" />
+    </div>
+    <div>
+        <img id="QrCode" src="#" alt="二维码" />
+    </div>
+    <div>
+        <textarea></textarea>
+    </div>
+    <script>
+        //https://www.npmjs.com/package/qrcode-reader
+        var fileBrowser = document.querySelector("input"),
+            img = document.querySelector("#QrCode"),
+            textarea = document.querySelector("textarea"),
+            fileReader = new FileReader(),
+            qr = new QrCode();
+
+        qr.callback = function (result, err) {
+            textarea.value = utf8ToUtf16(result);
+        };
+
+        fileReader.addEventListener("load", function (loadEvent) {
+            img.src = loadEvent.target.result;
+            qr.decode(loadEvent.target.result);
+        });
+
+        fileBrowser.addEventListener("change", function (changeEvent) {
+            var fb = changeEvent.target;
+            if (fb.files.length > 0) {
+                fileReader.readAsDataURL(fb.files[0]);
+            }
+            fb.value = "";
+        });
+
+        function utf8ToUtf16(s) {//将utf-8字符串转码为unicode字符串，要不读取的二维码信息包含中文会乱码
+            if (!s) {
+                return "";
+            }
+            var i, codes, bytes, ret = [], len = s.length;
+            for (i = 0; i < len; i++) {
+                codes = [];
+                codes.push(s.charCodeAt(i));
+                if (((codes[0] >> 7) & 0xff) === 0x0) {
+                    //单字节  0xxxxxxx  
+                    ret.push(s.charAt(i));
+                } else if (((codes[0] >> 5) & 0xff) === 0x6) {
+                    //双字节  110xxxxx 10xxxxxx  
+                    codes.push(s.charCodeAt(++i));
+                    bytes = [];
+                    bytes.push(codes[0] & 0x1f);
+                    bytes.push(codes[1] & 0x3f);
+                    ret.push(String.fromCharCode((bytes[0] << 6) | bytes[1]));
+                } else if (((codes[0] >> 4) & 0xff) === 0xe) {
+                    //三字节  1110xxxx 10xxxxxx 10xxxxxx  
+                    codes.push(s.charCodeAt(++i));
+                    codes.push(s.charCodeAt(++i));
+                    bytes = [];
+                    bytes.push((codes[0] << 4) | ((codes[1] >> 2) & 0xf));
+                    bytes.push(((codes[1] & 0x3) << 6) | (codes[2] & 0x3f));
+                    ret.push(String.fromCharCode((bytes[0] << 8) | bytes[1]));
+                }
+            }
+            return ret.join('');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <style>
+        .b {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: black 1px solid;
+        }
+
+        .goRight {
+            animation: a1 2s;
+            animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+
+        @keyframes a1{
+            0% {
+                top: 0px;
+                left: 0px;
+            }
+            100% {
+                top: 0px;
+                left: 600px;
+            }
+        }
+    </style>
+    <div class="b"></div>
+    <script>
+        /*
+        * https://developer.mozilla.org/en/docs/Web/CSS/animation-timing-function
+        * https://developer.mozilla.org/en-US/docs/Web/CSS/single-transition-timing-function
+        */
+
+        var div = document.querySelector(".b");
+        div.addEventListener("mouseenter", function (mouseEvent) {
+            mouseEvent.target.classList.add("goRight");
+        });
+        div.addEventListener("animationend", function (transitionEvent) {
+            transitionEvent.target.classList.remove("goRight");
+        });
+
+    </script>
+</body>
+</html>

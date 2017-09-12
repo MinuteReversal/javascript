@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new
+        //var Car1 = {
+        //    brand: '法拉力',
+        //    go: function () {
+        //        console.log(this.brand + "开走了");
+        //    }
+        //};
+
+
+        //var Car2 = {
+        //    brand: '夏利',
+        //    go: function () {
+        //        console.log(this.brand + "开走了");
+        //    }
+        //};
+
+
+        //var Car3 = {
+        //    brand: '奔驰',
+        //    go: function () {
+        //        console.log(this.brand + "开走了");
+        //    }
+        //};
+
+
+        /*定义类*/
+        function Car(settings) {
+            this.brand = "法拉力";
+            if (brand) {
+                this.brand = brand;
+            }
+        }
+
+        Car.prototype.go = function () {
+            console.log(this.brand + "开走了");
+        };
+        /*定义类*/
+
+        /*使用*/
+
+        var car1 = new Car('法拉力');
+        car1.go();
+
+        var car2 = new Car('夏利');
+        car2.go();
+
+        var car3 = new Car('奔驰');
+        car3.go();
+
+    </script>
+</body>
+</html>

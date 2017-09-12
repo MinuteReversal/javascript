@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>设置值</button>
+    <input type="text" />
+    <script>
+        document.querySelector("button").addEventListener("click", function (e) {
+            e.target.nextElementSibling.value = "神秘的内容显示了";
+        });
+    </script>
+</body>
+</html>

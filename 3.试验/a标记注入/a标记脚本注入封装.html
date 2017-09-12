@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <a href="javascript:(function(w){ eval(w.document.querySelector('#js').innerText)(w); })(this);">下载</a>
+    <div id="js">
+        /*类库*/
+        (function hello(w) {
+            w.document.querySelector("a").text = "你好啊";
+        })
+    </div>
+</body>
+</html>

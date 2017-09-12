@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+</head>
+<body>
+    <div><label>普通</label><input type="text" /></div>
+    <div><label>数字</label><input type="number" /></div>
+    <div><label>纯数字</label><input type="number" pattern="[0-9]*" /></div>
+    <div><label>邮箱</label><input type="email" /></div>
+    <div><label>定位符</label><input type="url" /></div>
+    <div><label>日期</label><input type="date" /></div>
+    <div><label>电话</label><input type="tel" /></div>
+    <div>
+        <form action="#">
+            <label>查询</label><input type="search" />
+        </form>
+    </div>
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert(this.querySelector("input[type=search]").value);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <style>
+        .abc {
+            width: 120px;
+            height: 120px;
+            border: black 1px solid;
+            padding: 20px;
+        }
+    </style>
+    <div class="abc"></div>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+        var div = document.querySelector(".abc");
+        var style = window.getComputedStyle(div);
+        document.write(`width:${style.getPropertyValue("width")},height:${style.getPropertyValue("height")},top:${style.getPropertyValue("top")},left:${style.getPropertyValue("left")}`);
+    </script>
+</body>
+</html>

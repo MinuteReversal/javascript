@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="../14.clipborad/javascript/JavaScript.js"></script>
+</head>
+<body>
+    <label for="length">密码长度：</label><input type="number" id="length" placeholder="最少" value="8" /><br />
+    <label for="hasUpperCase">英文大写：</label><input type="checkbox" id="hasUpperCase" checked="checked" /><br />
+    <label for="hasLowerCase">英文小写：</label><input type="checkbox" id="hasLowerCase" checked="checked" /><br />
+    <label for="hasNumber">数字：</label><input type="checkbox" id="hasNumber" value="8" checked="checked" /><br />
+    <label for="hasSpecial">特殊字符：</label><input id="hasSpecial" type="checkbox" /><br />
+    <label for="hasDangerous">特殊字符2：</label><input id="hasDangerous" type="checkbox" /><br />
+    <button id="btnGenerate" type="button">生成</button><button id="btnCopy" type="button">复制到剪贴板</button><br />
+    <textarea id="output"></textarea>
+    <script>
+        var length = document.querySelector("#length"),
+            hasUpperCase = document.querySelector("#hasUpperCase"),
+            hasLowerCase = document.querySelector("#hasLowerCase"),
+            hasNumber = document.querySelector("#hasNumber"),
+            hasSpecial = document.querySelector("#hasSpecial"),
+            hasDangerous = document.querySelector("#hasDangerous"),
+            btnGenerate = document.querySelector("#btnGenerate"),
+            btnCopy = document.querySelector("#btnCopy"),
+            output = document.querySelector("#output");
+
+        var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        var special = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=", "_", "+", "[", "]", "\\", "|", ",", ".", "?", "/", "\t", " "];
+        var dangerous = ["<", ">", ";", ":", "'", "\""];
+
+        function generate(length, hasUpperCase, hasLowerCase, hasNumber, hasSpecial, hasDangerous) {
+            var s = new Array(parseInt(length));
+            var sample = new Array();
+
+            if (hasUpperCase) sample = sample.concat(upperCase);
+            if (hasLowerCase) sample = sample.concat(lowerCase);
+            if (hasNumber) sample = sample.concat(numbers);
+            if (hasSpecial) sample = sample.concat(special);
+            if (hasDangerous) sample = sample.concat(dangerous);
+
+            for (var i = 0; i < length; i++) {
+                s[i] = sample[getRandomIntInclusive(0, sample.length - 1)];
+            }
+
+            return s.join("");
+        }
+
+        // Returns a random integer between min (included) and max (included)
+        // Using Math.round() will give you a non-uniform distribution!
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        btnGenerate.addEventListener("click", function (e) {
+            output.value = generate(length.value, hasUpperCase.checked, hasLowerCase.checked, hasNumber.checked, hasSpecial.checked, hasDangerous.checked);
+        });
+
+        btnCopy.addEventListener("click", function (e) {
+            clipboard.setData(output.value);
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <div><label for="textBox">text</label></div>
+                <textarea id="textBox" rows="20" cols="40"></textarea>
+            </td>
+            <td>
+                <div>
+                    <button id="btnTextToUnicode">text=&gt;unicode</button>
+                </div>
+                <div>
+                    <button id="btnUnicodeToText">text&lt;=unicode</button>
+                </div>
+            </td>
+            <td>
+                <div><label for="unicodeBox">unicode</label></div>
+                <textarea id="unicodeBox" rows="20" cols="40"></textarea>
+            </td>
+        </tr>
+    </table>
+    <script>
+        var textBox = document.getElementById("textBox");
+        var unicodeBox = document.getElementById("unicodeBox");
+        var btnTextToUnicode = document.getElementById("btnTextToUnicode");
+        var btnUnicodeToText = document.getElementById("btnUnicodeToText");
+
+        btnTextToUnicode.addEventListener("click", function () {
+            unicodeBox.value = textToUnicode(textBox.value);
+        });
+
+        btnUnicodeToText.addEventListener("click", function () {
+            textBox.value = unicodeToText(unicodeBox.value);
+        });
+
+        //var max = 0xFFFF;
+        //function recursiveUnicode(x) {
+        //    text.innerText += numberToUnicode(x);
+        //    if (x < max) recursiveUnicode(++x);
+        //}
+        //recursiveUnicode(0xFF00);
+
+        /*
+        *数字 转 unicode
+        *@parma {number} n
+        */
+        function numberToUnicode(n) {
+            return eval("'" + "\\u" + ("0000" + n.toString(16)).slice(-4) + "'");
+        }
+
+        /*
+        *文字 转 unicode
+        *@parma  {string} text 字符串 例如："好"
+        */
+        function textToUnicode(text) {
+            return escape(text).toLocaleLowerCase().replace(/%u/gi, '\\u');
+        }
+
+        /*
+        * unicode 转 字符
+        * @param {string} unicode 字符串 例如 "\u597d"
+        */
+        function unicodeToText(unicode) {
+            return unescape(unicode.replace(/\\u/g, "%u"));
+        }
+
+        /*
+        *text 转 html
+        *&lt; <
+        */
+        function encodeHtml(text) {
+            var span = document.createElement("span");
+            span.innerText = text;
+            return span.innerHTML;
+        }
+
+        /*
+        *html 转 text
+        *< &lt;
+        */
+        function decodeHtml(html) {
+            var span = document.createElement("span");
+            span.innerHTML = html;
+            return span.innerText;
+        }
+
+    </script>
+</body>
+</html>

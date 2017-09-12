@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv=" content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <script type="text/javascript">
+        navigator.geolocation.getCurrentPosition( // 该函数有如下三个参数
+            function (pos) { // 如果成果则执行该回调函数
+                document.write(
+                    '  经度：' + pos.coords.longitude +
+                    '<br/>  纬度：' + pos.coords.latitude +
+                    '<br/>  高度：' + pos.coords.altitude +
+                    '<br/>  精确度(经纬)：' + pos.coords.accuracy +
+                    '<br/>  精确度(高度)：' + pos.coords.altitudeAccuracy +
+                    '<br/>  速度：' + pos.coords.speed
+                );
+            }, function (err) { // 如果失败则执行该回调函数
+                alert(err.message);
+            }, { // 附带参数
+                enableHighAccuracy: false, // 提高精度(耗费资源)
+                timeout: 3000, // 超过timeout则调用失败的回调函数
+                maximumAge: 1000 // 获取到的地理信息的有效期，超过有效期则重新获取一次位置信息
+            }
+        );
+    </script>
+</head>
+<body>
+
+</body>
+</html>

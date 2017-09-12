@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "TextFile.txt");
+        xhr.setRequestHeader('accept', "text/plain");
+        xhr.onreadystatechange = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert(xhr.responseText);
+                } else {
+                    alert(xhr.statusText);
+                }
+            }
+        };
+        xhr.send();
+    </script>
+</body>
+</html>

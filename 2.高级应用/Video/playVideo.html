@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="apple-mobile-web-app-capable" content="YES" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <style>
+        video {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" /><div></div>
+    <video src="" controls="controls"></video>
+    <script>
+        var fileBroswer = document.querySelector("input"),
+            video = document.querySelector("video"),
+            output = document.querySelector("div"),
+            fr = new FileReader();
+
+        fr.addEventListener("load", function (loadEvent) {
+            video.src = loadEvent.target.result;
+        });
+
+        fileBroswer.addEventListener("change", function (changeEvent) {
+            var me = changeEvent.target;
+            if (me.files.length > 0) {
+                var file = me.files[0];
+                output.innerHTML = "name:" + file.name + "<br/>size:" + file.size + "<br/>type:" + file.type;
+                fr.readAsDataURL(me.files[0]);
+            }
+            me.value = "";
+        });
+    </script>
+</body>
+</html>

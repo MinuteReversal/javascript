@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+<div id="foo"></div>
+<script>
+    var foo = document.getElementById("foo");
+    foo.addEventListener("DOMNodeInserted", function (e) {
+        alert("Load!");
+    });
+
+    var div = document.createElement("div");
+    foo.appendChild(div);
+</script>
+</body>
+</html>

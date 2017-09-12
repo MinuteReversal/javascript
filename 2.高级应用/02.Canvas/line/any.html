@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        var can = document.querySelector("canvas"),
+            ctx = can.getContext("2d");
+        document.body.style.margin = 0;
+        document.body.style.overflow = "hidden";
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+        ctx.strokeStyle = "black";
+
+        /*
+        * Ax + By + C=0(A、B不同时为0) 【适用于所有直线】
+        * http://baike.baidu.com/link?url=Lhs9yhPVm3GPRO2Z1OGwuqXIbnKSJegQUajsSnCirYKESFdaOreXJufrrCgL3ls2Jmw0KiCkzXmQUu3AxpKYzQu5BSGwdOGy1Y7GjAIUM5mGjsheODHJ_KPktbayBYM9
+        */
+
+
+        var a = { x: 220, y: 20 };
+        var b = { x: 400, y: 200 };
+        var playTime = 2;//seconds
+        var perMillisecondsX = (b.x - a.x) / (playTime * 1000);
+        var currentX = a.x;
+        var palyTimeStamp = 0;
+        var counter = 0;
+        /**
+         *  A*x1 + B*y1 + C = 0
+         *  A*x2 + B*y2 + C = 0
+         *
+         * https://www.zybang.com/question/2be6e2c0628c288d758b90d3415d9155.html
+         * (y-y1)/(y2-y1)=(x-x1)/(x2-x1)
+         * y-y1=(x-x1)/(x2-x1)*(y2-y1)
+         * y=(x-x1)/(x2-x1)*(y2-y1)+y1
+         *
+         * x-x1=(y-y1)/(y2-y1)*(x2-x1)
+         * x=(y-y1)/(y2-y1)*(x2-x1)+x1
+         */
+
+        var f = function (timestamp) {
+            if (currentX <= b.x) {
+                var diff = timestamp - palyTimeStamp;
+                var distance = diff * perMillisecondsX;
+                currentX += distance;
+                drawPoint(currentX, getY(currentX, a, b));
+                palyTimeStamp = timestamp;
+                requestAnimationFrame(f);
+            }
+        };
+        requestAnimationFrame(f);
+
+        function getY(x, p1, p2) {
+            return (x - p1.x) / (p2.x - p1.x) * (p2.y - p1.y) + p1.y;
+        }
+
+        function drawPoint(x, y) {
+            counter++;
+            ctx.beginPath();
+            ctx.arc(x, y, 0.5, 0, 2 * Math.PI, true);
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

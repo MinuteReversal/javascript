@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="../jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <button id="btnAdd">添加</button>
+    <div id="test">
+        
+    </div>
+<script>
+    var index = 0;
+    //jquery 
+    $("#btnAdd").on("click", function () {
+        //创建元素
+        var p = $("<p>" + index++ + "<a>删除</a></p>");//字串拼接创建元素
+
+        //订阅元素事件
+        p.find("a").on("click", function() {
+            $(this).parent().remove();
+        });
+
+        //将元素添加到界面
+        $("#test").append(p);
+
+    });
+
+    //原生js
+    //document.querySelector("#btnAdd").addEventListener("click",function() {
+    //    var p = document.createElement("p");//创建元素节点
+    //    p.innerHTML = index++;
+
+    //    var a = document.createElement("a");//创建元素节点
+    //    a.text = "删除";
+    //    a.addEventListener("click", function() {
+    //        a.parentElement.parentElement.removeChild(a.parentElement);
+    //    });
+
+    //    p.appendChild(a);
+
+
+    //    document.querySelector("#test").appendChild(p);
+    //});
+    
+</script>
+</body>
+</html>

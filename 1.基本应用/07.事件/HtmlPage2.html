@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div id="a" style="background-color: red">
+    aaaa
+    <div id="b" style="background-color: blue">bbbbb</div>
+</div>
+
+    <input type="text"/>
+<form id="f">
+    <button>随意</button>
+</form>
+
+<a id="aaaaa" href="http://baidu.com">百度</a>
+<script>
+    //document.body.addEventListener("click",function(e) {
+    //    alert("body");
+    //});
+
+    //domEvent
+    document.querySelector("#a").addEventListener("click",
+        function (e /*Event*/) {
+            var me= this;
+            //e.preventBubble();
+            //e.preventDefault();
+
+            alert("a");
+        }
+    );
+
+    document.querySelector("#b").addEventListener("click",function(e) {
+        var me = this;
+        e.stopPropagation();
+        alert("b");
+    });
+
+    document.querySelector("#aaaaa").addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+    });
+
+    document.querySelector("#f").addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+    });
+</script>
+</body>
+</html>

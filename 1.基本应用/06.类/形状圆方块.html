@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script type="text/javascript">
+        /*#region 定义类*/
+        //形状基类
+        function Shape() {
+            this.x = 0;
+            this.y = 0;
+        }
+
+        Shape.prototype.getArea = function () {
+            return 0.0;
+        };
+        Shape.prototype.getPosition = function () {
+            console.log("x:", this.x, "y:", this.y);
+        };
+
+        //圆形
+        function Circle(r) {
+            this.r = r;
+        }
+        Circle.prototype = Object.create(Shape.prototype);
+        Circle.prototype.constructor = Circle;
+        //@Override
+        Circle.prototype.getArea = function () {
+            return Math.PI * this.r * this.r;
+        };
+
+
+        //方形
+        function Square(width, height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        Square.prototype = Object.create(Shape.prototype);
+        Square.prototype.constructor = Square;
+
+        //@Override
+        Square.prototype.getArea = function () {
+            return this.width * this.height;
+        };
+
+        /*#endregion*/
+
+        /*#region 使用*/
+        var s = new Shape();
+        console.log(s.getArea());
+        s.x = 100;
+        s.y = 200;
+        s.getPosition();
+
+        var c = new Circle(5);
+        console.log(c.getArea());
+        c.x = 400;
+        c.y = 300;
+        c.getPosition();
+
+        var sq = new Square(800, 600);
+        console.log(s.getArea());
+        sq.x = 344;
+        sq.y = 99;
+        sq.getPosition();
+
+        /*#endregion*/
+    </script>
+</body>
+</html>

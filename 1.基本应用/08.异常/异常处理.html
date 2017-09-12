@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error
+    /*定义异常*/
+    function MyError(message) {
+        this.name = 'MyError';
+        this.message = message || 'Default Message'; this.stack = (new Error()).stack;
+    }
+    MyError.prototype = Object.create(Error.prototype);
+    MyError.prototype.constructor = MyError;
+
+
+    //使用
+    try {
+        throw new MyError("我的异常");
+    } catch (e) {
+        alert(e.message);
+    }
+
+
+</script>
+</body>
+</html>

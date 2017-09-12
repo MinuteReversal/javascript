@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script type="text/javascript">
+
+        /*#region 定义函数*/
+
+        /*无参数  无返回值*/
+        function fn1() {
+            console.log("hello");
+        }
+
+        /*有参数  无返回值*/
+        function fn2(msg) {/*函数签名*/
+            console.log(msg);
+        }
+
+        /*无参数  有返回值*/
+        function fn3() {
+            return 10;
+        }
+
+        /*有参有  有返回值*/
+        function square(number) {
+            return number * number;
+        }
+
+        /*无数个参数*/
+        function max() {
+            var max = Number.NEGATIVE_INFINITY;
+            //遍历参数，查找并记住最大值
+            for (var i = 0; i < arguments.length; i++)
+                if (arguments[i] > max) max = arguments[i];
+            return max;
+        }
+        /*#endregion*/
+
+        /*#region 使用*/
+
+        /*调用*/
+        fn1();
+        fn2("hello");
+        var a = fn3();
+        var b = square(10);
+        console.log(b);
+        console.log(max(1, 2, 3, 4, 5, 6, 7));
+
+        /*#endregion*/
+
+    </script>
+</body>
+</html>

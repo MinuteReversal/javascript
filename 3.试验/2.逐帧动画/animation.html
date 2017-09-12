@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>逐帧动画</title>
+    <script type="text/javascript">
+        window.addEventListener("load", function (e) {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var img = new Image();
+            img.src = "./player.png";
+            img.addEventListener("load", function () {
+                var imgs = splitImgArray(img, 64, 64, 4, 4);
+                var i = 0;
+                setInterval(function () {
+                    if (i >= imgs[0].length) i = 0;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(imgs[0][i++], 0, 0);
+                    ctx.fill();
+                }, 100);
+            });
+        });
+
+        //拆分图片
+        //@Image img 全图资源
+        //@w Width 宽度
+        //@h Height 高度
+        //@c column 列
+        //@r row 行
+        //@return Image
+        function splitImgArray(img, w, h, c, r) {
+            var images = new Array();
+            for (var i = 0; i < r; i++) {
+                var imgs = new Array();
+                images.push(imgs);
+                for (var j = 0; j < c; j++) {
+                    var canvas = document.createElement("canvas");
+                    canvas.width = w;
+                    canvas.height = h;
+                    var ctx = canvas.getContext("2d");
+                    var bitmap = new Image();
+                    ctx.drawImage(img,
+                        j * w, i * h,
+                        w, h,
+                        0, 0,
+                        w, h
+                    );
+                    ctx.fill();
+                    bitmap.src = canvas.toDataURL("image/png");
+                    imgs.push(bitmap);
+                }
+            }
+            return images;
+        }
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>

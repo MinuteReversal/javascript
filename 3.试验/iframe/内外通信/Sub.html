@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>这是Sub页面的内容</p>
+    <input id="subInput" type="text" />
+    <script>
+        var subInput = document.getElementById("subInput");
+        var mainInput = window.parent.mainInput;
+        mainInput.value = "子页面传给主页面的内容";
+    </script>
+</body>
+</html>

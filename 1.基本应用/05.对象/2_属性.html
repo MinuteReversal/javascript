@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+    // 1、属性是介于变量和方法之间的这么一个东东
+    // 2、定义时像方法，使用时像变量
+    // 3、希望赋值、取值时调用其他方法可以使用属性
+    var o = {
+        _x: 123,
+        get x() {
+            return this._x;
+        },
+        set x(number) {
+            this._x = number;
+        }
+    };
+
+    console.log(o.x);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <input id="Name" type="text" placeholder="姓名" /><br />
+    <input id="Age" type="number" placeholder="年龄" /><br />
+    <select id="Gender">
+        <option value="女">女</option>
+        <option value="男">男</option>
+    </select>
+    <button type="button" id="btnSubmit">提交</button>
+    <script>
+        //前端模型
+        var student = {
+            Name: "张三",
+            Age: 31,
+            Gender: "男"
+        };
+
+        //将数据加载到页面
+        function loadDataToUI(model) {
+            document.querySelector("#Name").value = model.Name;
+            document.querySelector("#Age").value = model.Age;
+            document.querySelector("#Gender").value = model.Gender;
+        }
+
+        //收集页面上的数据
+        function getDataFromUI() {
+            student.Name = document.querySelector("#Name").value;
+            student.Age = document.querySelector("#Age").value;
+            student.Gender = document.querySelector("#Gender").value;
+        }
+
+        //数据校验
+        function validate() {
+            //正则
+            if (!/^\d+$/ig.test(student.Age)) {
+                alert("年龄只能是数字");
+                return false;
+            }
+
+            return true;
+        }
+
+
+        //
+        document.getElementById("btnSubmit").addEventListener("click", function () {
+            getDataFromUI();
+            if (validate()) {
+                alert(JSON.stringify(student));
+            }
+        });
+    </script>
+</body>
+</html>

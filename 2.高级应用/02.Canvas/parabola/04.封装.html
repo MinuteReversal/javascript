@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../MathExtend.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        (function (w) {
+            /**
+             * constructor
+             * @param {object} options
+             */
+            var Parabola = function (options) {
+                this.startPoint = options.startPoint;
+                this.endPoint = options.endPoint;
+                this.a = options.a;
+                this.speed = options.speed;
+                this.isStop = false;
+                this.parameters = this.getParameter(this.startPoint, this.endPoint);
+            };
+
+            Parabola.prototype.getParameter = function (startPoint, endPoint) {
+                var x1 = 0;//移动到原点
+                var y1 = 0;//移动到原点
+                var x2 = Math.abs(endPoint.x - startPoint.x);//整体移动
+                var y2 = Math.abs(endPoint.y - startPoint.y);//整体移动
+
+                return {
+                    a: a,
+                    b: (y2 - a * Math.pow(x2, 2) - y1 + a * Math.pow(x1, 2)) / (x2 - x1),
+                    c: (y1 - a * Math.pow(x1, 2) - y2 * x1 / x2 - a * x2 * x1) / (1 + x1 / x2)
+                };
+            };
+
+            Parabola.prototype.getY = function (a, b, c, x) {
+                if (1 === arguments.length) {
+                    var p = this.parameters;
+                    a = p.a;
+                    b = p.b;
+                    c = p.c;
+                    x = arguments[0];
+                }
+                return a * Math.pow(x, 2) + b * x + c;
+            };
+
+            Parabola.prototype.play = function () {
+                
+            };
+
+            Parabola.prototype.stop = function () {
+                this.isStop = true;
+            };
+
+            Parabola.prototype.defaultOptions = {
+                startPoint: { x: 0, y: 0 },
+                endPoint: { x: 0, y: 0 },
+                speed: 1000,
+                a: 0.004,
+                onFrame: function (currentPoint) { }
+            };
+
+            window.Parabola = Parabola;
+        })(window);
+
+
+        var can = document.querySelector("canvas"),
+            ctx = can.getContext("2d");
+
+        document.body.style.margin = 0;
+        document.body.style.overflow = "hidden";
+
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+
+        ctx.strokeStyle = "black";
+
+        var p1 = { x: 120, y: 30 };
+        var p2 = { x: 600, y: 400 };
+        var a = 0.004;
+        var c = 0;
+
+
+        ctx.strokeStyle = "red";
+        drawPoint(p1.x, p1.y);
+        drawPoint(p2.x, p2.y);
+
+
+
+        function drawPoint(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 0.5, 0, 2 * Math.PI, true);
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

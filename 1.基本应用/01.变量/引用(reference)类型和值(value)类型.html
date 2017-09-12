@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //参看1.2
+        //值类型变量的特点
+        var a = 654321;//赋值时右边为基本类型 整型、浮点、布尔、字符串
+        var b = a;     //将b设置为a的值
+        b = 1234;
+        console.log(a);
+        console.log(b);
+
+        //引用类型变量特点
+        var c = { name: "tom", age: 3, isBlack: false };//赋值时右边类型为对象，类似windows的桌面快捷方式
+        var d = c;               //让c与d引用同一对象
+        d.name = "hello kitty";  //对其成员的修改
+        console.log(JSON.stringify(c));
+        console.log(JSON.stringify(d));
+    </script>
+</body>
+</html>

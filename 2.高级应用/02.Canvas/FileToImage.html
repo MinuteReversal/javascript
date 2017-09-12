@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <input type="file" alt="" />
+    <img alt="preview" />
+    <script>
+        var fileBrowser = document.querySelector("input");
+        var i = document.querySelector("img");
+        fileBrowser.addEventListener("change", function (fileChangeEvent) {
+            var fr = new FileReader();
+            fr.addEventListener("load", function (e) {
+                i.src = e.target.result;
+            });
+            fr.readAsDataURL(fileChangeEvent.target.files[0]);
+        });
+    </script>
+</body>
+</html>

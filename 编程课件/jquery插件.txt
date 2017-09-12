@@ -1,0 +1,63 @@
+1、什么是jquery插件
+jquery框架的扩展
+
+datapicker
+colorpicker
+keybord
+slider
+marqueen
+
+
+2、怎么使用jquery插件
+
+$("选择器").datapicker();
+$("选择器").colorpicker({color:'#ffffff'});
+
+3、怎么做jquery插件
+一、
+        $("选择器").on("click", function (event) {
+            var link = $this.attr("data-href");
+            if (link != "#")
+                window.location.href = link;
+        });
+
+二、
+无参数的插件
+
+调用
+$('[data-link]').hyperlink();
+
+实现
+(function ($) {
+    $.fn.hyperlink = function () {
+        var $this = this;
+        $this.on("click", function (event) {
+            var link = $this.attr("data-href");
+            if (link != "#")
+                window.location.href = link;
+        });
+    };
+})(jQuery);
+
+三、
+有参数的插件
+
+调用
+$('[data-link]').hyperlink({ linkTarget: "data-link" });
+
+实现
+(function ($) {
+    $.fn.hyperlink = function (options) {
+        var $this = this;
+        var settings = $.extend({}, $.fn.hyperlink.defaults, options);
+        $this.on("click", function (event) {
+            var link = $this.attr(settings.linkTarget);
+            if (link != "#")
+                window.location.href = link;
+        });
+    };
+    $.fn.hyperlink.defaults = {
+        linkTarget: 'data-href',
+    };
+})(jQuery);
+

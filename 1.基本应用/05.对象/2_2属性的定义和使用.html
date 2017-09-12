@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<script>
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+    var o = {
+        _name: "zhy",
+        /*获取属性*/
+        get Name() {
+            alert("现在要获取_name中存储的值");
+            return this._name;
+        },
+        /*设置属性*/
+        set Name(text) {
+            alert("现在返回_name中存储的值");
+            this._name = text;
+        }
+    };
+
+    //console.log(o.Name);
+    //o.Name = "liu";
+    //console.log(o.Name);
+
+    window.title = "";
+    var e = document.createElement("div");
+    document.body.appendChild(e);
+
+    e.style.width = "200px";
+    e.style.height = "300px";
+    e.style.backgroundColor = "red";
+</script>
+</body>
+</html>

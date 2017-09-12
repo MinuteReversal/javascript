@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var html = '<span>跳转到</span><a href="http://baidu.com">百度</a>';
+        var div = document.createElement("div");
+        div.innerHTML = html;
+
+        while (div.children.length > 0) {
+            document.body.appendChild(div.children[0]);
+        }
+
+        html = null;
+        div = null;
+
+
+        function toElement(html) {
+            var tempContainer = document.createElement("div");
+            tempContainer.innerHTML = html;
+            return tempContainer.firstElementChild;
+        }
+    </script>
+</body>
+</html>

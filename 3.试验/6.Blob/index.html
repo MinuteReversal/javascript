@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Blob</title>
+    <script type="text/javascript">
+        window.onload = function (e) {
+            var client = new XMLHttpRequest();
+            client.onreadystatechange = function () {
+                if (this.readyState == 4) {// 4 = "loaded"
+
+                    if (this.status == 200) {// 200 = OK
+                        // ...our code here...
+                        var type = this.getResponseHeader('Content-Type');
+                        var blob = new Blob([this.response], { type: type });
+                        var url = window.URL.createObjectURL(blob);
+                        window.open(url);
+                    };
+                }
+            };
+            client.open("GET", "1.txt", true);
+            client.send();
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        var x = "B";
+
+        /*if语句*/
+        if ("A" === x) {
+            console.log("A");
+        }
+        else if ("B" === x) {
+            console.log("B");
+        }
+        else {
+            console.log("C");
+        }
+
+        /*switch语句*/
+        switch (x) {
+            case "A":
+                console.log("A");
+                break;
+            case "B":
+                console.log("B");
+                break;
+            default:
+                console.log("C");
+        }
+
+        /*switch贯穿*/
+        switch (x) {
+            case "A":
+            case "B":
+            case "C":
+                console.log("ABC");
+                break;
+            default:
+                console.log("C");
+        }
+
+        /*三目表达式*/
+        var c = true;
+        var r = c ? "是" : "否";
+        console.log(r);
+    </script>
+</body>
+</html>

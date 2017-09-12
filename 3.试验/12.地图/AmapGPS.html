@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=9594c8dad9ede5935c38d750ed93d8b0"></script>
+    
+    <title>高德地图</title>
+    <style>
+        html, body {
+            color: #5d5d5d;
+            font-size: 12px;
+            font-family: "Microsoft YaHei UI",'Arial Narrow',"Arial","Helvetica","sans-serif";
+            background-color: white;
+            /*禁止选中任何文字*/
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            overflow: hidden;
+            margin: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        @-ms-viewport {
+            width: device-width;
+            height: device-height;
+        }
+
+        [data-role='header'] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-repeat: no-repeat;
+            -ms-background-size: 280px 37.3px;
+            background-size: 267px 56px;
+            background-position: 50%;
+            -webkit-box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            -ms-box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            box-shadow: 0 1px 5px 0 rgb(66,66,66);
+            background-color: #ffffff;
+            z-index: 99;
+        }
+
+            [data-role='header'] .title {
+                position: absolute;
+                display: block;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 32.7px;
+                color: black;
+            }
+
+            [data-role='header'] .title {
+                font-size: 22px;
+                height: 70px;
+                line-height: 70px;
+                color: black;
+                font-weight: normal;
+            }
+
+            [data-role='header'] .btnGoBack {
+                z-index: 1;
+                left: 5px;
+            }
+
+            [data-role='header'] .btnClear {
+                z-index: 1;
+                right: 5px;
+            }
+
+            [data-role='header'] .btnAmpLocation {
+                z-index: 1;
+                left: 60px;
+            }
+
+            [data-role='header'] .btn {
+                text-decoration: none;
+                font-size: 16px;
+                line-height: 70px;
+                position: absolute;
+                color: #565658;
+                vertical-align: middle;
+            }
+
+            [data-role='header'] .icon {
+                margin-top: -3px;
+                margin-left: 3px;
+            }
+
+
+        [data-role="viewport"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-position: 0 0;
+            -ms-background-origin: border-box;
+            background-origin: border-box;
+            background-repeat: no-repeat;
+            -ms-background-size: 18px 18px;
+            background-size: 18px 18px;
+            vertical-align: middle;
+        }
+
+        .goBack {
+            background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjMyLjAxOHB4IiBoZWlnaHQ9IjMyLjk5M3B4IiB2aWV3Qm94PSIwIDAgMzIuMDE4IDMyLjk5MyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIuMDE4IDMyLjk5MyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWdvbiBmaWxsPSIjNTY1NjU4IiBwb2ludHM9IjI1LjM0MiwtMC4wMDMgMjUuMzQyLDMuNzE4IDEwLjg5NSwxNi40ODggMjUuMzQyLDI5LjI3NSAyNS4zNDIsMzIuOTk3IDYuNjc0LDE2LjQ4OCAiLz4NCjwvc3ZnPg0K");
+        }
+
+        .location {
+            background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjI0Ljc3NHB4IiBoZWlnaHQ9IjI2cHgiIHZpZXdCb3g9IjAgMCAyNC43NzQgMjYiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0Ljc3NCAyNiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8ZyBvcGFjaXR5PSIwLjUiPg0KCTxnPg0KCQk8cGF0aCBmaWxsPSIjNUQ1RDVEIiBkPSJNMTIuMzg4LDIyLjYzNGMtMC4yMDMsMC0wLjM2NS0wLjE2NC0wLjM2Ny0wLjM2NWMwLTAuMDAxLDAtMC4wMDEsMC0wLjAwMQ0KCQkJYzAtMC4wNDYtMC4wNjgtNC41MzItNC42NjYtOC4zMTljLTAuMTI1LTAuMTA5LTIuNzg5LTIuNTEtMi43ODktNi4yMkM0LjU2Niw0LjYxMSw3LjA1MiwwLDEyLjM4OCwwDQoJCQljNS4zMzQsMCw3LjgyMSw0LjYxMSw3LjgyMSw3LjcyOWMwLDMuODY4LTIuNjc0LDYuMTI1LTIuNzg4LDYuMjJjLTQuNTk4LDMuNzg3LTQuNjY3LDguMjczLTQuNjY3LDguMzE5YzAsMCwwLDAsMCwwLjAwMQ0KCQkJQzEyLjc1MiwyMi40NywxMi41ODksMjIuNjM0LDEyLjM4OCwyMi42MzR6IE0xMi4zODgsMC43MzJjLTQuODM3LDAtNy4wOSw0LjE3Ni03LjA5LDYuOTk3YzAsMy4zODQsMi41MDYsNS42NCwyLjUzMSw1LjY2Mg0KCQkJYzIuODU0LDIuMzUxLDQuMDU0LDQuOTI3LDQuNTU5LDYuNjk3YzAuNTA1LTEuNzcxLDEuNzA3LTQuMzUxLDQuNTY4LTYuNzA1YzAuMDIzLTAuMDIxLDIuNTE5LTIuMTQsMi41MTktNS42NTQNCgkJCUMxOS40NzUsNC45MDgsMTcuMjIyLDAuNzMyLDEyLjM4OCwwLjczMnoiLz4NCgkJPGNpcmNsZSBmaWxsPSIjNUQ1RDVEIiBjeD0iMTIuMzg4IiBjeT0iNy41MiIgcj0iMi41NTgiLz4NCgkJPHBhdGggZmlsbD0iIzVENUQ1RCIgZD0iTTE3LjY5MSwxOC4wNDJjMS40NTEsMC42OTQsMi4zNTksMS42NjgsMi4zNTksMi43NWMwLDIuMTA1LTMuNDMxLDIuODk0LTcuNjYzLDIuODk0DQoJCQljLTQuMjMyLDAtNy42NjUtMC43ODgtNy42NjUtMi44OTRjMC0xLjA4MiwwLjkwOS0yLjA1NiwyLjM2Mi0yLjc1Yy0yLjI1LDAuODAxLTMuNzE3LDIuMDk0LTMuNzE3LDMuNTU2DQoJCQljMCwyLjQzMiw0LjAzOCw0LjQwMiw5LjAyLDQuNDAyYzQuOTgyLDAsOS4wMTgtMS45NzEsOS4wMTgtNC40MDJDMjEuNDA2LDIwLjEzNiwxOS45MzksMTguODQzLDE3LjY5MSwxOC4wNDJ6Ii8+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=");
+        }
+
+        #AMap {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .amap-marker-label {
+            width: 200px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <header data-role="header">
+        <a id="btnLocation" data-href="#" class="btn btnGoBack" data-animation="leftout"><span class="icon location"></span>GPS</a>
+        <a id="btnAmpLocation" class="btn btnAmpLocation"><span class="icon location"></span>高德</a>
+        <span class="title">高德地图</span>
+        <a id="btnClear" data-href="#" class="btn btnClear" data-animation="leftout">清除定位</a>
+    </header>
+    <div data-role="viewport">
+        <section id="AMap"></section>
+        <script>
+            var map = null, geolocation = null;
+            var markers = [];
+
+            window.addEventListener("load", function (e) {
+                map = new AMap.Map('AMap', {
+                    resizeEnable: true,
+                    zoom: 16
+                });
+                //高德定位
+                map.plugin('AMap.Geolocation', function () {
+                    geolocation = new AMap.Geolocation({
+                        enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                        timeout: 10000          //超过10秒后停止定位，默认：无穷大
+                    });
+                    AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+                    AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+                });
+            });
+
+            document.querySelector("#btnLocation").addEventListener("click", function (e) {
+                getLocation();
+            });
+
+            document.querySelector("#btnClear").addEventListener("click", function () {
+                map.remove(markers);
+                markers = [];
+            });
+
+            document.querySelector("#btnAmpLocation").addEventListener("click", function() {
+                AmpLocation();
+            });
+
+            //获取位置
+            function getLocation() {
+                //h5 调用GPS
+                navigator.geolocation.getCurrentPosition( // 该函数有如下三个参数
+                    function (pos) { // 如果成果则执行该回调函数
+                        var lnglat = new AMap.LngLat(pos.coords.longitude, pos.coords.latitude);
+                        AMap.convertFrom(lnglat, "gps", function (status, result) {
+                            markerRenderToMap(result.locations[0]);
+                        });
+                    }, function (err) { // 如果失败则执行该回调函数
+                        alert(err.message);
+                    }, { // 附带参数
+                        enableHighAccuracy: false, // 提高精度(耗费资源)
+                        timeout: 3000, // 超过timeout则调用失败的回调函数
+                        maximumAge: 1000 // 获取到的地理信息的有效期，超过有效期则重新获取一次位置信息
+                    }
+                );
+            }
+
+            //解析定位结果
+            function onComplete(data) {
+                var lnglat = new AMap.LngLat(data.position.getLng(), data.position.getLat());
+                markerRenderToMap(lnglat);
+            }
+            //解析定位错误信息
+            function onError(data) {
+                alert('定位失败');
+            }
+
+            function AmpLocation() {
+                geolocation.getCurrentPosition();
+            }
+
+
+            //添加
+            function markerRenderToMap(lnglat) {
+                map.setCenter(lnglat);
+                var marker = new AMap.Marker({
+                    position: lnglat,
+                    title: "GPS定位您在这里"
+                });
+                markers.push(marker);
+                marker.setMap(map);
+            }
+        </script>
+    </div>
+</body>
+</html>

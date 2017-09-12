@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        //https://docs.microsoft.com/en-us/scripting/javascript/reference/activexobject-object-javascript
+        var ExcelApp = new ActiveXObject("Excel.Application");
+        var ExcelSheet = new ActiveXObject("Excel.Sheet");
+        // Make Excel visible through the Application object.  
+        ExcelSheet.Application.Visible = true;
+        // Place some text in the first cell of the sheet.  
+        ExcelSheet.ActiveSheet.Cells(1, 1).Value = "This is column A, row 1";
+        // Save the sheet.  
+        ExcelSheet.SaveAs("C:\\TEST.XLS");
+        // Close Excel with the Quit method on the Application object.  
+        ExcelSheet.Application.Quit();
+    </script>
+</body>
+</html>

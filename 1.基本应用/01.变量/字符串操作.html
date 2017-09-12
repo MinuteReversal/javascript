@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var str = "Hello";
+
+        //拼接的感觉，哪一部分是[在程序中]哪一部分是在[字串中]
+        //拼接操作
+        str = str + "world";
+        console.log(str);
+
+        //字符串中的转义
+        console.log("\n\r\t\b");
+
+        //使用索引器
+        console.log(str[4]);//o
+
+        //获取其中几个字符
+        var s = str.substring(0, 5);//Hello
+        console.log(s);
+
+        //检查字串中有没有指定字符(获取指定字符位置)
+        console.log(str.indexOf("world") > 0);
+
+        //高级版本使用正则
+        console.log(str.match(/world/ig).length > 0);
+
+        //替换
+        var d = str.replace("o", "00");
+        console.log(d);
+
+        //高级替换
+        var e = str.replace(/00/ig, "O");
+        console.log(e);
+
+    </script>
+</body>
+</html>

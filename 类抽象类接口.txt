@@ -1,0 +1,5 @@
+类(new) 抽象类(派生才可以使用) 接口(规范派生类方法)   规范方法签名： 返回值类型  参数（类型）
+
+API (应用程序接口)方法签名一览		          参看http://api.jquery.com/
+
+WebAPI(网站应用程序接口)网络方式调用 方法签名一览(使用XmlHttpRequest调用) 参看http://api.tiantiankuaican.cn/app/help

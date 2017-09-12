@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        //渐变
+        var CanvasGradient = ctx.createLinearGradient(0, 0, 200, 200);
+        CanvasGradient.addColorStop(0, "green");
+        CanvasGradient.addColorStop(1, "white");
+        ctx.fillStyle = CanvasGradient;
+        ctx.arc(100, 100, 90, 0, Math.PI * 2, false);
+
+        //外边
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 10;
+        ctx.arc(100, 100, 90, 0, Math.PI * 2, false);
+
+
+        ctx.fill();
+        ctx.stroke();
+    </script>
+</body>
+</html>

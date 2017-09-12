@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var w = new Worker("thread.js");
+        var count = 0;
+        var total = 10;
+        w.addEventListener("message", function (e) {
+            console.log(++count + "/" + total);
+        });
+
+        for (var i = 0; i < total; i++) {
+            w.postMessage(i);
+        }
+    </script>
+</body>
+</html>

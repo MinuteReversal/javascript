@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>继承函数</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        function inherit(p) {
+            if (p == null) throw TypeError();
+            if (Object.create)
+                return Object.create(p);
+            var t = typeof p;
+            if (t !== "object" && t !== "function") throw TypeError();
+            function f() { };
+            f.prototype = p;
+            return new f();
+        }
+
+        function A() {
+            this.name = "A";
+        }
+
+
+    </script>
+</body>
+</html>

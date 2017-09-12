@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+<div id="abc">点击我</div>
+
+
+<script>
+    ////订阅者
+    //document.getElementById("abc").onclick = function aaaa(me, event) {
+    //    alert("bbb");
+    //};
+
+
+    ////订阅者
+    //document.getElementById("abc").onclick = function(e) {
+    //    alert("aaa");
+    //};
+
+    ////订阅者
+    //document.getElementById("abc").onclick = function (e) {
+    //    alert("ddd");
+    //};
+
+
+    //订阅者
+    document.getElementById("abc").addEventListener("click", function(e) {
+        alert("ccc");
+    });
+
+    //订阅者
+    document.getElementById("abc").addEventListener("click", function (e) {
+        alert("eeee");
+    });
+</script>
+</body>
+</html>

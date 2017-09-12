@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../MathExtend.js"></script>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        /*
+        * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+        */
+        var can = document.querySelector("canvas"),
+            ctx = can.getContext("2d");
+
+        document.body.style.margin = 0;
+        document.body.style.overflow = "hidden";
+
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+
+        for (var x = 0; x < 720; x++) {
+            drawPoint(x, Math.sin(Math.radians(x)) * 40)
+        }
+
+        ctx.stroke();
+
+        function drawPoint(x, y) {
+            ctx.arc(x, y, 1, 0, 2 * Math.PI, true);
+        }
+    </script>
+</body>
+</html>

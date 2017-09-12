@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>分辨率</title>
+    <style>
+        .text-align-right {
+            text-align: right;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function (e) {
+            var d = document.createElement("div");
+            d.innerHTML =
+                "<table>" +
+                "<tr><td>窗口外宽高：</td><td class=\"text-align-right\">" + window.outerWidth + "</td><td>X</td><td class=\"text-align-right\">" + window.outerHeight + "</td><tr/>" +
+                "<tr><td>窗口内宽高：</td><td class=\"text-align-right\">" + window.innerWidth + "</td><td>X</td><td class=\"text-align-right\">" + window.innerHeight + "</td><tr/>" +
+                "<tr><td>屏幕分辨率：</td><td class=\"text-align-right\">" + screen.width + "</td><td>X</td><td class=\"text-align-right\">" + screen.height + "</td><tr/>" +
+                "<tr><td>屏幕可用宽高：</td><td class=\"text-align-right\">" + screen.availWidth + "</td><td>X</td><td class=\"text-align-right\">" + screen.availHeight + "</td><tr/>" +
+                "</table>";
+            e.target.body.appendChild(d.firstChild);
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<div id="abc"></div>
+<script type="text/javascript">
+    function abcde() {
+        //函数参数类型
+        //return 10;                          //整型
+        //return 100.8;                       //浮点
+        //return true;                       //布尔
+        //return [1, 2, 3, 4, 5, 6, 7];      //数组
+        //return "hello";                    //字符串
+
+        //*引用类型*/
+        //return function () { return 100; };                    //指向函数的变量
+        return { color: 'white', name: 'mimi' }; //指向对象的变量
+        //return new Date(); //指向对象的变量
+    }
+
+    var o = abcde();
+    console.log(o());
+
+    console.log(abcde()());
+
+</script>
+</body>
+</html>

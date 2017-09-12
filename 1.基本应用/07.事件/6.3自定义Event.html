@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        //Create the event.
+        var event = document.createEvent('Event');
+
+        //Define that the event name is 'build'.
+        event.initEvent('build', true, true);
+
+        //Listen for the event.
+        document.addEventListener('build', function (e) {
+            alert('build');
+        }, false);
+
+        document.dispatchEvent(event);
+
+
+        var event = new Event('build2');
+        // Listen for the event.
+        document.addEventListener('build2', function (e) {
+            alert('build2');
+        }, false);
+        // Dispatch the event.
+        document.dispatchEvent(event);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

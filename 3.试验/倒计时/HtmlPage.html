@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        function getTimeLeftText(now, endtime) {
+            var timespan = endtime.getTime() - now.getTime();
+            if (timespan > 24 * 60 * 60 * 1000) {//天
+                var dates = parseInt(timespan / (24 * 60 * 60 * 1000));
+                var lastdates = parseInt((timespan - (dates * 24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                return "剩余" + dates + "天" + (lastdates > 0 ? (lastdates + "小时") : "");
+            } else if (timespan > 60 * 60 * 1000) {//时
+                var hours = parseInt(timespan / (60 * 60 * 1000));
+                var lasthours = parseInt((timespan - (hours * 60 * 60 * 1000)) / (60 * 1000));
+                return "剩余" + hours + "小时" + (lasthours > 0 ? (lasthours + "分钟") : "");
+            } else if (timespan > 60 * 1000) {//分
+                var minutes = parseInt(timespan / (60 * 1000));
+                var lastminutes = parseInt((timespan - (minutes * 60 * 1000)) / 1000);
+                return "剩余" + minutes + "分钟" + (lastminutes > 0 ? (lastminutes + "秒") : "");
+            } else if (timespan > 0) {//秒
+                var seconds = parseInt(timespan / 1000);
+                return "剩余" + seconds + "秒";
+            }
+            else {
+                return "已结束";
+            }
+        }
+
+        function unittest() {
+            var start = new Date(1474526353561);
+            var end = new Date(1474526353561 + 10 *24 *60* 60 * 1000-1);
+            console.log(getTimeLeftText(new Date(), new Date("2016-09-30T23:59:59")));
+        }
+    </script>
+</body>
+</html>

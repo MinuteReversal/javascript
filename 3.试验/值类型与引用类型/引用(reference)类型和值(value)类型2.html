@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //http://stackoverflow.com/questions/6605640/javascript-by-reference-vs-by-value
+
+        function f(a, b, c) {
+            // Argument a is re-assigned to a new value.
+            // The object or primitive referenced by the original a is unchanged.
+            a = 3;
+            // Calling b.push changes its properties - it adds
+            // a new property b[b.length] with the value "foo".
+            // So the object referenced by b has been changed.
+            b.push("foo");
+            // The "first" property of argument c has been changed.
+            // So the object referenced by c has been changed (unless c is a primitive)
+            c.first = false;
+        }
+
+        var x = 4;
+        var y = ["eeny", "miny", "mo"];
+        var z = { first: true };
+        f(x, y, z);
+
+
+        console.log(x, y, z.first); // 4, ["eeny", "miny", "mo", "foo"], false
+    </script>
+</body>
+</html>

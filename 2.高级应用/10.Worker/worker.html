@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        var worker = new Worker("worker.js");
+        worker.postMessage("hello");
+        worker.onmessage = function (event) {
+            //处理收到的消息
+            alert(event.data);
+        };
+        alert("OK");
+    </script>
+</body>
+</html>

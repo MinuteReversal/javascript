@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        .a {
+            border: 5px green solid;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+        }
+
+        .b {
+            border: 5px blue solid;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
+
+        .c {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="1" class="a">
+        1
+        <div id="2" class="b">
+            2
+            <div id="3" class="c">
+                3
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("1").addEventListener("click", function (event) { alert("1"); }, true);
+        document.getElementById("2").addEventListener("click", function (event) { alert("2"); }, true);
+        document.getElementById("3").addEventListener("click", function (event) { alert("3"); }, true);
+    </script>
+</body>
+</html>

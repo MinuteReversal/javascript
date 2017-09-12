@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <button>选中c</button><button>添加VB</button><button>获得选中的值</button><button>选中第二个</button><button>删除最后一个</button><br />
+    <label for="language">编程语言</label><br />
+    <select id="language" multiple="multiple">
+        <option value="javascript">javascript</option>
+        <option value="Java">Java</option>
+        <option value="C#">C#</option>
+        <option value="C++">C++</option>
+        <option value="C">C</option>
+    </select>
+    <script>
+        var btn = document.querySelectorAll("button")[0],
+            btnAdd = document.querySelectorAll("button")[1],
+            btnGet = document.querySelectorAll("button")[2],
+            btnCheck2 = document.querySelectorAll("button")[3],
+            btnDeleteLast = document.querySelectorAll("button")[4],
+            select = document.querySelector("#language");
+
+        btn.addEventListener("click", function (e) {
+            select.value = "C";
+        });
+
+        btnAdd.addEventListener("click", function (e) {
+            var opVb = document.createElement("option");
+            opVb.value = "VB";
+            opVb.text = "VB";
+            select.options.add(opVb);
+        });
+
+        btnGet.addEventListener("click", function (e) {
+            alert(select.value);
+        });
+
+        btnCheck2.addEventListener("click", function (e) {
+            select.options[1].selected = true;
+        });
+
+        btnDeleteLast.addEventListener("click", function () {
+            select.options[select.options.length - 1].remove();
+        });
+    </script>
+</body>
+</html>

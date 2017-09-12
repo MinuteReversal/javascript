@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<script>
+    var s = document.createElement("script");
+    s.addEventListener("load", function() {
+        alert("js加载完成！");
+    });
+    document.querySelector("head").appendChild(s);
+    s.src = "JavaScript.js";
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        var can = document.querySelector("canvas"),
+            ctx = can.getContext("2d");
+        document.body.style.margin = 0;
+        document.body.style.overflow = "hidden";
+        can.width = window.innerWidth;
+        can.height = window.innerHeight;
+        ctx.strokeStyle = "black";
+
+
+        var a = { x: 20, y: 20 };
+        var b = { x: 400, y: 400 };
+        var playTime = 10;//seconds
+        var perMillisecondsX = (b.x - a.x) / (playTime * 1000);
+        var palyTimeStamp = 0;
+
+        var f = function (timestamp) {
+            if (timestamp === 0) {
+                drawPoint(a.x, a.y);
+            }
+            else {
+
+            }
+            palyTimeStamp = timestamp;
+            requestAnimationFrame(f);
+        };
+        requestAnimationFrame(f);
+
+        function getY() {
+
+        }
+
+        function drawPoint(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 0.5, 0, 2 * Math.PI, true);
+            ctx.stroke();
+        }
+    </script>
+</body>
+</html>

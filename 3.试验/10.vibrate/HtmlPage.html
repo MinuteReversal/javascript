@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+<button>振动</button>
+<script>
+    document.querySelector("button").addEventListener("click", function () {
+        //https://www.sitepoint.com/use-html5-vibration-api/
+        //https://developer.mozilla.org/en-US/docs/Web/API/Navigator/vibrate
+        // enable vibration support
+        navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+        if (navigator.vibrate) {
+            // vibration API supported
+            navigator.vibrate(1000);
+        }
+        else {
+            alert("vibrate api not find");
+        }
+    });
+</script>
+</body>
+</html>

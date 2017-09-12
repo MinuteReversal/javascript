@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <script src="download.js"></script>
+</head>
+<body>
+    <script>
+            var html = [];
+            for (var i = 0; i < 100; i++) {
+                html.push(i.toString());
+            }
+            document.write(html.join("<br/>"));
+    </script>
+    <button>下载文件</button>
+    <script>
+            document.querySelector("button").addEventListener("click", function () {
+                download({
+                    url: "file/font-awesome-4.7.0.zip",
+                    method: "GET",
+                    fnSuccess: function () {
+                        alert("下载完成");
+                    }
+                });
+            });
+    </script>
+    <script>
+        var html = [];
+        for (var i = 0; i < 100; i++) {
+            html.push(i.toString());
+        }
+        document.write(html.join("<br/>"));
+    </script>
+    
+</body>
+</html>

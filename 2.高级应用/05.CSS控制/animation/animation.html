@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <style>
+        .abc {
+            width: 120px;
+            height: 120px;
+            border: black 1px solid;
+            padding: 20px;
+        }
+
+            .abc:hover {
+                animation: a1 1s ease;
+                -webkit-animation: a1 3s linear /*infinite*/;
+            }
+
+        @keyframes a1 {
+            0% {
+                background-color: red;
+            }
+
+            14.28% {
+                background-color: orange;
+            }
+
+            28.57% {
+                background-color: yellow;
+            }
+
+            42.85% {
+                background-color: green;
+            }
+
+            57.14% {
+                background-color: cyan;
+            }
+
+            71.42% {
+                background-color: blue;
+            }
+
+            100% {
+                background-color: purple;
+            }
+        }
+
+        @-webkit-keyframes a1 {
+            0% {
+                background-color: red;
+            }
+
+            14.28% {
+                background-color: orange;
+            }
+
+            28.57% {
+                background-color: yellow;
+            }
+
+            42.85% {
+                background-color: green;
+            }
+
+            57.14% {
+                background-color: cyan;
+            }
+
+            71.42% {
+                background-color: blue;
+            }
+
+            100% {
+                background-color: purple;
+            }
+        }
+    </style>
+    <div class="abc"></div>
+    <script>
+        /*
+        *    https://developer.mozilla.org/en-US/docs/Web/Events/animationstart
+        *    https://developer.mozilla.org/en-US/docs/Web/Events/animationend
+        *    https://developer.mozilla.org/en-US/docs/Web/Events/animationiteration
+        *    https://developer.mozilla.org/en-US/docs/Web/Events/animationcancel
+        */
+
+        var div = document.querySelector(".abc");
+        div.addEventListener("animationstart", function () { console.log("start") });
+        div.addEventListener("animationend", function () { console.log("end") });
+        div.addEventListener("animationcancel", function () { console.log("cancel") });
+        div.addEventListener("animationiteration", function () { console.log("iteration") });
+    </script>
+</body>
+</html>

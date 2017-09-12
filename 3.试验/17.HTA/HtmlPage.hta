@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>My Monster Application</title>
+    <hta:application id="oHTA"
+                     applicationname="monster"
+                     border="none"
+                     innerborder="no"
+                     caption="no"
+                     icon="/graphics/creature.ico"
+                     showintaskbar="no"
+                     singleinstance="yes"
+                     sysmenu="no"
+                     scroll="no"
+                     windowstate="maximize"/>
+    <meta http-equiv="x-ua-compatible" content="ie=11">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .btnClose {
+            float: right;
+        }
+    </style>
+    <div>
+        <span id="btnClose" class="btnClose">关闭</span>
+    </div>
+    <script>
+        document.querySelector("#btnClose").addEventListener("click", function (e) {
+            window.close();
+        });
+        document.write(navigator.userAgent);
+    </script>
+</body>
+</html>

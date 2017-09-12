@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div>0123456789</div>
+    <div>abcdefghijklmnopqrstuvwxyz</div>
+    <div>ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+    <div>中国简体汉语的书写用文字</div>
+    <fieldset>
+        <legend>input output</legend>
+        <div>
+            <select onchange="onFontFamilyChange(event)">
+                <option value="" selected>默认字体</option>
+                <option value="serif">serif(衬线字体)</option>
+                <option value="sans-serif">sans-serif(无衬线字体)</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Helvetica Neue">Helvetica Neue</option>
+                <option value="-webkit-standard">-webkit-standard</option>
+                <option value="-apple-system">-apple-system</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Arial">Arial</option>
+                <option value="PingFang SC">苹方（华康信凭黑）</option>
+                <option value="Hiragino Sans GB">冬青黑体</option>
+                <option value="STHeiti">冬青黑体</option>
+                <option value="Microsoft YaHei">微软雅黑</option>
+                <option value="Microsoft JhengHei">微软正黑</option>
+                <option value="Source Han Sans SC">思源黑体</option>
+                <option value="WenQuanYi Micro Hei">文泉驿微米黑</option>
+                <option value="SimSun">宋体</option>
+                <option value="SimHei">黑体</option>
+            </select>
+        </div>
+        <div><textarea id="output" cols="50" rows="3"></textarea></div>
+    </fieldset>
+    <script>
+        var output = document.querySelector("#output");
+        function showFont() {
+            var computedBody = window.getComputedStyle(document.body);
+            var fontFamily = computedBody.fontFamily;
+            var fontSize = computedBody.fontSize;
+            output.innerHTML = fontFamily + "," + fontSize;
+        }
+
+        function onFontFamilyChange(evt) {
+            document.body.style.fontFamily = evt.target.value;
+            showFont();
+        }
+
+        window.addEventListener("load", function (evt) {
+            showFont();
+        });
+    </script>
+</body>
+</html>

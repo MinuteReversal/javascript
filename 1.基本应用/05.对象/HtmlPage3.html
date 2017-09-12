@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        var o = {
+            a: 10,                     //整型
+            b: 100.8,                  //浮点
+            d: true,                   //布尔
+            a1: [1, 2, 3, 4, 5, 6, 7], //数组
+            str: "hello",              //字符串
+
+            /*引用类型变量(电脑快捷方式)*/
+            fn: function () { console.log("hello") },                   //指向函数的变量
+            Cat: { color: 'white', name: 'mimi' },                      //指向对象的变量
+            time: new Date()                                            //指向对象的变量
+        }
+
+        console.log(o.Cat.color);
+    </script>
+</body>
+</html>

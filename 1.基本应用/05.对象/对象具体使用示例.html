@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="abc"></div>
+<script>
+    /*
+    *对象特点：有方法有属性
+    *为什么要用对象：对象代表具体事物
+    *使用对象的三种场景：1、{}，2、new，3、document.getElementById,document.createElement("img")
+    */
+
+    //自定义对象
+    var ILike = {
+        innerHTML: "world",
+        color: "red",
+        attribute: { key: "data-role", value: "sslslsl" },
+        imgUrl: "http://www.baidu.com/img/bd_logo1.png"
+    };
+
+    //使用new 创建对象
+    var img = new Image();
+    img.src = ILike.imgUrl;
+
+
+    //使用方法获得对象
+    var hello = document.getElementById("abc");
+    hello.innerHTML = ILike.innerHTML;
+    hello.style.color = ILike.color;
+    hello.setAttribute(ILike.attribute.key, ILike.attribute.value);
+
+
+    hello.appendChild(img);//将img对象添加到div中
+</script>
+</body>
+</html>

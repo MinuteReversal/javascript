@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .redBlock {
+            position: absolute;
+            background: red;
+            width: 300px;
+            height: 300px;
+        }
+
+        .yellowBlock {
+            position: absolute;
+            background: yellow;
+            width: 600px;
+            height: 300px;
+        }
+
+        .control {
+            position: absolute;
+            top: 330px;
+        }
+    </style>
+</head>
+<body>
+    <div id="yellowBlock" class="yellowBlock"></div>
+    <div id="redBlock" class="redBlock"></div>
+    <div class="control">
+        <input id="totalDistance" type="number" placeholder="距离" value="300" /><span>(像素)</span>
+        <input id="totalTime" type="number" placeholder="执行时长" value="1000" /><span>(毫秒)</span>
+        <button id="btngo">走一个</button>
+    </div>
+<script>
+    
+    var totalDistance, totalTime, startTime, requestId, avgSpeed, isExit = false;
+    var redBlock = document.getElementById("redBlock");
+    var yellowBlock = document.getElementById("yellowBlock");
+
+    function frame(useTime) {
+        redBlock.style.left = useTime * avgSpeed + "px";
+        if (useTime > totalTime) {
+            isExit = true;
+            redBlock.style.left = totalDistance + "px";
+        }
+            
+    }
+
+    document.querySelector("#btngo").addEventListener("click", function () {
+        totalDistance = parseFloat(document.querySelector("#totalDistance").value);
+        totalTime = parseFloat(document.querySelector("#totalTime").value);
+        yellowBlock.style.width = redBlock.offsetWidth + totalDistance + "px";
+        startTime = Date.now();
+        avgSpeed = totalDistance / totalTime;
+
+        function animation() {
+            frame(Date.now() - startTime);
+            if (!isExit) {
+                requestAnimationFrame(animation);
+            } else {
+                isExit = false;
+            }
+        }
+
+        requestId = requestAnimationFrame(animation);
+    });
+</script>
+</body>
+</html>

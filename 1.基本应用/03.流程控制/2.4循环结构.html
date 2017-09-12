@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+        /*for*/
+        for (var i = 0; i < 10; i++) {
+            console.log(i);
+        }
+
+
+        /*while*/
+        var count = 0;
+        console.log("=====华丽的分隔线=====");
+        count = 0;
+
+        while (count < 10) {
+            console.log(count++);
+            break;    //跳出循环
+            continue; //跳过一次循环
+        }
+
+        /*do while*/
+        console.log("=====华丽的分隔线=====");
+        count = 0;
+
+        do {
+            console.log(count++);
+        } while (count < 10);
+
+
+        /*for in*/
+        console.log("=====华丽的分隔线=====");
+        var Cat = { name: 'mimi', age: 3, sex: 'male' };
+
+        for (var p in Cat) {
+            console.log(Cat[p]);
+        }
+
+    </script>
+</body>
+</html>

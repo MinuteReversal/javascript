@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div {
+            display:block;
+            background-color: lightgray;
+            height:40px;
+            width:100%;
+            line-height:40px;
+        }
+    </style>
+</head>
+<body>
+    <div>中国简体汉语言文字+-0123456789abcdefghijklmnopqrwtuvwxyzABCDEFGHIJKLMNOPQRWTUVWXYZ</div>
+    <textarea id="output"  cols="50" rows="3"></textarea>
+    <script>
+        var output = document.querySelector("#output");
+        var computedElement = window.getComputedStyle(document.querySelector("div"));
+        var fontFamily = computedElement.fontFamily;
+        var fontSize = computedElement.fontSize;
+        var lineHeight = computedElement.lineHeight;
+        output.innerHTML = "fontFamily:" + fontFamily + ",fontSize:" + fontSize + ",lineHeight:" + lineHeight;
+    </script>
+</body>
+</html>
