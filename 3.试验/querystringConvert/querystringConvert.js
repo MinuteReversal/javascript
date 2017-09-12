@@ -58,14 +58,17 @@ var querystringConvert = {
     },
     isArray: function (text) {
         var kvs = text.split("&");
-        for (var i = 0; i < kvs.length; i++) {
+        var result = false;
+
+        for (var i = 0; i < kvs.length && kvs.length > 2; i++) {
             var current = kvs[i];
             var next = kvs[i + 1];
-            if (next && current.split("=")[0] !== next.split("=")[0]) {
-                return false;
+            if (next) {
+                result = current.split("=")[0] === next.split("=")[0];
             }
+            if (!result) break;
         }
-        return true;
+        return result;
     },
     getArrayFromQueryString: function (qs) {
         var a = [];
