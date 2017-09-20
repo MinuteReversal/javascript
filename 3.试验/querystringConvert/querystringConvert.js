@@ -1,19 +1,30 @@
 ﻿/*
 *      author:反转的分针
-*    datetime:20170829
+*    datetime:20170918
 * description:序列化序列化对象为querystring
 */
 var querystringConvert = {
     getQueryStringFromArray: function (a) {
         var queryString = [];
         for (var i = 0, item; item = a[i]; i++) {
-            queryString.push(item.name + "=" + (item.value ? item.value : ""));
+            var qs = "";
+            if (typeof item === "string") {
+                qs = i + "=" + item;
+            }
+            else if (item.name && item.value) {
+                qs = item.name + "=" + (item.value ? item.value : "");
+            }
+            queryString.push(qs);
         }
         return queryString;
     },
     getQueryStringFromObject: function (o, level, memberName) {
         var me = this;
         var queryString = [];
+        if (typeof o === "string") {
+            return [memberName + "=" + o];
+        }
+
         for (var p in o) {
             var m = p;//成员名称
 
@@ -63,9 +74,17 @@ var querystringConvert = {
         for (var i = 0; i < kvs.length && kvs.length > 2; i++) {
             var current = kvs[i];
             var next = kvs[i + 1];
-            if (next) {
-                result = current.split("=")[0] === next.split("=")[0];
+            var currentKey = current.split("=")[0];
+
+            if (/^\d+$/.test(currentKey)){
+                result = true; 
             }
+            else if (next) {
+                var nextKey = next.split("=")[0];
+                //相同或都是数字
+                result = (currentKey === nextKey);
+            }
+
             if (!result) break;
         }
         return result;
@@ -75,7 +94,14 @@ var querystringConvert = {
         var kvs = qs.split("&");
         for (var i = 0, kv; kv = kvs[i]; i++) {
             var keyvalue = kv.split("=");
-            a.push({ name: keyvalue[0], value: keyvalue[1] });
+            var key = keyvalue[0];
+            var value = keyvalue[1];
+            if (/^\d+$/.test(key)) {
+                a.push(value);
+            }
+            else if (key && value) {
+                a.push({ name: key, value: value });
+            }
         }
         return a;
     },
