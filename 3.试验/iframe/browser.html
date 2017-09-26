@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title></title>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        html,
+        body {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div {
+            display: flex;
+            height: 40px;
+        }
+
+        div>[type=url] {
+            flex: auto;
+        }
+
+        div>button {
+            width: 30px;
+        }
+
+        iframe {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            border: none;
+        }
+    </style>
+    <script>
+        function go() {
+            var input = document.querySelector("input");
+            var iframe = document.querySelector("iframe");
+            iframe.src = input.value;
+        }
+        window.addEventListener("load", function () {
+            var iframe = document.querySelector("iframe");
+            iframe.style.width = window.innerWidth + "px";
+            iframe.style.height = window.innerHeight - 40 + "px";
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <input type="url" value="https://mp.caiyunlife.com/AmapGPSObject.html" /><button onclick="go();">go</button>
+    </div>
+    <iframe></iframe>
+</body>
+
+</html>

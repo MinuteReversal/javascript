@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>获取定位</title>
+    <script src="Javascript.js"></script>
+</head>
+
+<body>
+    <div>
+        <button id="btnAmap">amap定位</button>
+    </div>
+    <script>
+        amapProxy.onRead = function () {
+            amapProxy.getLocation(function (status, data) {
+                var msg = "";
+                if (status === "success") {
+                    msg = JSON.stringify(data);
+                }
+                else {
+                    msg = data;
+                }
+                alert(msg);
+            });
+        };
+
+        var btnAmap = document.querySelector("#btnAmap");
+        btnAmap.addEventListener("click", function () {
+            amapProxy.getLocation(function (status, data) {
+                var msg = "";
+                if (status === "success") {
+                    msg = JSON.stringify(data);
+                }
+                else {
+                    msg = data;
+                }
+                alert(msg);
+            });
+        });
+    </script>
+</body>
+
+</html>

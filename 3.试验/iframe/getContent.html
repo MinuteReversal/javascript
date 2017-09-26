@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>获取子页面的返回值</title>
+    <style>
+        html,
+        body {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        div {
+            display: flex;
+            height: 40px;
+        }
+
+        div>[type=url] {
+            flex: auto;
+        }
+
+        div>button {
+            width: 80px;
+        }
+
+        iframe {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="url" value="" />
+        <button id="btnGo">go</button>
+        <button onclick="document.querySelector('input').value='https://mp.caiyunlife.com/AmapGPSObject.html';">正试地址</button>
+        <button onclick="document.querySelector('input').value='http://10.10.0.22/field/JavaScriptExamples/3.试验/12.地图/AmapGPSObject.html';">测试地址</button>
+        <button id="btnAmap">amap定位</button>
+        <button id="btnGPS">GPS定位</button>
+    </div>
+    <iframe></iframe>
+    <script>
+        var input = document.querySelector("input[type=url]");
+        var iframe = document.querySelector("iframe");
+        var btnGo = document.querySelector("#btnGo");
+        var btnAmap = document.querySelector("#btnAmap");
+        var btnGPS = document.querySelector("#btnGPS");
+        var amap = null;
+
+        iframe.style.width = window.innerWidth + "px";
+        iframe.style.height = window.innerHeight - 40 + "px";
+
+        window.addEventListener("message", function (event) {
+            alert(event.data);
+        });
+
+        btnGo.addEventListener("click", function () { iframe.src = input.value; });
+
+        btnAmap.addEventListener("click", function () {
+            iframe.contentWindow.postMessage("amap", "*");
+        });
+
+        btnGPS.addEventListener("click", function () {
+            iframe.contentWindow.postMessage("gps", "*");
+        });
+    </script>
+</body>
+
+</html>
