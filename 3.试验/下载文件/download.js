@@ -5,18 +5,19 @@
 /**
  * @method download
  * @param {String} url
- * @param {Object} postData
+ * @param {Object} body
  * @param {String} fileName
  * @param {Function} fnProgress
  * @param {Function} fnSuccess
  * @param {Function} fnError
  */
-function download(url, postData, method, fileName, fnProgress, fnSuccess, fnError) {
+function download(url, headers, body, method, fileName, fnProgress, fnSuccess, fnError) {
     var settings = {
         url: "",
-        postData: null,
+        headers: [{ header: "Content-Type", value: "application/json" }],
+        body: null,
         method: "GET",
-        fileName: Date.now().toString(),
+        fileName: "",
         fnProgress: function (e) { },
         fuSuccess: function (e) { },
         fnError: function (e) { },
@@ -48,8 +49,12 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
         settings.url = url;
     }
 
-    if (postData) {
-        settings.postData = postData;
+    if (headers) {
+        settings.headers = headers;
+    }
+
+    if (body) {
+        settings.body = body;
     }
 
     if (method) {
@@ -84,8 +89,14 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
         var me = e.target;
         if (me.status === 200) {
             var name = settings.fileName;
+
+            //把路径的最后一级做为文件名称
+            if (name === "") {
+                name = settings.url.split("/").pop();
+            }
+
             if (name.indexOf(".") === -1) {
-                var contentType = me.getResponseHeader("content-type");
+                var contentType = me.getResponseHeader("Content-Type");
                 var extension = settings.mimeType[contentType];
                 name = name.concat(".", extension);
             }
@@ -115,8 +126,13 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
     xhr.addEventListener("progress", function (e) {
         settings.fnProgress(e);
     });
+    xhr.addEventListener("error", function (e) {
+        settings.fnError(e);
+    });
     xhr.open(settings.method, settings.url);
-    xhr.setRequestHeader("content-type", "application/json");
+    for (var i = 0, item; item = settings.headers[i]; i++) {
+        xhr.setRequestHeader(item.header, item.value);
+    }
     xhr.responseType = "blob";
     xhr.send(settings.postData ? JSON.stringify(settings.postData) : settings.postData);
 }
