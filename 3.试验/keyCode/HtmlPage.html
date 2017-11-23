@@ -1,15 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
 </head>
+
 <body>
-<script>
-    window.addEventListener("keydown",function(e) {
-        console.log(e.keyCode);
-    });
-</script>
+    <script>
+        window.addEventListener("keydown", function (e) {
+            var div = document.createElement("div");
+            div.innerText = "".concat(e.key, ":", e.keyCode);
+            document.body.appendChild(div,0);
+            console.log(e.keyCode);
+        });
+    </script>
 </body>
+
 </html>

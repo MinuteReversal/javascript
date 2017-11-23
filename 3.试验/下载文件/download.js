@@ -31,6 +31,7 @@ function download(url, headers, body, method, fileName, fnProgress, fnSuccess, f
             "text/plain": "txt",
             "text/html": "html",
             "text/css": "css",
+	    "text/xml":"xml",
             "audio/mp3": "mp3",
             "video/mp4": "mp4",
             "application/javascript": "js",
@@ -92,7 +93,7 @@ function download(url, headers, body, method, fileName, fnProgress, fnSuccess, f
 
             //把路径的最后一级做为文件名称
             if (name === "") {
-                name = settings.url.split("/").pop();
+                name = decodeURIComponent(settings.url).split("/").pop();
             }
 
             if (name.indexOf(".") === -1) {
