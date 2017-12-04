@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+</head>
+<body>
+    <canvas width="400" height="400" style="border:1px solid orange;"></canvas>
+    <script>
+        var canvas = document.getElementsByTagName("canvas")[0];
+        var ctx = canvas.getContext("2d");
+        var colors = ["red", "orange", "yellow", "green", "cyan", "blue", "purple"];
+        var list = [];
+
+        function findInList(id, list) {
+            for (var i = 0, item; item = list[i]; i++) {
+                if (item.id === id) return item;
+            }
+            return null;
+        }
+
+        document.addEventListener("touchstart", function (evt) {
+            evt.preventDefault();
+            for (var i = 0, item; item = evt.touches[i]; i++) {
+                if (findInList(item.id, list) === null) {
+                    list.push({
+                        x: item.pageX,
+                        y: item.pageY,
+                        id: item.identifier,
+                        color: colors[i]
+                    });
+                }
+            }
+        });
+
+        document.addEventListener("touchmove", function (evt) {
+            evt.preventDefault();
+            for (var i = 0, item; item = evt.touches[i]; i++) {
+                var p = findInList(item.identifier, list);
+                if (p) {
+                    p.x = item.pageX;
+                    p.y = item.pageY;
+                }
+            }
+        });
+
+        document.addEventListener("touchend", function (evt) {
+            evt.preventDefault();
+            var removelist = [];
+            for (var i = 0, item; item = list[i]; i++) {
+                if (findInList(item.id, evt.touches) === null) {
+                    removelist.push(item);
+                }
+            }
+
+            for (var j = 0, item; item = list[j]; j++) {
+                var idx = list.indexOf(item);
+                list.splice(idx, 1);
+            }
+        });
+
+        var f = function (timeStamp) {
+            ctx.clearRect(0, 0, 400, 400);
+
+            for (var i = 0, item; item = list[i]; i++) {
+                ctx.fillStyle = item.color;
+                ctx.beginPath();
+                ctx.arc(item.x, item.y, 20, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+
+            }
+
+            requestAnimationFrame(f);
+        };
+        requestAnimationFrame(f);
+    </script>
+</body>
+</html>
