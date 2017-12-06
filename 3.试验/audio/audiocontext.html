@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>bee</button>
+    <script>
+        //http://marcgg.com/blog/2016/11/01/javascript-audio/
+        var context = new AudioContext()
+        var o = context.createOscillator();
+        document.querySelector("button").addEventListener("click", function () {
+            o.frequency.value = 440;
+            o.connect(context.destination);
+            o.start();
+        });
+    </script>
+</body>
+
+</html>
