@@ -15,12 +15,19 @@
     <button>biu</button>
     <script>
         //https://www.cnblogs.com/Wayou/p/3543577.html
+        var d = {};//dictionary
         var audioCtx = new window.AudioContext();// || window.webkitAudioContext)();
 
         function get(filepath, fn) {
+            if (d[filepath] && fn) {
+                fn(d[filepath].slice());
+                return;
+            }
+
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function (evt) {
-                if (typeof fn !== "undefined") fn(evt.target.response);
+                d[filepath] = evt.target.response;
+                if (typeof fn !== "undefined") fn(d[filepath].slice());
             });
             xhr.open("GET", filepath);
             xhr.responseType = "arraybuffer";
