@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <button>BGM</button>
+    <button>biu</button>
+    <script>
+        //https://www.cnblogs.com/Wayou/p/3543577.html
+        var audioCtx = new window.AudioContext();// || window.webkitAudioContext)();
+
+
+        function get(filepath, fn) {
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function (evt) {
+                if (typeof fn !== "undefined") fn(evt.target.response);
+            });
+            xhr.open("GET", filepath);
+            xhr.responseType = "arraybuffer";
+            xhr.send();
+        }
+
+        function playSound(audio, isLoop) {
+            audioCtx.decodeAudioData(audio, function (buffer) {
+                var bs = audioCtx.createBufferSource();
+                bs.buffer = buffer;
+                bs.connect(audioCtx.destination);
+                bs.loop = !!isLoop;
+                bs.start();
+                bs = undefined;
+            });
+        }
+
+        document.querySelectorAll("button")[0].addEventListener("click", function () {
+            get("game_music.mp3", function (buffer) {
+                playSound(buffer, true);
+            });
+        });
+
+        document.querySelectorAll("button")[1].addEventListener("click", function () {
+            get("bullet.mp3", function (buffer) {
+                playSound(buffer);
+            });
+        });
+    </script>
+</body>
+
+</html>
