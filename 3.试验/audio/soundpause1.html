@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas width="400" height="300"></canvas>
+    <button>paly</button>
+    <button>pasue</button>
+    <button>continue</button>
+    <script>
+
+        //https://www.cnblogs.com/Wayou/p/3543577.html
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+        var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        var isPause = false;
+        var pauseTime = 0;
+
+        gradient.addColorStop(1, '#0f0');
+        gradient.addColorStop(0.5, '#ff0');
+        gradient.addColorStop(0, '#f00');
+        ctx.fillStyle = gradient;
+
+        var audioCtx = new window.AudioContext();// || window.webkitAudioContext)();
+        var analyser = audioCtx.createAnalyser();
+
+        var f = function (timeStamp) {
+            drawAnalyser();
+            requestAnimationFrame(f);
+        };
+        requestAnimationFrame(f);
+
+        function drawAnalyser() {
+            if (analyser === null) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            var a = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(a);
+
+            for (var i = 0; i < a.length; i++) {
+                var h = 300 / 256 * a[i];
+                ctx.fillRect(i, 300 - h, 1, h);
+            }
+        }
+
+        function getAudio() {
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function (evt) {
+                setBuffer(evt.target.response);
+            });
+            xhr.open("GET", "game_music.mp3");
+            xhr.responseType = "arraybuffer";
+            xhr.send();
+        }
+
+        function setBuffer(audio) {
+            audioCtx.decodeAudioData(audio, function (buffer) {
+                var bs = audioCtx.createBufferSource();
+                bs.connect(analyser);
+                bs.buffer = buffer;
+                analyser.connect(audioCtx.destination);
+                bs.start();
+            });
+        }
+
+        document.querySelector("button").addEventListener("click", function () {
+            getAudio();
+        });
+
+        document.getElementsByTagName("button")[1].addEventListener("click", function () {
+            audioCtx.suspend();
+        });
+
+        document.getElementsByTagName("button")[2].addEventListener("click", function () {
+            audioCtx.resume();
+        });
+    </script>
+</body>
+
+</html>
