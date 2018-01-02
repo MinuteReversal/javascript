@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="sound.js"></script>
+</head>
+
+<body>
+    <button>背景</button>
+    <button>子弹</button>
+    <script>
+        var btnBG = document.querySelectorAll("button")[0];
+        var btnBullet = document.querySelectorAll("button")[1];
+        var sound = new Sound();
+
+        function get(filepath, fn) {
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function (evt) {
+                if (typeof fn !== "undefined") fn(evt.target.response);
+            });
+            xhr.open("GET", filepath);
+            xhr.responseType = "arraybuffer";
+            xhr.send();
+        }
+
+        btnBG.addEventListener("click", function () {
+            var me = this;
+            get("game_music.mp3", function (buffer) {
+                sound.play(buffer, true);
+            });
+            
+        });
+
+        btnBullet.addEventListener("click", function () {
+            var me = this;
+            get("bullet.mp3", function (buffer) {
+                sound.play(buffer);
+            });
+        });
+    </script>
+</body>
+
+</html>
