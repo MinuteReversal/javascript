@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="resource.js"></script>
+</head>
+
+<body>
+    <button id="btnLoadImage">显示图片</button>
+    <img/>
+    <button id="btnLoadAudio">播放音频</button>
+    <audio/>
+    <script>
+        var resource = new Resource({
+            list: [
+                { key: "image", url: "resource/1.png" },
+                { key: "audio", url: "resource/bullet.mp3" }
+            ]
+        });
+        var btnLoadImage = document.querySelector("#btnLoadImage");
+        var btnLoadAudio = document.querySelector("#btnLoadAudio");
+
+        btnLoadImage.addEventListener("click", function () {
+            document.querySelector("img").src = resource.getBase64("image");
+        });
+
+        btnLoadAudio.addEventListener("click", function () {
+            var a = document.querySelector("audio");
+            a.src = resource.getBase64("audio");
+            a.play();
+        });
+
+    </script>
+</body>
+
+</html>
