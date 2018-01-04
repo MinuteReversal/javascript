@@ -103,18 +103,18 @@ Resource.prototype.load = function (key) {
     }
 
     if (item) {
-        me.httpGet(item.url, function (xhr) {
+        me.httpGet(item.src, function (xhr) {
             item.binary = xhr.response;
             item.contentType = xhr.getResponseHeader("content-type");
         });
     }
 };
 
-Resource.prototype.add = function (key, url) {
+Resource.prototype.add = function (key, src) {
     var me = this;
     var r = me.get(key);
     if (!r) {
-        var item = { key: key, url: url, binary: [], contentType: "" };
+        var item = { key: key, src: src, binary: [], contentType: "" };
         me.list.push(item);
         me.load(item);
     }
