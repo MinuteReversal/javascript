@@ -9,6 +9,7 @@ var Resource = function () {
     this.cache = true;
     this.isAutoLoad = true;
     this.isComplete = false;
+    this._loaded = 0;
     if (arguments[0] instanceof Object) {
         Object.assign(this, arguments[0]);
     }
@@ -106,6 +107,7 @@ Resource.prototype.load = function (key) {
         me.httpGet(item.src, function (xhr) {
             item.binary = xhr.response;
             item.contentType = xhr.getResponseHeader("content-type");
+            if (++me._loaded) me.isComplete = true;
         });
     }
 };
