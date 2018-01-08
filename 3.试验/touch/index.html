@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <script src="touchLisener.js"></script>
+</head>
+
+<body>
+    <canvas width="400" height="400" style="border:1px solid orange;"></canvas>
+    <div id="output"></div>
+    <script>
+        var canvas = document.getElementsByTagName("canvas")[0];
+        var ctx = canvas.getContext("2d");
+        var colors = ["red", "orange", "yellow", "green", "cyan", "blue", "purple"];
+       
+        function getListContent() {
+            var content = "";
+            for (var i = 0, item; item = list[i]; i++) {
+                content += JSON.stringify(item) + "\r\n";
+            }
+            return content;
+        }
+
+        function getTouchIds(touches) {
+            var ids = [];
+            for (var i = 0, item; item = touches[i]; i++) {
+                ids.push(item.identifier);
+            }
+            return ids.join(",");
+        }
+
+        var f = function (timeStamp) {
+            ctx.clearRect(0, 0, 400, 400);
+
+            for (var i = 0, item; item = list[i]; i++) {
+                ctx.fillStyle = item.color;
+                ctx.beginPath();
+                ctx.arc(item.x, item.y, 20, 0, 2 * Math.PI);
+                ctx.closePath();
+                ctx.fill();
+
+            }
+
+            output.innerText = getListContent();
+
+            requestAnimationFrame(f);
+        };
+        requestAnimationFrame(f);
+    </script>
+</body>
+
+</html>
