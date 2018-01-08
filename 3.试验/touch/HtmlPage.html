@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
@@ -7,30 +8,32 @@
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width,user-scalable=no" />
 </head>
+
 <body>
     <canvas width="400" height="400" style="border:1px solid orange;"></canvas>
+    <div id="output"></div>
     <script>
         var canvas = document.getElementsByTagName("canvas")[0];
         var ctx = canvas.getContext("2d");
         var colors = ["red", "orange", "yellow", "green", "cyan", "blue", "purple"];
         var list = [];
 
-        function findInList(id, list) {
+        function findInList(identifier, list) {
             for (var i = 0, item; item = list[i]; i++) {
-                if (item.id === id) return item;
+                if (item.identifier === identifier) return item;
             }
             return null;
         }
 
         document.addEventListener("touchstart", function (evt) {
             evt.preventDefault();
-            for (var i = 0, item; item = evt.touches[i]; i++) {
-                if (findInList(item.id, list) === null) {
+            for (var i = 0, item; item = evt.changedTouches[i]; i++) {
+                if (findInList(item.identifier, list) === null) {
                     list.push({
                         x: item.pageX,
                         y: item.pageY,
-                        id: item.identifier,
-                        color: colors[i]
+                        identifier: item.identifier,
+                        color: colors[list.length]
                     });
                 }
             }
@@ -38,7 +41,7 @@
 
         document.addEventListener("touchmove", function (evt) {
             evt.preventDefault();
-            for (var i = 0, item; item = evt.touches[i]; i++) {
+            for (var i = 0, item; item = evt.changedTouches[i]; i++) {
                 var p = findInList(item.identifier, list);
                 if (p) {
                     p.x = item.pageX;
@@ -49,18 +52,42 @@
 
         document.addEventListener("touchend", function (evt) {
             evt.preventDefault();
-            var removelist = [];
-            for (var i = 0, item; item = list[i]; i++) {
-                if (findInList(item.id, evt.touches) === null) {
-                    removelist.push(item);
+
+            for (var i = 0, item; item = evt.changedTouches[i]; i++) {
+                var storedTouch = findInList(item.identifier, list);
+                if (storedTouch) {
+                    var idx = list.indexOf(storedTouch);
+                    list.splice(idx, 1);
                 }
             }
-
-            for (var j = 0, item; item = list[j]; j++) {
-                var idx = list.indexOf(item);
-                list.splice(idx, 1);
-            }
         });
+
+        document.addEventListener("touchcancel", function (evt) {
+            evt.preventDefault();
+            for (var i = 0, item; item = evt.changedTouches[i]; i++) {
+                var storedTouch = findInList(item.identifier, list);
+                if (storedTouch) {
+                    var idx = list.indexOf(storedTouch);
+                    list.splice(idx, 1);
+                }
+            }            
+        });
+
+        function getListContent() {
+            var content = "";
+            for (var i = 0, item; item = list[i]; i++) {
+                content += JSON.stringify(item) + "\r\n";
+            }
+            return content;
+        }
+
+        function getTouchIds(touches) {
+            var ids = [];
+            for (var i = 0, item; item = touches[i]; i++) {
+                ids.push(item.identifier);
+            }
+            return ids.join(",");
+        }
 
         var f = function (timeStamp) {
             ctx.clearRect(0, 0, 400, 400);
@@ -74,9 +101,12 @@
 
             }
 
+            output.innerText = getListContent();
+
             requestAnimationFrame(f);
         };
         requestAnimationFrame(f);
     </script>
 </body>
+
 </html>
