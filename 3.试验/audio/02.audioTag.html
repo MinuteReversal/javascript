@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>bgm</button>
+    <button>biu</button>
+    <canvas></canvas>
+    <script>
+        function bgm() {
+            var bgm = new Audio();
+            bgm.autoplay = true;
+            bgm.loop = true;
+            bgm.src = "game_music.mp3";
+        }
+
+        function biu() {
+            var biu = new Audio();
+            biu.autoplay = true;
+            biu.src = "bullet.mp3";
+        }
+
+        bgm();
+        biu();
+        document.querySelectorAll("button")[0].addEventListener("click", function () {
+            bgm();
+        });
+        document.querySelectorAll("button")[1].addEventListener("click", function () {
+            biu();
+        });
+        document.querySelector("canvas").addEventListener("touchstart", function () {
+            bgm();
+            biu();
+        })
+    </script>
+</body>
+
+</html>
