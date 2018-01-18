@@ -1,7 +1,7 @@
 ﻿var ContainerBridgeConfig = {
     debug: true,
     wechatJsUrl: "http://res.wx.qq.com/open/js/jweixin-1.0.0.js",
-    wechatSignatureApiUrl: "http://mp.caiyunlife.com/wechat/AdvanceApi/JsApiSignature",
+    wechatSignatureApiUrl: "http://km.wx.uxiang.cn/AdvanceApi/MerchantJsApiSignature",
     wechatAppID: "wxaa3ce740e41cf90f",
     wechatAppSecret: "4a77817827222a619eb788e1bd794eb5",
     wechatAPIList: [
@@ -42,7 +42,7 @@
         "openCard"
     ],
     alipayJsUrl: "http://static.alipay.com/aliBridge/1.0.0/aliBridge.min.js",
-    relJsUrl: "https://imapi.icbc.com.cn/icbc/jsrel1.0.6.js",
+    relJsUrl: "https://imapi.icbc.com.cn/icbc/jsrel1.0.7.js",
     relAppID: "",
-    relSignatureApiUrl: "http://u.yibalian.cn/Center/JsApiSignature"//"http://center.elink.yibalian.cn/api/B2EF3A08C1624FF5A78768DD49461C91/JsApi/Signature"
+    relSignatureApiUrl: "http://center.elink.yibalian.cn/api/B2EF3A08C1624FF5A78768DD49461C91/JsApi/Signature"
 };
