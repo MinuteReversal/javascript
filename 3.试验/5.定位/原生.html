@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta http-equiv=" content-type" content="text/html; charset=utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -8,18 +9,24 @@
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <title></title>
+    <title>H5</title>
+</head>
+<body>
+    <div></div>
     <script type="text/javascript">
+        var start = Date.now();
         navigator.geolocation.getCurrentPosition( // 该函数有如下三个参数
             function (pos) { // 如果成果则执行该回调函数
-                document.write(
-                    '  经度：' + pos.coords.longitude +
-                    '<br/>  纬度：' + pos.coords.latitude +
-                    '<br/>  高度：' + pos.coords.altitude +
-                    '<br/>  精确度(经纬)：' + pos.coords.accuracy +
-                    '<br/>  精确度(高度)：' + pos.coords.altitudeAccuracy +
-                    '<br/>  速度：' + pos.coords.speed
-                );
+                var s=
+                    '经度：' + pos.coords.longitude +
+                    '纬度：' + pos.coords.latitude +
+                    '高度：' + pos.coords.altitude +
+                    '精确度(经纬)：' + pos.coords.accuracy +
+                    '精确度(高度)：' + pos.coords.altitudeAccuracy +
+                    '速度：' + pos.coords.speed +
+                    '耗时:' + (Date.now() - start)
+                ;
+                document.querySelector("div").innerText = s;
             }, function (err) { // 如果失败则执行该回调函数
                 alert(err.message);
             }, { // 附带参数
@@ -29,8 +36,6 @@
             }
         );
     </script>
-</head>
-<body>
-
 </body>
+
 </html>

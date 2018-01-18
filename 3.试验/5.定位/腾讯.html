@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=EICBZ-HTNW6-OE7SF-MGUMQ-VNKGT-WVBOA"></script>
+    <title>腾讯地图</title>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        var start = Date.now();
+        var map = new qq.maps.Map(document.createElement("div"));                // 创建地图实例
+        var citylocation = new qq.maps.CityService({
+            //设置地图
+            map: map,
+            complete: function (results) {
+                var s =
+                    '您的位置：' + results.detail.latLng.getLng() +
+                    ',' + results.detail.latLng.getLat() +
+                    '耗时:' + (Date.now() - start)
+                    ;
+                document.querySelector("div").innerText = s;
+            }
+        });
+        citylocation.searchLocalCity();
+    </script>
+    </div>
+</body>
+
+</html>

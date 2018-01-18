@@ -1,22 +1,23 @@
-﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script type="text/javascript" src="cookies.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 
 <body>
     <script>
         function onSave() {
             var text = document.querySelector("#text");
-            docCookies.setItem("text", text.value);
+            localStorage.setItem("text", text.value);
         }
 
         function onRead() {
             var text = document.querySelector("#text");
-            text.value = docCookies.getItem("text");
+            text.value = localStorage.getItem("text");
         }
     </script>
     <textarea id="text"></textarea>

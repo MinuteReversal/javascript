@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=9594c8dad9ede5935c38d750ed93d8b0"></script>
+    <title>高德地图</title>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        var start = Date.now();
+        var map = new AMap.Map(document.createElement("div"), {
+            resizeEnable: true,
+            zoom: 16
+        });
+        map.plugin('AMap.Geolocation', function () {
+            var geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                buttonPosition: 'RB'
+            });
+
+            AMap.event.addListener(geolocation, 'complete', function (result) {
+                var s = '经度：' + result.position.getLng() +
+                    '纬度：' + result.position.getLat() +
+                    '精确：' + result.accuracy +
+                    '耗时:' + (Date.now() - start)
+                    ;
+                document.querySelector("div").innerText = s;
+            });//返回定位信息
+            AMap.event.addListener(geolocation, 'error', function (result) {
+                alert(result.info + result.message);
+            });      //返回定位出错信息
+            geolocation.getCurrentPosition();
+        });
+    </script>
+    </div>
+</body>
+
+</html>

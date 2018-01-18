@@ -22,7 +22,7 @@
         gradient.addColorStop(0, '#f00');
         ctx.fillStyle = gradient;
 
-        var audioCtx = new window.AudioContext();// || window.webkitAudioContext)();
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         var analyser = audioCtx.createAnalyser();
         var bs = audioCtx.createBufferSource();
 
