@@ -9,28 +9,47 @@
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=EICBZ-HTNW6-OE7SF-MGUMQ-VNKGT-WVBOA"></script>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=EICBZ-HTNW6-OE7SF-MGUMQ-VNKGT-WVBOA"></script>
+    <script charset="utf-8" src="https://apis.map.qq.com/tools/geolocation/min?key=EICBZ-HTNW6-OE7SF-MGUMQ-VNKGT-WVBOA&referer=dev"></script>
     <title>腾讯地图</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div></div>
+    <div id="map"></div>
     <script>
         var start = Date.now();
-        var map = new qq.maps.Map(document.createElement("div"));                // 创建地图实例
-        var citylocation = new qq.maps.CityService({
-            //设置地图
-            map: map,
-            complete: function (results) {
-                var s =
-                    '您的位置：' + results.detail.latLng.getLng() +
-                    ',' + results.detail.latLng.getLat() +
-                    '耗时:' + (Date.now() - start)
-                    ;
-                document.querySelector("div").innerText = s;
-            }
-        });
-        citylocation.searchLocalCity();
+        var map = new qq.maps.Map(document.querySelector("#map"), { zoom: 16 });                // 创建地图实例
+        var geolocation = new qq.maps.Geolocation();
+        geolocation.getLocation(function (position) {
+            var s =
+                '位置：' + position.lng +
+                ',' + position.lat +
+                '耗时:' + (Date.now() - start)
+                ;
+
+            var ll = new qq.maps.LatLng(position.lat, position.lng);
+            map.setCenter(ll);
+            new qq.maps.Marker({ position: ll, map: map });
+            new qq.maps.Label({ position: ll, map: map, content: s });
+/*             var infoWin = new qq.maps.InfoWindow({
+                map: map,
+                content: s,
+                position: ll,
+                zIndex: 10,
+                visible: true
+            }); */
+        }, function () {
+
+        }, {});
     </script>
     </div>
 </body>

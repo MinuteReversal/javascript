@@ -9,8 +9,10 @@
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script src="containerBridgeConfig.js"></script>
-    <script src="containerBridge.min.js"></script>
+    <script>
+        document.writeln("<script src=\"containerBridgeConfig.js?_t=" + Date.now() + "\"><\/script>");
+        document.writeln("<script src=\"containerBridge.js?_t=" + Date.now() + "\"><\/script>");
+    </script>
     <title>融e联</title>
 </head>
 

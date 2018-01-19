@@ -9,15 +9,27 @@
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=yjL9PdwLfm1qC3EliLpDe2bw"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=yjL9PdwLfm1qC3EliLpDe2bw"></script>    
     <title>百度地图</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div></div>
+    <div id="map"></div>
     <script>
         var start = Date.now();
-        var map = new BMap.Map(document.createElement("div"));                // 创建地图实例
+        var map = new BMap.Map("map");                // 创建地图实例
+        var point = new BMap.Point(102.714026, 25.042606); // 创建点坐标
+        map.centerAndZoom(point, 16);
+
         var geolocation = new BMap.Geolocation();
         geolocation.getCurrentPosition(function (r) {
             if (this.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -26,12 +38,22 @@
                     ',' + r.point.lat +
                     '耗时:' + (Date.now() - start)
                     ;
-                document.querySelector("div").innerText = s;
+                var marker = new BMap.Marker(r.point);      // 创建标注    
+                map.addOverlay(marker);                     // 将标注添加到地图中
+                map.setCenter(r.point);
+
+                var infoWindow = new BMap.InfoWindow(s, {
+                    width : 250,// 信息窗口宽度    
+                    height: 100,// 信息窗口高度    
+                    title : "信息"  // 信息窗口标题                      
+                });  // 创建信息窗口对象    
+                map.openInfoWindow(infoWindow, r.point);      // 打开信息窗口
+
             }
             else {
                 alert('failed' + this.getStatus());
             }
-        }, { enableHighAccuracy: true })
+        }, { enableHighAccuracy: true });
     </script>
     </div>
 </body>

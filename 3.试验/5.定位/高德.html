@@ -9,18 +9,29 @@
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="width=device-width,user-scalable=no" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=9594c8dad9ede5935c38d750ed93d8b0"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.3&key=9594c8dad9ede5935c38d750ed93d8b0"></script>
     <title>高德地图</title>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <div></div>
+    <div id="map"></div>
     <script>
         var start = Date.now();
-        var map = new AMap.Map(document.createElement("div"), {
+        var map = new AMap.Map('map', {
             resizeEnable: true,
-            zoom: 16
+            zoom: 16,
+            center: [102.711529, 25.040767]
         });
+
         map.plugin('AMap.Geolocation', function () {
             var geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -36,7 +47,9 @@
                     '精确：' + result.accuracy +
                     '耗时:' + (Date.now() - start)
                     ;
-                document.querySelector("div").innerText = s;
+                map.setCenter(result.position);
+                new AMap.Marker({ map: map, position: result.position });
+                new AMap.InfoWindow({ position: result.position, content: s }).open(map);
             });//返回定位信息
             AMap.event.addListener(geolocation, 'error', function (result) {
                 alert(result.info + result.message);
