@@ -26,6 +26,7 @@
 <body>
     <div id="map"></div>
     <script>
+        //http://lbs.qq.com/tool/component-geolocation.html
         var start = Date.now();
         var map = new qq.maps.Map(document.querySelector("#map"), { zoom: 16 });                // 创建地图实例
         var geolocation = new qq.maps.Geolocation();
