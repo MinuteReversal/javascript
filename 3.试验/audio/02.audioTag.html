@@ -11,33 +11,41 @@
 <body>
     <button>bgm</button>
     <button>biu</button>
-    <canvas></canvas>
+    <canvas width="300" height="300"></canvas>
     <script>
-        function bgm() {
-            var bgm = new Audio();
-            bgm.autoplay = true;
-            bgm.loop = true;
-            bgm.src = "game_music.mp3";
+        var bgm = new Audio("game_music.mp3");
+        bgm.loop = true;
+        var biu = new Audio("bullet.mp3");
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.save();
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "20px serif";
+        ctx.fillStyle = "black";
+        ctx.fillText("click to play", 0, 20);
+        ctx.restore();
+
+        function playBgm() {
+            bgm.play();
         }
 
-        function biu() {
-            var biu = new Audio();
-            biu.autoplay = true;
-            biu.src = "bullet.mp3";
+        function playBiu() {
+            biu.currentTime = 0;
+            biu.play();
         }
 
-        bgm();
-        biu();
         document.querySelectorAll("button")[0].addEventListener("click", function () {
-            bgm();
+            playBgm();
         });
         document.querySelectorAll("button")[1].addEventListener("click", function () {
-            biu();
+            playBiu();
         });
-        document.querySelector("canvas").addEventListener("touchstart", function () {
+
+        canvas.addEventListener("click", function () {
             bgm();
             biu();
-        })
+        });
     </script>
 </body>
 
