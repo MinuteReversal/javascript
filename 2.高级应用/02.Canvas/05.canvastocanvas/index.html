@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="mainCanvas" width="800" height="600"></canvas>
+    <script>
+        var mainCanvas = document.querySelector("#mainCanvas");
+        var mainctx = mainCanvas.getContext("2d");
+
+        var canvas = document.createElement("canvas");
+        canvas.width = 200;
+        canvas.height = 50;
+        var ctx = canvas.getContext("2d");
+
+        var frame = function () {
+            requestAnimationFrame(frame);
+            ctx.save();
+            ctx.fillStyle = "yellow";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = "14px serif";
+            ctx.fillStyle = "black";
+            ctx.fillText(Date.now(), 0, 32);
+            ctx.restore();
+
+            mainctx.drawImage(canvas, 0, 0);
+        };
+        frame();
+
+
+    </script>
+</body>
+
+</html>
