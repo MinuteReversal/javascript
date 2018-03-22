@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="margin:0;overflow:hidden;">
+    <canvas></canvas>
+    <script>
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+        var fontSize = 22;
+        var text = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        ctx.save();
+
+        ctx.font = fontSize + "px serif";
+        var metrics = ctx.measureText(text);
+        var x = 0;
+        var y = 0;
+        var width = metrics.width;
+        var height = fontSize;
+        ctx.textAlign = "left";
+        ctx.textBaseline = "bottom";//"top" || "hanging" || "middle" || "alphabetic" || "ideographic" || "bottom"
+        ctx.fillText(text, x, y + fontSize);
+        ctx.strokeStyle = "red";
+        ctx.strokeRect(x, y, metrics.width, fontSize);
+
+        ctx.restore();
+    </script>
+</body>
+
+</html>
