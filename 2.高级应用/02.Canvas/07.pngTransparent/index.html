@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        img.addEventListener("load", function (evt) {
+            ctx.drawImage(this, 0, 0, 128, 128);
+        });
+        img.src = "img.png";
+    </script>
+</body>
+
+</html>
