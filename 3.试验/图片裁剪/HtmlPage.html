@@ -41,6 +41,8 @@
     <button onclick="onCrop(event);">裁剪</button><br />
     <img id="cropResult" alt="裁剪结果" />
     <script>
+
+        //date 2018-04-02
         var cropResult = document.getElementById("cropResult"),
             range = document.querySelector("[type=range]"),
             cropper = new Cropper(document.querySelector('img'), {
