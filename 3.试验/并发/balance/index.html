@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Worker/Worker
+        var w = new Worker("worker.js");
+        var obj = { balance: 500, money: 500 };
+
+        w.onmessage = function (evt) {
+            obj.balance = evt.data;
+            console.log("balance:", obj.balance);
+        };
+
+        function run() {
+            for (var i = 0; i < 10; i++) {
+                w.postMessage(obj);
+            }
+        }
+        run();
+    </script>
+</body>
+
+</html>

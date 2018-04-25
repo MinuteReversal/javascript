@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title></title>
     <script src="querystringConvert.js"></script>
 </head>
+
 <body>
     <script>
         var tree = {
@@ -39,7 +41,7 @@
             ]
         };
 
-        var array=[
+        var array = [
             "lily",
             "hanmeimei",
             "lucy",
@@ -83,8 +85,8 @@
             ]
         };
 
-        var arrayInObject2={
-            a:array
+        var arrayInObject2 = {
+            a: array
         };
 
         var objectInArray = [
@@ -95,14 +97,19 @@
         ];
 
         function toQueryString(evt) {
-            textQueryString.value = querystringConvert.serializeObject(textJson.value === "" ? "" : JSON.parse(textJson.value));
+            var arrayName = ['array', 'objectInArray'].indexOf(modelType) > -1 ? "model" : null;
+            var o = textJson.value === "" ? "" : JSON.parse(textJson.value);
+            textQueryString.value = querystringConvert.serializeObject(o, arrayName);
         }
 
         function toObject(evt) {
-            textJson.value = JSON.stringify(querystringConvert.deserializeObject(textQueryString.value));
+            var arrayName = ['array', 'objectInArray'].indexOf(modelType) > -1 ? "model" : null;
+            textJson.value = JSON.stringify(querystringConvert.deserializeObject(textQueryString.value,arrayName));
         }
 
+        var modelType = "";
         function fillJson(dataType) {
+            modelType = dataType;
             var data = null;
             switch (dataType) {
                 case "array":
@@ -138,9 +145,16 @@
         });
     </script>
     <div>
-        <div><textarea cols="40" rows="20" id="textQueryString" placeholder="querystring"></textarea></div>
-        <div><button onclick="toQueryString()">ToQueryString&uarr;</button><button onclick="toObject()">ToObject&darr;</button></div>
-        <div><textarea cols="40" rows="20" id="textJson"></textarea></div>
+        <div>
+            <textarea cols="40" rows="20" id="textQueryString" placeholder="querystring"></textarea>
+        </div>
+        <div>
+            <button onclick="toQueryString()">ToQueryString&uarr;</button>
+            <button onclick="toObject()">ToObject&darr;</button>
+        </div>
+        <div>
+            <textarea cols="40" rows="20" id="textJson"></textarea>
+        </div>
         <div>
             <button onclick="fillJson('binaryTree')">binaryTree</button>
             <button onclick="fillJson('tree')">tree</button>
@@ -153,4 +167,5 @@
         </div>
     </div>
 </body>
+
 </html>

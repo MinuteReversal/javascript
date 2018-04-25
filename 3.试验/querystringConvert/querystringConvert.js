@@ -2,19 +2,23 @@
 *      author:反转的分针
 *    datetime:20170918
 * description:序列化序列化对象为querystring
+* docs:https://damienbod.com/2014/08/22/web-api-2-exploring-parameter-binding/
 */
 var querystringConvert = {
-    getQueryStringFromArray: function (a) {
+    getQueryStringFromArray: function (a, p) {
         var queryString = [];
         for (var i = 0, item; item = a[i]; i++) {
             var qs = "";
-            if (typeof item === "string") {
-                qs = i + "=" + item;
+            var memberName = i;
+            if (typeof p === "string") memberName = p;
+
+            if (['number', 'string', 'boolean'].indexOf(typeof item) > -1) {
+                qs = memberName + "=" + item;
+                queryString.push(qs);
             }
-            else if (item.name && item.value) {
-                qs = item.name + "=" + (item.value ? item.value : "");
+            else if (typeof item === "object") {
+                queryString = queryString.concat(this.getQueryStringFromObject(item, 1, memberName + '[' + i + ']'));
             }
-            queryString.push(qs);
         }
         return queryString;
     },
@@ -52,14 +56,16 @@ var querystringConvert = {
     /*
      *@method:serializeObject
      *@description:将对象序列化为queryString
+     *@object {object} want serialize Object target
+     *@arrayName {string} server Receive array Paramter by this Name, array object must fill this arguments
      */
-    serializeObject: function (object) {
+    serializeObject: function (object, arrayName) {
         var me = this;
         var o = object;
         var queryString = [];
 
         if (o instanceof Array) {
-            queryString = me.getQueryStringFromArray(o);
+            queryString = me.getQueryStringFromArray(o, arrayName);
         }
         else if (typeof o === "object") {
             queryString = me.getQueryStringFromObject(o, 0, "");
@@ -76,8 +82,8 @@ var querystringConvert = {
             var next = kvs[i + 1];
             var currentKey = current.split("=")[0];
 
-            if (/^\d+$/.test(currentKey)){
-                result = true; 
+            if (/^\d+$/.test(currentKey)) {
+                result = true;
             }
             else if (next) {
                 var nextKey = next.split("=")[0];
@@ -89,14 +95,14 @@ var querystringConvert = {
         }
         return result;
     },
-    getArrayFromQueryString: function (qs) {
+    getArrayFromQueryString: function (qs, arrayName) {
         var a = [];
         var kvs = qs.split("&");
         for (var i = 0, kv; kv = kvs[i]; i++) {
             var keyvalue = kv.split("=");
             var key = keyvalue[0];
             var value = keyvalue[1];
-            if (/^\d+$/.test(key)) {
+            if (/^\d+$/.test(key) || arrayName === key) {
                 a.push(value);
             }
             else if (key && value) {
@@ -165,14 +171,19 @@ var querystringConvert = {
     /*
     *@method:deserializeObject
     *@description:将queryString反序列化为对象
+    *@paramName {string} server Receive Paramter by this Name, array object must fill this arguments,default paramName
     */
-    deserializeObject: function (queryString) {
+    deserializeObject: function (queryString, arrayName) {
         var me = this;
         var o = null;
         var qs = decodeURIComponent(queryString);
+
         if (qs === "") { return o; }
         else if (me.isArray(qs)) {
-            o = me.getArrayFromQueryString(qs);
+            o = me.getArrayFromQueryString(qs, arrayName);
+        }
+        else if (arrayName) {
+            o = me.getObjectFromQueryStirng(qs.split('&'))[arrayName];
         }
         else {
             o = me.getObjectFromQueryStirng(qs.split('&'));
