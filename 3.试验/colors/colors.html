@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,user-scalable=yes,minimal-ui" />
+    <title>亮点测试</title>
+
+</head>
+<body>
+    <script type="text/javascript">
+
+        alert("使用上、下、左、右键切换颜色,F11键进入全屏。");
+
+        var c = new Array('#FFFFFF', '#000000', '#FF0000', '#00FF00', '#0000FF'), i = 0;
+
+        function next() {
+            (i < c.length - 1) ? ++i : i = 0;
+            document.body.style.backgroundColor = c[i];
+        }
+
+        function previous() {
+            (i > 0) ? --i : i = c.length - 1;
+            document.body.style.backgroundColor = c[i];
+        }
+
+        document.onkeydown = function (e) {
+            e = window.event || e;
+            switch (e.keyCode) {
+                case 37:
+                    //左键
+                    previous();
+                    break;
+                case 38:
+                    //向上键
+                    previous();
+                    break;
+                case 39:
+                    //右键
+                    next();
+                    break;
+                case 40:
+                    //向下键
+                    next();
+                    break;
+                default:
+                    break;
+            }
+        };
+    </script>
+</body>
+</html>
