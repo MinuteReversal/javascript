@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <script>
+        //https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload
+        window.addEventListener("beforeunload", function (event) {
+            event.returnValue = "\o/";
+        });
+
+        // is equivalent to
+        window.addEventListener("beforeunload", function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

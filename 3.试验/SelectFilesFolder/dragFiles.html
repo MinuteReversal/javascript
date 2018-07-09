@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <!--https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/File_drag_and_drop-->
+    <script>
+
+        //https://stackoverflow.com/questions/3590058/does-html5-allow-drag-drop-upload-of-folders-or-a-folder-tree
+        //https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem/webkitGetAsEntry
+        function traverseFileTree(item, path) {
+            var fileNames = [];
+            path = path || "";
+            if (item.isFile) {
+                // Get file
+                item.file(function (file) {
+                    fileNames.push('name:' + file.name + ",path:" + path);
+                });
+            }
+            else if (item.isDirectory) {
+                // Get folder contents
+                var directoryReader = item.createReader();
+                directoryReader.readEntries(function (entries) {
+                    for (var i = 0; i < entries.length; i++) {
+                        fileNames = fileNames.concat(traverseFileTree(entries[i], path + item.name + "/"));
+                    }
+                });
+            }
+            return fileNames;
+        }
+
+        function removeDragData(evt) {
+            console.log('Removing drag data')
+
+            if (evt.dataTransfer.items) {
+                // Use DataTransferItemList interface to remove the drag data
+                evt.dataTransfer.items.clear();
+            } else {
+                // Use DataTransfer interface to remove the drag data
+                evt.dataTransfer.clearData();
+            }
+        }
+
+        function dropHandler(evt) {
+            evt.preventDefault();
+            var output = document.querySelector("#output");
+            var items = evt.dataTransfer.items;
+            var fileNames = [];
+
+            if (evt.dataTransfer.items) {
+                // Use DataTransferItemList interface to access the file(s)
+                for (var i = 0; i < evt.dataTransfer.items.length; i++) {
+                    // If dropped items aren't files, reject them
+                    if (evt.dataTransfer.items[i].kind === 'file') {
+                        if (evt.dataTransfer.items[i].webkitGetAsEntry) {
+                            fileNames = fileNames.concat(traverseFileTree(evt.dataTransfer.items[i].webkitGetAsEntry()));
+                        }
+                        else {
+                            var file = evt.dataTransfer.items[i].getAsFile();
+                            fileNames.push('... file[' + i + '].name = ' + file.name + ",kind:" + evt.dataTransfer.items[i].kind);
+                        }
+                    }
+                }
+            } else {
+                // Use DataTransfer interface to access the file(s)
+                for (var i = 0; i < evt.dataTransfer.files.length; i++) {
+                    fileNames.push('... file[' + i + '].name = ' + evt.dataTransfer.files[i].name);
+                }
+            }
+
+            // Pass event to removeDragData for cleanup
+            removeDragData(evt);
+
+            output.innerHTML = fileNames.join("<br/>");
+        }
+    </script>
+    <div ondrop="dropHandler(event);" ondragover="event.preventDefault();" style="border: orange 1px dashed;min-height: 220px;text-align: center">
+        <span>drop files here</span>
+    </div>
+    <br/>
+    <div id="output" style="border: black 1px dotted;min-height: 120px;"></div>
+</body>
+
+</html>
