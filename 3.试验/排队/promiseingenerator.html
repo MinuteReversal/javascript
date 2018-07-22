@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <script>
+        const length = 10;
+        var g1 = function* () {
+            yield* g2();
+        }
+
+        var g2 = function* () {
+            yield* [0, 1, 2, 3, 4, 5];
+        }
+
+        var fn = millisecond => new Promise((resolve, reject) => {
+            let second = millisecond * 1000;
+            setTimeout(() => {
+                resolve(second);
+            }, second);
+        });
+
+        var fngo = async () => {
+            var g = g1();
+            for (var item; item = g.next();) {
+                if (item.value === undefined) break;
+                console.log(await fn(item.value));
+            }
+        }
+
+        fngo();
+
+    </script>
 </body>
+
 </html>
