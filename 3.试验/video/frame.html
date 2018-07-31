@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var c2=document.createElement("canvas");
+        //https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
+        //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video
+        //https://developer.mozilla.org/zh-CN/docs/Web/Guide/Events/Media_events
+        //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Manipulating_video_using_canvas#The_JavaScript_code
+        function handlerChange(evt) {
+            var video = document.createElement("video");
+            video.muted = true;
+            video.addEventListener("timeupdate", function (evt) {
+                drawImage(evt.target);
+            });
+            readFile(evt.target.files[0], function (result) {
+                video.src = result;
+                //resizeCanvas(video);
+                video.currentTime = 5;
+                video.play();
+            });
+
+            evt.target.value = "";
+        }
+
+        function readFile(file, fn) {
+            var fr = new FileReader();
+            fr.addEventListener("load", function (evt) {
+                fn(evt.target.result);
+            });
+            fr.readAsDataURL(file);
+        }
+
+        function resizeCanvas(video) {
+            var canvas = document.querySelector("#canvas");
+            var path = video.path[0];
+            canvas.width = path.width;
+            canvas.height = path.height;
+        }
+
+        function drawImage(video) {
+            var canvas = document.querySelector("#canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, 400, 300);
+        }
+
+        function getBase64() {
+            var canvas = document.querySelector("#canvas");
+            var output = document.querySelector("#output");
+            output.value = canvas.toDataURL("image/png", 1.0);
+        }
+
+    </script>
+    <input type="file" onchange="handlerChange(event);" />
+    <br/>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <br/>
+    <button>&lt;&lt;</button>
+    <button>&gt;&gt;</button>
+    <button>&block;</button>
+    <button>&#10074;</button>
+    <button onclick="getBase64(event);">获取base64</button>
+    <br />
+    <textarea id="output"></textarea>
+</body>
+
+</html>
