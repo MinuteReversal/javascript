@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="download.js"></script>
+</head>
+
+<body>
+    <script>
+        function downloadFile() {
+            var url = document.querySelector("#url").value;
+            var progress = document.querySelector("#progress");
+            download({
+                url: url,
+                fnProgress: function (evt) {
+                    progress.innerHTML = evt.loaded + "/" + evt.total;
+                }
+            });
+        }
+    </script>
+    <input id="url" type="text" value="http://220.165.143.68:11111/api/services/app/albumManagement/Download?input.isVisiableMarkNeed=true&input.imageResourceIds=497&token=I_bXbUKm32HE0qFmlqiV1GdZxpuAnA8nj9n1MhdtR9GNUakUCqywx30GD4GTn8RZCpBAu0CIL7AszycG0aT3LdrJ5WU02UqBDUajFCy6pep6Xyl4Doimoiundt94E4Z4pPJKUNhFecVe69xZjOa3qvxZ1LgBEtBjvb-a2_jQ9B5pBGX0bgLRK016zhwNwT3MrAU_xOJvaSniQgAaZnVWWXE5OV8zPLoQAiiCMIyHW37zhsrZYYfQrsWB3pU8mKyJMdYCwQNCpO8UH60HZIFmG9S7wUWrQr-6wvksBqbBMaokUaf4a-rsQsMnvqmymi_a_t_pGe7xnL3pBybqSvsKNnGL_zabVe_DfA6xu64Myx_p-87CD7kVpvNccnlVOBrayIAuQbqrEUm9V_67gW98oR8b3R2vzpQpl1nBK283WtdrmiTDYlUkA8-Q1Jt6mmwfftd8YDWVrvUzePrnZpPG-Q" />
+    <div id="progress"></div>
+    <button onclick="downloadFile(event);">下载</button>
+</body>
+
+</html>

@@ -31,7 +31,7 @@ function download(url, headers, body, method, fileName, fnProgress, fnSuccess, f
             "text/plain": "txt",
             "text/html": "html",
             "text/css": "css",
-	    "text/xml":"xml",
+            "text/xml": "xml",
             "audio/mp3": "mp3",
             "video/mp4": "mp4",
             "application/javascript": "js",
@@ -42,7 +42,8 @@ function download(url, headers, body, method, fileName, fnProgress, fnSuccess, f
             "application/msword": "doc",
             "application/vnd.ms-excel": "xls",
             "application/vnd.ms-powerpoint": "ppt",
-            "application/x-zip-compressed": "zip"
+            "application/x-zip-compressed": "zip",
+            "application/zip": "zip"
         }
     };
 
