@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Document</title>
+</head>
+<body>
+    <div id="para"></div>
+    <script>
+        var mediaQueryList=window.matchMedia("(max-width: 600px)");
+        mediaQueryList.addListener(function(e){
+            if(e.matches){
+                para.textContent="This is a narrow screen - less than 600px wide.";
+                document.body.style.backgroundColor="red";
+            }
+            else
+            {
+                para.textContent="This is a wide screen - more than 600px wide.";
+                document.body.style.backgroundColor="blue";
+            }
+        });
+    </script>
+</body>
+</html>
