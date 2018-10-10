@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <iframe src="redirect.1.html" style="width:1200px;height:800px;" allowpaymentrequest></iframe>
+    <div></div>
+    <script>
+        var iframe = document.querySelector("iframe");
+        var output = document.querySelector("div");
+
+        iframe.addEventListener("load", evt => {
+            output.innerHTML += `${evt.target.src}<br/>`;
+        });
+    </script>
+</body>
+
+</html>
