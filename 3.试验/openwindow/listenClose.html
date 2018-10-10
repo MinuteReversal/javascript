@@ -11,14 +11,32 @@
 <body>
     <a href="javascript:void(0);">打开窗口</a>
     <script>
+        //https://stackoverflow.com/questions/5712195/js-listen-when-child-window-is-closed
+        var windowList = [];
         var a = document.querySelector("a");
+        function listenClose() {
+            timer = setInterval(() => {
+                if (windowList.find(item => item.window.closed)) {
+                    console.log("closed");
+                    windowList.forEach(i => {
+                        clearInterval(i.timer);
+                    });
+                    windowList = [];
+                }
+            }, 1000 / 10);
+            return timer;
+        }
+
         a.addEventListener("click", clickEvent => {
-            var w = open("http://www.baidu.com", "_blank");
-            console.log(w);
-            w.addEventListener("load", (closeEvent) => {
-                console.log("closed");
+            var childWindow = open("sendClose.html", "_blank");
+            var timer = listenClose();
+            windowList.push({
+                window: childWindow,
+                timer: timer
             });
         });
+
+
     </script>
 </body>
 
