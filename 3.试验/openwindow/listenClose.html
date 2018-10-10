@@ -10,10 +10,17 @@
 
 <body>
     <a href="javascript:void(0);">打开窗口</a>
+    <select name="openAuth" id="openAuth">
+        <option value="http://image.qingnianrencai.com/test/qq_auth.html">QQ</option>
+        <option value="http://image.qingnianrencai.com/test/weibo_auth.html">微博</option>
+        <option value="sendClose.html">sendClose.html</option>
+    </select>
     <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Window/open
         //https://stackoverflow.com/questions/5712195/js-listen-when-child-window-is-closed
         var windowList = [];
         var a = document.querySelector("a");
+        var s = document.querySelector("select");
         function listenClose() {
             timer = setInterval(() => {
                 if (windowList.find(item => item.window.closed)) {
@@ -28,15 +35,13 @@
         }
 
         a.addEventListener("click", clickEvent => {
-            var childWindow = open("sendClose.html", "_blank");
+            var childWindow = open(s.value /*sendClose.html*/, "_blank", "width=800,height=600");
             var timer = listenClose();
             windowList.push({
                 window: childWindow,
                 timer: timer
             });
         });
-
-
     </script>
 </body>
 

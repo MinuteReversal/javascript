@@ -8,11 +8,21 @@
 </head>
 
 <body>
-    <iframe src="redirect.1.html" style="width:1200px;height:800px;" allowpaymentrequest></iframe>
+    <iframe src="redirect.1.html" style="width:1200px;height:800px;"></iframe>
+    <button>去QQ登录</button>
     <div></div>
     <script>
         var iframe = document.querySelector("iframe");
         var output = document.querySelector("div");
+        var btn = document.querySelector("button");
+
+        var bound = () => {
+            alert("bound");
+        }
+
+        btn.addEventListener("click", evt => {
+            iframe.src = "http://image.qingnianrencai.com/test/qq_auth.html";
+        });
 
         iframe.addEventListener("load", evt => {
             output.innerHTML += `${evt.target.src}<br/>`;

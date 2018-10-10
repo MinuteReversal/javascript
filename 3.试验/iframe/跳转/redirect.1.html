@@ -9,7 +9,9 @@
 
 <body>
     <script>
-        location.href = "redirect.html";
+        if (window.parent) {
+            window.parent.bound();
+        }
     </script>
 </body>
 
