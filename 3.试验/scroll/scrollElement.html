@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="a">
+        <div class="b">
+            <span class="top">top</span>
+            <span class="bottom">bottom</span>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("scroll", evt => {
+            console.log("window");
+        });
+        document.body.addEventListener("scroll", evt => {
+            console.log("body");
+        });
+        document.querySelector(".a").addEventListener("scroll", evt => {
+            console.log(evt.target);
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .a {
+            width: 400px;
+            height: 600px;
+            background-color: red;
+            overflow-y: auto;
+        }
+
+        .b {
+            position: relative;
+            height: 800px;
+            width: 100%;
+            background-color: yellow;
+        }
+
+        .top {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</body>
+
+</html>
