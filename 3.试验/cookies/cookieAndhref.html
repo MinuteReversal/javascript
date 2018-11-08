@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="./cookies.js"></script>
+    </head>
+    <body>
+        <label for="key">键：</label><input id="key" type="text" />
+        <label for="value">值：</label><input id="value" type="text" />
+        <button id="btnSet">set</button> <button id="btnGet">get</button>
+        <button id="redirect">redirect</button>
+        <script>
+            var iKey = document.querySelector("#key");
+            var iValue = document.querySelector("#value");
+            var btnGet = document.querySelector("#btnGet");
+            var btnSet = document.querySelector("#btnSet");
+            var btnRedirect = document.querySelector("#redirect");
+
+            btnSet.addEventListener("click", evt => {
+                docCookies.setItem(iKey.value, iValue.value);
+            });
+            btnGet.addEventListener("click", evt => {
+                iValue.value = docCookies.getItem(iKey.value);
+            });
+            btnRedirect.addEventListener("click", evt => {
+                location.href = "http://127.0.0.1/js/3.试验/cookies/back.html";
+            });
+        </script>
+    </body>
+</html>
