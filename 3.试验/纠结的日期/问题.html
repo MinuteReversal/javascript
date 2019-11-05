@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <textarea id="tb1" cols="30" rows="8"></textarea>
+        <div>
+            <button id="btnToString">日期转字符</button
+            ><button id="btnToDate">字符转日期</button>
+        </div>
+        <textarea id="tb2" cols="30" rows="8"></textarea>
+        <script>
+            /*日期中带(Z)会加时区*/
+            var tb1 = document.getElementById("tb1");
+            var tb2 = document.getElementById("tb2");
+            var btnToString = document.getElementById("btnToString");
+            var btnToDate = document.getElementById("btnToDate");
+
+            tb1.value = new Date().toISOString(); //会带Z,Z为时区
+
+            btnToString.addEventListener("click", function(evt) {
+                tb2.value = new Date(tb1.value);
+            });
+
+            btnToDate.addEventListener("click", function(evt) {
+                tb1.value = new Date(tb2.value).toUTCString();
+            });
+        </script>
+    </body>
+</html>

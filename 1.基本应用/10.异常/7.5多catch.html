@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+            function myroutine() {
+                throw new Error("error");
+            }
+            try {
+                myroutine(); // may throw three types of exceptions
+            } catch (e) {
+                if (e instanceof TypeError) {
+                    // statements to handle TypeError exceptions
+                } else if (e instanceof RangeError) {
+                    // statements to handle RangeError exceptions
+                } else if (e instanceof EvalError) {
+                    // statements to handle EvalError exceptions
+                } else {
+                    // statements to handle any unspecified exceptions
+                    logMyErrors(e); // pass exception object to error handler
+                }
+            }
+        </script>
+    </body>
+</html>

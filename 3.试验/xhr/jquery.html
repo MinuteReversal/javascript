@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>login</button>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+      $("button").click(function() {
+        $.ajax({
+          url: "http://220.165.143.68:7366/api/TokenAuth/Authenticate",
+          method: "POST",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({
+            password: "123qwe",
+            rememberClient: false,
+            userNameOrEmailAddress: "admin"
+          }),
+          headers: {
+            "Abp.TenantId": 1
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

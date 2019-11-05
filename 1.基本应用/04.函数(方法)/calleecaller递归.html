@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var callback = [];
+      function test(e) {
+        callback.push(arguments.callee.caller);
+        if (e <= 1) return 1;
+        return e * arguments.callee(e - 1);
+      }
+    </script>
+    <button onclick="alert(test(10))">go</button>
+  </body>
+</html>

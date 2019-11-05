@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", function(evt) {
+        alert(xhr.responseText);
+      });
+
+      function login() {
+        xhr.open(
+          "POST",
+          "http://220.165.143.68:7366/api/TokenAuth/Authenticate"
+        );
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/json, text/plain, */*"
+        );
+        xhr.setRequestHeader("Abp.TenantId", "1");
+        xhr.send(
+          JSON.stringify({
+            userNameOrEmailAddress: "admin",
+            password: "123qwe",
+            rememberClient: true
+          })
+        );
+      }
+    </script>
+    <button onclick="login()">
+      登录
+    </button>
+  </body>
+</html>

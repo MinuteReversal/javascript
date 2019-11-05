@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            class Watch {
+                hour = 0;
+                minute = 0;
+                second = 0;
+                constructor(hour, minute, second) {
+                    if (hour) this.hour = hour;
+                    if (minute) this.minute = minute;
+                    if (second) this.second = second;
+                }
+                get Hour() {
+                    return this.hour;
+                }
+                set Hour(value) {
+                    if (value <= 23 && value >= 0) this.hour = value;
+                }
+                get Minute() {
+                    return this.minute;
+                }
+                set Minute(value) {
+                    if (value <= 23 && value >= 0) this.minute = value;
+                }
+                get Second() {
+                    return this.second;
+                }
+                set Second(value) {
+                    if (value <= 23 && value >= 0) this.second = value;
+                }
+            }
+            let watch = new Watch();
+            watch.Hour = 23;
+        </script>
+    </body>
+</html>

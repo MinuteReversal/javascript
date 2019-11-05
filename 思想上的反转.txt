@@ -9,8 +9,10 @@
 
 
 2.方法和事件
-js库  jQuery(".a").addClass();
+方法是调用别人写好的程序
+事件是主别人调用你写的程序
 
+js库  jQuery(".a").addClass();
 document.addEventLisenter("click",function(){});
 
 
