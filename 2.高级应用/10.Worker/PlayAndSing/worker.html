@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+  <body>
+    <input placeholder="输入看看不会会卡界面" />
+    <div>这里会显示内容</div>
+    <button onclick="start();">开始</button>
+    <button onclick="terminate();">终止所有worker</button>
+    <script type="text/javascript">
+      const sing = new Worker("./worker.js");
+      const play = new Worker("./worker.js");
+      const div = document.querySelector("div");
+
+      sing.addEventListener("message", handleMessage);
+      play.addEventListener("message", handleMessage);
+
+      let count = 0;
+
+      function handleMessage(event) {
+        //div.innerHTML += `I'm ${event.data}<br />`;
+        div.innerHTML = count++;
+      }
+
+      function start() {
+        div.innerHTML = "start";
+        sing.postMessage("sing");
+        play.postMessage("playing guitar");
+      }
+
+      function terminate() {
+        sing.terminate();
+        play.terminate();
+      }
+    </script>
+    <style>
+      div {
+        min-height: 200px;
+        border: orange 1px dotted;
+        overflow: hidden;
+      }
+    </style>
+  </body>
+</html>
