@@ -11,31 +11,28 @@
     <input placeholder="输入看看不会会卡界面" />
     <div>这里会显示内容</div>
     <button onclick="start();">开始</button>
-    <button onclick="terminate();">终止所有worker</button>
+    <button onclick="terminate();">终止</button>
     <script type="text/javascript">
-      const sing = new Worker("./worker.js");
-      const play = new Worker("./worker.js");
       const div = document.querySelector("div");
-
-      sing.addEventListener("message", handleMessage);
-      play.addEventListener("message", handleMessage);
-
-      let count = 0;
+      let worker = null;
 
       function handleMessage(event) {
-        div.innerHTML += `I'm ${event.data}<br />`;
-        //      div.innerHTML = count++;
+        div.innerHTML = `${event.data}`;
       }
 
       function start() {
-        div.innerHTML = "start";
-        sing.postMessage("sing");
-        play.postMessage("playing guitar");
+        if (worker !== null) return;
+
+        worker = new Worker("./worker.js");
+        worker.addEventListener("message", handleMessage);
+        worker.postMessage(0);
       }
 
       function terminate() {
-        sing.terminate();
-        play.terminate();
+        if (worker) {
+          worker.terminate();
+          worker = null;
+        }
       }
     </script>
     <style>
