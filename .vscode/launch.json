@@ -1,18 +1,12 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch localhost",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost/mypage.html",
-            "webRoot": "${workspaceFolder}/wwwroot"
-        },
-        {   //https://github.com/Microsoft/vscode-chrome-debug
-            "name": "Launch index.html",
-            "type": "chrome",
-            "request": "launch",
-            "file": "${file}"
-        },
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      //https://github.com/Microsoft/vscode-chrome-debug
+      "name": "Launch index.html",
+      "type": "chrome",
+      "request": "launch",
+      "file": "${file}"
+    }
+  ]
 }
