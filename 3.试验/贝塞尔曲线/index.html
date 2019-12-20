@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script src="bezier.js"></script>
-</head>
-<body>
-   <canvas id="canvas"></canvas>
-   <button id="btnPlay">play</button>
-   <script>
-   </script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+        <script src="./bezier.js"></script>
+    </head>
+    <body>
+        <canvas width="800" height="600"></canvas><br />
+        <button>draw</button>
+        <button>play</button>
+        <script>
+            const canvas = document.querySelector("canvas");
+            const btnDraw = document.querySelectorAll("button")[0];
+            const btnPlay = document.querySelectorAll("button")[1];
+            const context = canvas.getContext("2d");
+            const bezier = new Bezier([
+                { x: 10, y: 600 },
+                { x: 300, y: 0 },
+                { x: 600, y: 300 }
+            ]);
+
+            function draw() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.strokeStyle = "black";
+                context.beginPath();
+                for (let i = 0; i < 1; i = i + 0.01) {
+                    const point = bezier.point(i);
+                    context.lineTo(point.x, point.y);
+                }
+                context.stroke();
+                context.closePath();
+            }
+
+            function animation() {
+                let count = 0;
+                const duration = 500;
+                const beginTime = new Date().getTime();
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                const frame = () => {
+                    const now = new Date().getTime();
+                    const elapsed = now - beginTime;
+                    if (elapsed < duration) {
+                        const point = bezier.point(elapsed / duration);
+                        context.fillRect(point.x, point.y, 2, 2);
+                        requestAnimationFrame(frame);
+                    }
+                };
+                frame();
+            }
+
+            btnDraw.addEventListener("click", evt => {
+                draw();
+            });
+
+            btnPlay.addEventListener("click", evt => {
+                animation();
+            });
+        </script>
+    </body>
 </html>
