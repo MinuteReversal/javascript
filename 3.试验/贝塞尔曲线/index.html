@@ -46,6 +46,8 @@
                         const point = bezier.point(elapsed / duration);
                         context.fillRect(point.x, point.y, 2, 2);
                         requestAnimationFrame(frame);
+                    } else {
+                        console.log("end");
                     }
                 };
                 frame();
