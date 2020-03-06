@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-cn" manifest="site.appcache">
+<!-- <html lang="zh-cn" manifest="site.appcache"> -->
+<html lang="zh-cn">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=320,user-scalable=no"
-    />
+    <meta name="viewport" content="width=320,user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-touch-fullscreen" content="yes" />
     <title>Name</title>
   </head>
   <body>
-    <input id="name1" type="text" value="张" placeholder="姓" /><br />
+    <input id="name1" type="text" value="何" placeholder="姓" /><br />
     <input id="name2" type="text" value="" placeholder="名" /><br />
     <input id="name3" type="text" value="" placeholder="名" /><br />
     <button id="generate">生成</button>
@@ -24,19 +22,23 @@
       var generate = document.getElementById("generate");
       var output = document.getElementById("output");
 
-      function generateName() {
+      function generateCharCode() {
         var max = 0x9fa5;
         var min = 0x4e00;
+        var charCode = parseInt(Math.random() * (max - min + 1) + min, 10);
+        return charCode;
+      }
 
+      function generateName() {
         //Math.floor(Math.random() * (max - min + 1) + min);
         var names = [];
         for (var i = 0; i < 10; i++) {
-          var charCode = parseInt(Math.random() * (max - min + 1) + min, 10);
           names.push(
             name1.value +
               name2.value +
-              String.fromCharCode(charCode) +
-              name3.value
+              String.fromCharCode(generateCharCode()) +
+              name3.value +
+              String.fromCharCode(generateCharCode())
           );
         }
         return names;
