@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function onChnage(evt) {
+                console.log(evt);
+            }
+            function onInput(evt) {
+                console.log(evt);
+            }
+            function setData() {
+                document
+                    .querySelectorAll("input")
+                    .forEach(e => (e.value = "abc"));
+            }
+        </script>
+        <div contenteditable><input onchange="onChnage(event);" /></div>
+        <div id="div2" contenteditable oninput="onInput(event);">
+            <input oninput="onInput(event);" />
+        </div>
+        <div><button onclick="setData();">set data</button></div>
+    </body>
+</html>
