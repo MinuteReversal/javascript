@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //const url = "http://localhost:5001/uploadfile";
+      const url = "http://220.165.143.68:7366/api/Attachment";
+      const authorization =
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IkhVUklMMjI0UTUzVEtWSkw1NVBMUzVURTVSTjVMS0NZIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJodHRwOi8vd3d3LmFzcG5ldGJvaWxlcnBsYXRlLmNvbS9pZGVudGl0eS9jbGFpbXMvdGVuYW50SWQiOiIxIiwic3ViIjoiMiIsImp0aSI6ImUyYjJhNjNlLThhNmUtNGM2Ny04OGUyLWIyNzM0ODEyZDU2MCIsImlhdCI6MTU4NTY0MDE1OSwibmJmIjoxNTg1NjQwMTU5LCJleHAiOjE5MDExNzI5NTksImlzcyI6Ik1GVUlfVnVlX0NvcmUiLCJhdWQiOiJNRlVJX1Z1ZV9Db3JlIn0.npzXk96Oyf36X9vB1sxIZpqZn57ihxriZRDhfLhwKuQ";
+      function upload() {
+        const input = document.querySelector("input");
+        const fd = new FormData();
+        fd.append("xfile", input.files[0]);
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", evt => {
+          alert("complete");
+        });
+        xhr.addEventListener("error", evt => {
+          alert(evt.message);
+        });
+        xhr.open("POST", url);
+        xhr.setRequestHeader("authorization", authorization);
+        xhr.send(fd);
+      }
+    </script>
+    <div>
+      <input type="file" />
+    </div>
+    <div>
+      <button onclick="upload();">upload</button>
+    </div>
+  </body>
+</html>
