@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function startWorker() {
+                let worker = new SharedWorker("sharedWorker.js");
+                worker.port.addEventListener(
+                    "message",
+                    function (e) {
+                        alert(e.data);
+                    },
+                    false
+                );
+
+                worker.port.start();
+
+                // post a message to the shared web worker
+                worker.port.postMessage("Alyssa");
+            }
+        </script>
+        <button onclick="startWorker();">start</button>
+    </body>
+</html>
