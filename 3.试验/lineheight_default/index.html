@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            body {
+                margin: 0;
+            }
+        </style>
+        <span>hello world</span>
+        <div></div>
+        <script>
+            const span = document.querySelector("span");
+            const div = document.querySelector("div");
+            const style = getComputedStyle(span);
+
+            const output = Object.keys(style)
+                .map((index) => `${style[index]}:${style[style[index]]}`)
+                .join(";\n");
+            div.innerText = output;
+        </script>
+    </body>
+</html>
