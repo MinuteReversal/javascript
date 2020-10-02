@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>青云题库app下载</title>
+  </head>
+  <body>
+    <img class="main" src="images/android.jpg" />
+    <style>
+      body {
+        margin: 0;
+        background-color: #f1f5f9;
+      }
+      .main {
+        width: 100%;
+      }
+    </style>
+    <script>
+      var a = document.createElement("a");
+      var ua = window.navigator.userAgent;
+      if (/android/gi.test(ua)) {
+        a.href = "http://www.ynrsks.org/Public/QingYunTK.apk";
+      } else {
+        a.href =
+          "https://apps.apple.com/cn/app/%E9%9D%92%E4%BA%91%E9%A2%98%E5%BA%93/id1526795700";
+      }
+      document.body.appendChild(a);
+
+      /*微信里不自动下载*/
+      // if (!/MicroMessenger/gi.test(ua)) {
+      a.click();
+      // }
+    </script>
+  </body>
+</html>
