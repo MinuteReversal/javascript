@@ -2,8 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Chrome(network)",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://192.168.1.103/js/${relativeFile}",
+      "webRoot": "${cwd}"
+    },
+    {
       //https://github.com/Microsoft/vscode-chrome-debug
-      "name": "Launch index.html",
+      "name": "Launch Chrome(local)",
       "type": "chrome",
       "request": "launch",
       "file": "${file}"
