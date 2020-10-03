@@ -4,27 +4,39 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>videojs</title>
-        <link href="//vjs.zencdn.net/7.8.2/video-js.min.css" rel="stylesheet" />
-        <script src="//vjs.zencdn.net/7.8.2/video.min.js"></script>
+        <link href="css/video-js.min.css" rel="stylesheet" />
+        <script src="js/video.min.js"></script>        
     </head>
     <body>
+        <script>
+            function onUrlChange(evt){
+                
+            }
+        </script>
+        <input id="url" placeholder="url" onchange="onUrlChange(evt);"/>
         <video
             id="my-player"
             class="video-js"
             controls
             preload="auto"
-            poster="//vjs.zencdn.net/v/oceans.png"
-            data-setup='{}'>
-        <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
-        <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a
-            web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">
-            supports HTML5 video
-            </a>
-        </p>
+            poster="img/oceans.png"
+            data-setup="{}"
+        >
+        <!-- <source src="video/oceans.mp4" type="video/mp4"></source>
+        <source src="video/oceans.webm" type="video/webm"></source>
+        <source src="video/oceans.ogv" type="video/ogg"></source> -->
+        <source src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" type="application/x-mpegURL"></source> -->
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider
+                upgrading to a web browser that
+                <a
+                    href="https://videojs.com/html5-video-support/"
+                    target="_blank"
+                >
+                    supports HTML5 video
+                </a>
+            </p>
         </video>
+
     </body>
 </html>
