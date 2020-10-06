@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>indexedDB</title>
+    </head>
+    <body>
+        <script>
+            //https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API/Using_IndexedDB
+            var request = indexedDB.open("MyTestDatabase", 1);
+            request.onerror = (evt) => {
+                console.error(evt);
+            };
+            request.onsuccess = (evt) => {
+                const db = evt.target.request;
+                const objStore = db.createObjectStore("names");
+            };
+            request.onupgradeneeded = (evt) => {
+                const db = evt.target.result;
+            };
+        </script>
+    </body>
+</html>

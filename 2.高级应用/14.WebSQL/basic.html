@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Web SQL</title>
+    </head>
+    <body>
+        <script>
+            //https://www.runoob.com/html/html5-web-sql.html
+            //https://sqlite.org/autoinc.html
+
+            var db = openDatabase("mydb", "1.0", "Test DB", 2 * 1024 * 1024);
+            // db.transaction((ctx)=>{
+            //     ctx.executeSql("DROP TABLE logs");
+            // });
+            db.transaction((ctx) => {
+                ctx.executeSql(
+                    "CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY,log VARCHAR)"
+                );
+                ctx.executeSql('INSERT INTO logs (log) VALUES("hello world!")');
+            });
+            db.transaction((ctx) => {
+                ctx.executeSql("INSERT INTO LOGS (log) VALUES(?)", [
+                    Date.now(),
+                ]);
+            });
+            db.transaction((ctx) => {
+                ctx.executeSql('UPDATE LOGS SET log="888" WHERE id=2');
+            });
+            db.transaction((ctx) => {
+                ctx.executeSql("SELECT * FROM logs", [], (ctx, result) => {
+                    for (var i = 0; i < result.rows.length; i++) {
+                        console.log(result.rows[i]);
+                    }
+                });
+            });
+            db.transaction((ctx) => {
+                ctx.executeSql("DELETE FROM logs");
+            });
+        </script>
+    </body>
+</html>
