@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="sleep.js"></script>
+    </head>
+    <body>
+        <script>
+            function delay(milliseconds) {
+                return new Promise((resolve, reject) => {
+                    sleep(milliseconds);
+                    resolve();
+                });
+            }
+
+            async function main() {
+                console.log("begin");
+                await delay(3000);
+                console.log("end");
+                console.log("begin");
+                await sleepAsync(2000);
+                console.log("end");
+            }
+
+            main();
+        </script>
+    </body>
+</html>

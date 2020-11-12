@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function sleep(milliseconds) {
+                let now = Date.now();
+                while (Date.now() - now < milliseconds);
+            }
+            console.log(`start${Date.now()}`);
+            sleep(10000);
+            console.log(`end${Date.now()}`);
+        </script>
+    </body>
+</html>
