@@ -13,8 +13,9 @@
     />
   </head>
   <body>
-    <button id="request">请求授权</button>
-    <div id="output"></div>
+    <button>请求授权</button>
+    <div></div>
+    <audio controls preload="auto" src="5018.mp3"></audio>
     <script>
       //https://stackoverflow.com/questions/56514116/how-do-i-get-deviceorientationevent-and-devicemotionevent-to-work-on-safari
       if (location.protocol != "https:") {
@@ -22,10 +23,24 @@
           "https:" +
           window.location.href.substring(window.location.protocol.length);
       }
-      const output = document.getElementById("output");
-      const request = document.getElementById("request");
+
+      const output = document.querySelector("div");
+      const request = document.querySelector("button");
+      const sound = document.querySelector("audio");
+
+      const SHAKE_THRESHOLD = 4000; //定义一个摇动的值
+      let last_update = 0; //定义一个变量保存上次更新的时间
+      let x = 0; //定义xyz记录三个轴的数据以及上一次出发的时间
+      let y = 0;
+      let z = 0;
+      let last_x = 0;
+      let last_y = 0;
+      let last_z = 0;
 
       function permission() {
+        sound.play();
+        sound.pause();
+        sound.currentTime = 0;
         if (/iPhone|iPad|iPod/g.test(navigator.userAgent)) {
           iosDeviceMotion();
         } else {
@@ -35,6 +50,7 @@
 
       function androidDeviceMotion() {
         if (typeof DeviceMotionEvent !== "undefined") {
+          //https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
           motionHandler();
         } else {
           alert("DeviceMotionEvent is not defined");
@@ -66,12 +82,33 @@
       function motionHandler() {
         //https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent
         window.addEventListener("devicemotion", function (event) {
+          const acceleration = event.acceleration;
+          const curTime = new Date().getTime(); //获取当前时间
+
           const msg = [
             `x:${event.acceleration.x}`,
             `y:${event.acceleration.y}`,
             `z:${event.acceleration.z}`,
           ];
           output.innerHTML = msg.join("<br />");
+
+          if (curTime - last_update > 10) {
+            //curTime - last_update 是固定时间段
+            let diffTime = curTime - last_update;
+            last_update = curTime;
+            x = acceleration.x;
+            y = acceleration.y;
+            z = acceleration.z;
+            const speed =
+              (Math.abs(x + y + z - last_x - last_y - last_z) / diffTime) *
+              10000;
+            if (speed > SHAKE_THRESHOLD) {
+              sound.play();
+            }
+            last_x = x;
+            last_y = y;
+            last_z = z;
+          }
         });
       }
 
