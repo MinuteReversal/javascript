@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="request">请求授权</button><br />
+    <div id="output"></div>
+    <iframe
+      id="sender"
+      src="https://192.168.31.58/js/3.试验/9.devicemotion/motionsender.html"
+    ></iframe>
+    <script>
+      const btn = document.getElementById("request");
+      const output = document.getElementById("output");
+      const sender = document.getElementById("sender");
+
+      function motionHandler(evt) {
+        const msg = [`x:${evt.data.x}`, `y:${evt.data.y}`, `z:${evt.data.z}`];
+        output.innerHTML = msg.join("<br />");
+      }
+
+      window.addEventListener("message", (evt) => {
+        motionHandler(evt);
+      });
+
+      btn.addEventListener("click", () => {
+        sender.contentWindow.postMessage("listen device motion");
+      });
+    </script>
+  </body>
+</html>

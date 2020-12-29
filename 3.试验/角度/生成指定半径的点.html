@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <label for="total">点数：</label>
+        <input id="total" type="number" value="12" /><br />
+        <label for="radius">半径：</label>
+        <input id="radius" type="number" value="10" /><br />
+        <button id="btn">生成</button>
+        <br />
+        <textarea id="output" rows="20" cols="50"></textarea>
+        <script>
+            const total = document.querySelector("#total");
+            const radius = document.querySelector("#radius");
+            const btn = document.querySelector("#btn");
+            const output = document.querySelector("#output");
+
+            function generate() {
+                const length = parseInt(total.value);
+                const nRadius = parseInt(radius.value);
+                const points = new Array();
+                for (let index = 0; index < length; index++) {
+                    const deg = (360 / length) * index;
+                    const rand = Math.PI / 180;
+                    const x = Math.trunc(Math.cos(deg * rand) * nRadius);
+                    const y = Math.trunc(Math.sin(deg * rand) * nRadius);
+                    points.push(`${deg}(${x},${y})`);
+                }
+                output.value = points.join("\n");
+            }
+
+            btn.addEventListener("click", generate);
+        </script>
+    </body>
+</html>
