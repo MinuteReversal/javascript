@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script>
+            function draw() {
+                var ctx = document.querySelector("canvas").getContext("2d");
+
+                // draw a simple rectangle, but scale it.
+                ctx.save();
+                ctx.scale(10, 3);
+                ctx.fillRect(1, 10, 10, 10);
+                ctx.restore();
+
+                // mirror horizontally
+                ctx.scale(-1, 1);
+                ctx.font = "48px serif";
+                ctx.fillText("MDN", -135, 120);
+            }
+            draw();
+        </script>
+    </body>
+</html>

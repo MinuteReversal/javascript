@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <canvas></canvas>
+        <script>
+            //https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Transformations
+            function draw() {
+                var ctx = document.querySelector("canvas").getContext("2d");
+                for (var i = 0; i < 3; i++) {
+                    for (var j = 0; j < 3; j++) {
+                        ctx.save();
+                        ctx.fillStyle =
+                            "rgb(" + 51 * i + ", " + (255 - 51 * i) + ", 255)";
+                        ctx.translate(10 + j * 50, 10 + i * 50);
+                        ctx.fillRect(0, 0, 25, 25);
+                        ctx.restore();
+                    }
+                }
+            }
+            draw();
+        </script>
+    </body>
+</html>
