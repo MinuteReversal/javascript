@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <video></video><br />
+    <button id="begin">开始</button><button id="stop">停止</button
+    ><button id="snapshot">截图</button><br />
+    <canvas></canvas>
+    <script>
+      const video = document.querySelector("video");
+      const canvas = document.querySelector("canvas");
+      const btnBegin = document.getElementById("begin");
+      const btnStop = document.getElementById("stop");
+
+      btnBegin.addEventListener("click", begin);
+      btnStop.addEventListener("click", stop);
+
+      /**
+       * 开始
+       */
+      async function begin() {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        video.srcObject = mediaStream;
+        video.play();
+      }
+
+      /**
+       * 拍照
+       */
+      async function snapshot() {
+        const ctx = canvas.getContext("2d");
+      }
+
+      /**
+       * 停止
+       */
+      function stop() {
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => track.stop());
+        video.srcObject = null;
+      }
+    </script>
+  </body>
+</html>
