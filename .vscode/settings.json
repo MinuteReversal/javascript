@@ -1,4 +1,5 @@
 {
+    "editor.tabSize": 2,
     "prettier.tabWidth": 2,
     "prettier.vueIndentScriptAndStyle": true
 }

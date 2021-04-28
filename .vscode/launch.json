@@ -5,7 +5,7 @@
       "name": "Launch Chrome(network)",
       "request": "launch",
       "type": "pwa-chrome",
-      "url": "http://192.168.1.103/js/${relativeFile}",
+      "url": "http://192.168.31.171/js/${relativeFile}",
       "webRoot": "${cwd}"
     },
     {

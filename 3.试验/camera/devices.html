@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>获取</button>
+    <select></select>
+    <script>
+      //https://stackoverflow.com/questions/60297972/navigator-mediadevices-enumeratedevices-returns-empty-labels
+      const select = document.querySelector("select");
+      const btn = document.querySelector("button");
+
+      btn.addEventListener("click", getCameras);
+
+      /**
+       * 开始
+       */
+      async function getPermission() {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: true,
+        });
+        const tracks = mediaStream.getTracks();
+        tracks.forEach((track) => {
+          track.stop();
+          console.log(track);
+        });
+      }
+
+      async function getCameras() {
+        await getPermission();
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        console.log(devices);
+        devices.forEach((device) => {
+          const option = document.createElement("option");
+          option.value = device.deviceId;
+          option.innerText = `${device.kind}:${device.label},id=${device.deviceId}`;
+          select.options.add(option);
+        });
+      }
+    </script>
+  </body>
+</html>

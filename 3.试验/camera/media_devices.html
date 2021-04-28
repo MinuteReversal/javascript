@@ -10,15 +10,18 @@
     <video></video><br />
     <button id="begin">开始</button><button id="stop">停止</button
     ><button id="snapshot">截图</button><br />
-    <canvas></canvas>
+    <canvas width="640" height="480"></canvas>
     <script>
+      //https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
       const video = document.querySelector("video");
       const canvas = document.querySelector("canvas");
       const btnBegin = document.getElementById("begin");
       const btnStop = document.getElementById("stop");
+      const btnSnapshot = document.getElementById("snapshot");
 
       btnBegin.addEventListener("click", begin);
       btnStop.addEventListener("click", stop);
+      btnSnapshot.addEventListener("click", snapshot);
 
       /**
        * 开始
@@ -36,6 +39,9 @@
        */
       async function snapshot() {
         const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0);
+        const url = canvas.toDataURL("image/jpeg", 1);
+        download(url);
       }
 
       /**
@@ -46,6 +52,16 @@
         const tracks = stream.getTracks();
         tracks.forEach((track) => track.stop());
         video.srcObject = null;
+      }
+
+      /**
+       * 下载
+       */
+      function download(objectUrl) {
+        const a = document.createElement("a");
+        a.href = objectUrl;
+        a.download = `${Date.now()}.jpeg`;
+        a.click();
       }
     </script>
   </body>
