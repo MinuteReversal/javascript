@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" value="DESKTOP" /><br />
+    <button>生成</button><br />
+    <textarea rows="10"> </textarea>
+    <script>
+      const input = document.querySelector("input");
+      const textarea = document.querySelector("textarea");
+      const button = document.querySelector("button");
+      button.addEventListener("click", (event) => {
+        const name = Math.trunc(Date.now() / 1000)
+          .toString("0x16")
+          .toUpperCase();
+        textarea.value = `${input.value}-${name}`;
+      });
+    </script>
+  </body>
+</html>
