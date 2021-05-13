@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>cos(a)</td>
+        <td>-sin(a)</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>sin(a)</td>
+        <td>cos(a)</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+      </tr>
+    </table>
+    <!--https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function-->
+    <div></div>
+    <style>
+      body {
+        margin: 0;
+      }
+      /**
+       * 
+       *
+       */
+      /* prettier-ignore */
+      div {
+        width: 300px;
+        height: 300px;
+        background-color: red;   
+        /**
+        * a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, d4
+        * These arguments are a number that describe the linear transformation.
+        * a4, b4, c4
+        * These arguments are a number that describe the translation to apply.
+        * 矩阵是列优先，matrix3d方法参数是行优先
+        *  a1 a2 a3 a4
+        *  b1 b2 b3 b4
+        *  c1 c2 c3 c4
+        *  d1 d2 d3 d4
+        *       |
+        *       V
+        * matrix3d(a1,a2,a3,a4,b1,b2,b3,b4,c1,c2,c3,c4,d1,d2,d3,d4) 
+        *
+        * cos(a)    -sin(a)      0      0
+        * sin(a)    cos(a)       0      0
+        * 0         0            1      0
+        * 0         0            0      1
+        * https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function#rotate
+        * https://www.quackit.com/css/functions/css_matrix3d_function.cfm
+        * Z轴顺时针旋转30度
+        */     
+        /* transform: rotateZ(30deg); */
+        /* transform:rotate3D(0, 0, 1, 30deg) */
+        transform: matrix3d(
+          0.866, 0.5,  0,        0,
+          -0.5,  0.866,0,        0,
+          0,     0,    1,        0,
+          0,     0,    0,        1
+        );
+      }
+    </style>
+  </body>
+</html>

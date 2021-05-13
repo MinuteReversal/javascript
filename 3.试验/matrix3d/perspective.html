@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>透视投影</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>-1/d</td>
+        <td>1</td>
+      </tr>
+    </table>
+    <!--https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function#translate3d-->
+    <div></div>
+    <style>
+      body {
+        margin: 0;
+      }
+      /**
+       * 
+       *
+       */
+      /* prettier-ignore */
+      div {
+        width: 300px;
+        height: 300px;
+        background-color: red;   
+        /**
+        * 1  0   0    0
+        * 0  1   0    0
+        * 0  0   1    0
+        * 0  0  -1/d  1
+        * https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function#rotate
+        * 向Z轴平移10px
+        */
+        /* transform: perspective(80px) translateZ(-10px); */
+        transform: matrix3d(
+          1, 0, 0, 0,
+          0, 1, 0, 0,
+          0, 0, 1, -0.0125,
+          0, 0, 0, 1
+        ) 
+        translateZ(-10px);         
+      }
+    </style>
+  </body>
+</html>
