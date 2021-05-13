@@ -1,5 +1,0 @@
-https://developers.google.com/speed/docs/insights/MinifyResources
-google的建议工具 css html js http://yui.github.io/yuicompressor/
-google 建议的 css, js
-压缩工具http://www.crockford.com/javascript/jsmin.html
-js压缩http://www.phpied.com/cssmin-js/   js, css 压缩
