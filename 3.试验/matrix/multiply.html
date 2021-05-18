@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>矩阵相乘</title>
+  </head>
+  <body>
+    <!--https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function-->
+    <div></div>
+    <style>
+      body {
+        margin: 0;
+      }
+      /**
+       * 
+       *
+       */
+      /* prettier-ignore */
+      div {
+        width: 300px;
+        height: 300px;
+        background-color: red;   
+        /**
+        * cos(a) -sin(a)  0
+        * sin(a)  cos(a)  0
+        *   0       0     1
+        * https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function#rotate
+        * 顺时针旋转30度
+        * 1  0  tx
+        * 0  1  ty
+        * 0  0  1
+        * https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function#rotate
+        * 向x轴平移20px
+        * 左乘矩阵B*A https://www.zhihu.com/question/263660493
+        * 1,   0,   20,    0.866, -0.5,  0,     (1x0.866)+(0x0.5)+(20x0) , (1x-0.5)+(0x0.866)+(20x0) , (1x0)+(0x0)+(20x1) ,      0.866, -0.5,  20,
+        * 0,   1,   0,  x  0.5,   0.866, 0,  =  (0x0.866)+(1x0.5)+(0x0)  , (0x-0.5)+(1x0.866)+(0x0)  , (0x0)+(1x0)+(0x1)  ,   =  0.5  , 0.866, 0,
+        * 0    0    1      0,     0,     1,     (0x0.866)+(0x0.5)+(1x0)  , (0x-0.5)+(0x0.866)+(1x0)  , (0x0)+(0x0)+(1x1)  ,      0    , 0    , 1,
+        */     
+        /* transform: rotate(30deg) translateX(20px); */
+        transform: matrix(
+          0.866,   0.5,
+          -0.5,    0.866,
+          20,      0 
+        );         
+      }
+    </style>
+  </body>
+</html>
