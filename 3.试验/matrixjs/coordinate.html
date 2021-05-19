@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const context = canvas.getContext("2d");
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const center = { x: width / 2, y: height / 2 };
+      const scale = 0.01;
+      canvas.width = width;
+      canvas.height = height;
+
+      //元点
+      context.strokeText(0, center.x, center.y);
+
+      //x 轴
+      context.moveTo(0, center.y);
+      context.lineTo(width, center.y);
+      for (let x = 1; x < center.x * scale; x++) {
+        context.strokeText(x, x / scale + center.x, center.y);
+        context.strokeText(-x, -x / scale + center.x, center.y);
+      }
+
+      //y 轴
+      context.moveTo(center.x, 0);
+      context.lineTo(center.x, height);
+      for (let y = 1; y < center.y * scale; y++) {
+        context.strokeText(y, center.x, y / scale + center.y);
+        context.strokeText(-y, center.x, -y / scale + center.y);
+      }
+      context.stroke();
+
+      //画一个点
+      const point = {
+        x: 4,
+        y: 3,
+      };
+
+      /**
+       * cos(a) = x / r  =>  x = cos(a) * r
+       * sin(a) = y / r  =>  y = sin(a) * r
+       */
+      context.fillStyle = "red";
+      context.fillRect(
+        center.x + point.x / scale,
+        center.y - point.y / scale,
+        5,
+        5
+      );
+    </script>
+  </body>
+</html>

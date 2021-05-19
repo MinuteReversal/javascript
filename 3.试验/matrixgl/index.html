@@ -29,48 +29,18 @@
   <body>
     <canvas></canvas>
     <script>
-      window.addEventListener("load", setupWebGL, false);
-      var gl, program;
       const canvas = document.querySelector("canvas");
-      gl = canvas.getContext("webgl");
+      const gl = canvas.getContext("webgl");
+      const vsSource = document.getElementById("vertex-shader").innerHTML;
+      const fsSource = document.getElementById("fragment-shader").innerHTML;
+      const program = initShaderProgram(gl, vsSource, fsSource);
 
-      function setupWebGL(evt) {
-        window.removeEventListener(evt.type, setupWebGL, false);
-        if (!gl) return;
+      initializeAttributes();
 
-        var source = document.querySelector("#vertex-shader").innerHTML;
-        var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-        gl.shaderSource(vertexShader, source);
-        gl.compileShader(vertexShader);
-        source = document.querySelector("#fragment-shader").innerHTML;
-        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-        gl.shaderSource(fragmentShader, source);
-        gl.compileShader(fragmentShader);
-        program = gl.createProgram();
-        gl.attachShader(program, vertexShader);
-        gl.attachShader(program, fragmentShader);
-        gl.linkProgram(program);
-        gl.detachShader(program, vertexShader);
-        gl.detachShader(program, fragmentShader);
-        gl.deleteShader(vertexShader);
-        gl.deleteShader(fragmentShader);
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-          var linkErrLog = gl.getProgramInfoLog(program);
-          cleanup();
-          document.querySelector("p").innerHTML =
-            "Shader program did not link successfully. " +
-            "Error log: " +
-            linkErrLog;
-          return;
-        }
+      gl.useProgram(program);
+      gl.drawArrays(gl.POINTS, 0, 1);
 
-        initializeAttributes();
-
-        gl.useProgram(program);
-        gl.drawArrays(gl.POINTS, 0, 1);
-
-        cleanup();
-      }
+      cleanup();
 
       var buffer;
       function initializeAttributes() {

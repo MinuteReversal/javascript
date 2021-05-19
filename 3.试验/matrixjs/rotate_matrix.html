@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const sin = Math.sin;
+      const cos = Math.cos;
+
+      const a = Math.PI * 0.3;
+
+      // prettier-ignore
+      const rotateZMatrix=[
+        cos(a),-sin(a),  0,    0,
+        sin(a), cos(a),  0,    0,
+             0,      0,  1,    0,
+             0,      0,  0,    1
+      ];
+
+      function rotateAroundXAxis(a) {
+        // prettier-ignore
+        return [
+          1,     0,      0,    0,
+          0,cos(a),-sin(a),    0,
+          0,sin(a), cos(a),    0,
+          0,     0,      0,    1
+        ];
+      }
+
+      function rotateAroundYAxis(a) {
+        // prettier-ignore
+        return [
+           cos(a),    0,sin(a), 0,
+                0,    1,     0, 0,
+          -sin(a),    0,cos(a), 0,
+                0,    0,     0, 1
+        ];
+      }
+
+      function rotateAroundZAxis(a) {
+        // prettier-ignore
+        return [
+          cos(a),-sin(a),  0,  0,
+          sin(a), cos(a),  0,  0,
+               0,      0,  1,  0,
+               0,      0,  0,  1
+        ]
+      }
+    </script>
+  </body>
+</html>

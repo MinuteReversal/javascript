@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Matrix_math_for_the_web#rotation_matrix
+      // Manually rotating a point about the origin without matrices
+      const point = [10, 2];
+      const distane = Math.sqrt(point[0] * point[0] + point[1] * point[1]);
+      const rotationInRadians = Math.PI / 3;
+      const transformedPoint = [
+        Math.cos(rotationInRadians) * distane,
+        Math.sin(rotationInRadians) * distane,
+      ];
+    </script>
+  </body>
+</html>

@@ -1,8 +1,0 @@
-{
-  "typeAcquisition": {
-    "include": ["./type/**/*"]
-  },
-  "compilerOptions": {},
-  "include": ["**/*.js", "**/*.html"],
-  "exclude": ["node_modules", "**/node_modules/*"]
-}

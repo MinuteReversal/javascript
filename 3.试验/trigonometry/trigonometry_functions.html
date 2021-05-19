@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * x=cos(a)*r
+       * y=sin(a)*r
+       * tan(a)=y/x
+       */
+      const angleToRadian = Math.PI / 180;
+      const radianToAngle = 180 / Math.PI;
+
+      const sin = Math.sin;
+      const asin = Math.asin;
+      const cos = Math.cos;
+      const acos = Math.acos;
+      const tan = Math.tan;
+      const atan = Math.atan;
+
+      let a = 30 * angleToRadian;
+      console.log(sin(a));
+      console.log(asin(0.5) * radianToAngle);
+
+      a = 60 * angleToRadian;
+      console.log(cos(a));
+      console.log(acos(0.5) * radianToAngle);
+
+      a = 45 * angleToRadian;
+      console.log(tan(a));
+      console.log(atan(1) * radianToAngle);
+    </script>
+  </body>
+</html>
