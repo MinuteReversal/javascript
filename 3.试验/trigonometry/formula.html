@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const sin = Math.sin;
+      const cos = Math.cos;
+      const angleToRadian = Math.PI / 180;
+      const radianToAngle = 180 / Math.PI;
+      const angle15 = 15 * angleToRadian;
+      const angle30 = 30 * angleToRadian;
+      const angle60 = 60 * angleToRadian;
+
+      /**
+       * 两角和差公式
+       * cos(a+b)=cos(a)*cos(b)-sin(a)*sin(b);
+       * cos(a-b)=cos(a)*cos(b)+sin(a)*sin(b);
+       * sin(a+b)=sin(a)*cos(b)+cos(a)*sin(b);
+       * sin(a-b)=sin(a)*cos(b)-cos(a)*sin(b);
+       */
+
+      // prettier-ignore
+      console.log(cos(angle15 + angle30)==cos(angle15) * cos(angle30) - sin(angle15) * sin(angle30));
+      // prettier-ignore
+      console.log(cos(angle30 - angle15)==cos(angle30) * cos(angle15) + sin(angle30) * sin(angle15));
+      // prettier-ignore
+      console.log(sin(angle15 + angle30)==sin(angle15) * cos(angle30) + cos(angle15) * sin(angle30));
+      // prettier-ignore
+      console.log(sin(angle30 - angle15)==sin(angle30) * cos(angle15) - cos(angle30) * sin(angle15));
+    </script>
+  </body>
+</html>

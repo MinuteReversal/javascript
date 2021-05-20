@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const sin = Math.sin;
+      const cos = Math.cos;
+      const angleToRadian = Math.PI / 180;
+      const radianToAngle = 180 / Math.PI;
+      const angle15 = 15 * angleToRadian;
+      const angle30 = 30 * angleToRadian;
+      const angle60 = 60 * angleToRadian;
+
+      /**
+       * 两角和差公式
+       * cos(a+b)=cos(a)*cos(b)-sin(a)*sin(b);
+       * cos(a-b)=cos(a)*cos(b)+sin(a)*sin(b);
+       * sin(a+b)=sin(a)*cos(b)+cos(a)*sin(b);
+       * sin(a-b)=sin(a)*cos(b)-cos(a)*sin(b);
+       * x=cos(a);
+       * y=sin(a);
+       * z=0;
+       * https://zhuanlan.zhihu.com/p/104331790
+       *
+       *              Y
+       *              ^                x'  ,   y'    ,z'
+       *              |          (cos(a+a1),sin(a+a1),0)
+       *              |          /
+       *              |        /          x   ,  y   ,z
+       *              |      /       / (cos(a),sin(a),0)
+       *              |    / a2  /
+       *              |  /   /
+       *              |/ / a1
+       *              |----------------------------->X
+       *             /
+       *            /
+       *           /
+       *          /
+       *         /
+       *        v
+       *       Z
+       *
+       * 按z轴旋转z行列全为0，交叉点为1
+       *      x   y   z
+       *
+       * x   M11,M12,M13
+       * y   M21,M22,M23
+       * z   M31,M32,M33
+       *
+       * X(1,0,0)
+       * Y(0,1,0)
+       * Z(0,0,1)
+       *
+       * 从X按Z轴旋转
+       * 
+       *  M11,M12,  0     cos(a1)      M11*cos(a1) + M12*sin(a1) + 0    cos(a1+a2)   cos(a1)*cos(a2) - sin(a1)*sin(a2)
+       *  M21,M22,  0  *  sin(a1)   =  M21*cos(a1) + M22*sin(a1) + 0  = sin(a1+a2) = sin(a1)*cos(a2) + cos(a1)*sin(a2)
+       *    0,  0,  1     0                      0 +           0 + 0    0
+       * 
+       *
+       * M11=cos(a2)
+       * M12=-sin(a2)
+       * M21=sin(a2)
+       * M22=cos(a2)
+       *
+       * cos(a),-sin(a),0,
+       * sin(a), cos(a),0,
+       *      0,      0,0
+       */
+    </script>
+  </body>
+</html>

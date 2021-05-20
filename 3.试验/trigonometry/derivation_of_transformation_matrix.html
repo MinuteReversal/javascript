@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const sin = Math.sin;
+      const cos = Math.cos;
+      const angleToRadian = Math.PI / 180;
+      const radianToAngle = 180 / Math.PI;
+      const angle15 = 15 * angleToRadian;
+      const angle30 = 30 * angleToRadian;
+      const angle60 = 60 * angleToRadian;
+
+      /**
+       * 两角和差公式
+       * cos(a+b)=cos(a)*cos(b)-sin(a)*sin(b);
+       * cos(a-b)=cos(a)*cos(b)+sin(a)*sin(b);
+       * sin(a+b)=sin(a)*cos(b)+cos(a)*sin(b);
+       * sin(a-b)=sin(a)*cos(b)-cos(a)*sin(b);
+       * x=cos(a);
+       * y=sin(a);
+       *
+       * https://zhuanlan.zhihu.com/p/104331790
+       *                   x'  ,   y'
+       *   ^          (cos(a+a1),sin(a+a1))
+       *   |        /          x   ,  y
+       *   |      /       / (cos(a),sin(a))
+       *   |    / a2  / 
+       *   |  /  /
+       *   |// a1
+       *   |----------------------------->
+       * 
+       * 
+       * 
+       * 
+       * 
+       * [ M11,M12              
+       *   M21,M22 ] * [x,y] =[M11*x+M12*y , M21*x+M22*y] = [x',y']=[cos(a1+a2),sin(a1+a2)]
+       *                                 |                                |
+       *                                 V                                V
+       *                      M11*cos(a1) + M12*sin(a1) = cos(a1)*cos(a2) - sin(a1)*sin(a2);
+       * 
+       * 
+       *                      [M11*x+M12*y , M21*x+M22*y] = [x',y']=[cos(a2+a1),sin(a2+a1)]
+       *                                 |                                |
+       *                                 V                                V
+       *                      M21*cos(a1) + M22*sin(a1) = sin(a2)*cos(a1) + cos(a2)*sin(a1);
+       *                                                |
+       *                                                V
+       *                        M11 M12                 =  cos(a2)   -sin(a2)
+       *                        M21 M22                    sin(a2)    cos(a2)  
+       * 
+       */
+    </script>
+  </body>
+</html>
