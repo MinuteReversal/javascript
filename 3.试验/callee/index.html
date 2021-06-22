@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var global = this;
+
+      var sillyFunction = function (recursed) {
+        if (!recursed) {
+          return arguments.callee(true);
+        }
+        if (this !== global) {
+          console.log("This is: " + this);
+        } else {
+          console.log("This is the global");
+        }
+      };
+
+      sillyFunction();
+    </script>
+  </body>
+</html>

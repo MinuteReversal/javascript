@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -58,12 +58,12 @@
         */
         /* transform: perspective(80px) translateZ(-10px); */
         transform: matrix3d(
-          1, 0, 0, 0,
-          0, 1, 0, 0,
-          0, 0, 1, -0.0125,
-          0, 0, 0, 1
-        ) 
-        translateZ(-10px);         
+          1,0,    0,0,
+          0,1,    0,0,
+          0,0,    1,0,
+          0,0,-1/80,1
+        )
+        translateZ(-10px);
       }
     </style>
   </body>

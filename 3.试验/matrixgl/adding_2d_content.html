@@ -12,10 +12,14 @@
       }
     </style>
     <script src="./shader_tool.js"></script>
+    <script src="./toji-gl-matrix-fccd5f7/dist/gl-matrix-min.js"></script>
     <script type="x-shader/x-vertex" id="vertex-shader">
       attribute vec3 coordinates;
+
+      uniform mat4 uModelViewMatrix;
+      uniform mat4 uProjectionMatrix;
       void main() {
-        gl_Position = vec4(coordinates, 1.0);
+        gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(coordinates, 1.0);
       }
     </script>
     <script type="x-shader/x-fragment" id="fragment-shader">
@@ -76,8 +80,16 @@
       gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(coord);
 
-      gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.viewport(0, 0, canvas.width, canvas.height);
+      const fieldOfView = 45 * (Math.PI / 180);
+      const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+      const zNear = 0.1;
+      const zFar = 100.0;      
+
+      gl.clearDepth(1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+      gl.enable(gl.DEPTH_TEST);
+      gl.depthFunc(gl.LEQUAL);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, vertices.length);
 
       gl.useProgram(null);

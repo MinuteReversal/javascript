@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="file" />
+      <input type="number" value="300" />X<input type="number" value="150" />
+      <select>
+        <option value="image/png">png</option>
+        <option value="image/jpeg">jpeg</option>
+        <option value="image/gif">gif</option>
+        <option value="image/bmp">bmp</option>
+      </select>
+      <button>下载</button>
+    </div>
+    <div>
+      <canvas></canvas>
+    </div>
+    <script>
+      const inputs = document.getElementsByTagName("input");
+      const fileInput = inputs[0];
+      const widthInput = inputs[1];
+      const heightInput = inputs[2];
+      const select = document.querySelector("select");
+      const canvas = document.querySelector("canvas");
+      const context = canvas.getContext("2d");
+      const downloadButton = document.querySelector("button");
+
+      /**
+       * 重新设置画布大小
+       */
+      function resizeCanvas() {
+        const width = Number(widthInput.value);
+        const height = Number(heightInput.value);
+        canvas.width = width;
+        canvas.height = height;
+        draw();
+      }
+
+      /**
+       * 文件转图片
+       */
+      function fileToImage(file) {
+        return new Promise((resolve, reject) => {
+          if (file instanceof File) {
+            const img = new Image();
+            img.addEventListener("load", (event) => {
+              resolve(img);
+            });
+            img.addEventListener("error", reject);
+            img.src = URL.createObjectURL(file);
+          }
+        });
+      }
+
+      /**
+       * 绘制
+       */
+      async function draw() {
+        const file = fileInput.files[0];
+        if (file) {
+          const picture = await fileToImage(file);
+          const width = Number(widthInput.value);
+          const height = Number(heightInput.value);
+          context.drawImage(picture, 0, 0, width, height);
+        }
+      }
+
+      /**
+       * 下载
+       */
+      function download() {
+        const mime = select.value;
+        const dataUrl = canvas.toDataURL(mime, 1);
+        const a = document.createElement("a");
+        a.download = Date.now() + mime.replace("image/", ".");
+        a.href = dataUrl;
+        a.click();
+      }
+
+      select.onchange = draw;
+      fileInput.onchange = draw;
+      widthInput.onchange = resizeCanvas;
+      heightInput.onchange = resizeCanvas;
+      downloadButton.onclick = download;
+    </script>
+  </body>
+</html>
