@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const quadraticCurve = new Path2D();
+      quadraticCurve.moveTo(10, 80);
+      quadraticCurve.quadraticCurveTo(55, 0, 120, 80);
+      ctx.strokeStyle = "red";
+      ctx.stroke(quadraticCurve);
+
+      const bezierCurve = new Path2D();
+      bezierCurve.moveTo(10, 160);
+      bezierCurve.bezierCurveTo(20, 80, 100, 80, 120, 160);
+      ctx.strokeStyle = "blue";
+      ctx.stroke(bezierCurve);
+    </script>
+  </body>
+</html>
