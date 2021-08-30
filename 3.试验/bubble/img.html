@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="out">
+      out
+      <img
+        src="https://dss2.bdstatic.com/8_V1bjqh_Q23odCf/pacific/1989533247.jpg"
+        id="inner"
+      />
+    </div>
+    <script>
+      const div = document.querySelector("div");
+      // div.onclick = (event) => {
+      //   console.log([event.currentTarget, event.target]);
+      // };
+      div.addEventListener("click", (event) => {
+        console.log([event.currentTarget, event.target]);
+      });
+    </script>
+  </body>
+</html>
