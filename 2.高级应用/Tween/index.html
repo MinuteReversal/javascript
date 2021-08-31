@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="tween.umd.js"></script>
+  </head>
+  <body>
+    <div>
+      <button id="btnStart">start</button>
+      <button id="btnStop">stop</button>
+    </div>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      const btnStart = document.querySelector("#btnStart");
+      const btnStop = document.querySelector("#btnStop");
+
+      const position = { x: 0, y: 0 };
+      const tween = new TWEEN.Tween(position);
+      tween.easing(TWEEN.Easing.Quadratic.In);
+      tween.to({ x: 200 }, 1000);
+      tween.onUpdate((postion) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(position.x, position.y, 20, 20);
+      });
+
+      btnStart.addEventListener("click", (evt) => {
+        tween.start();
+      });
+      btnStop.addEventListener("click", (evt) => {
+        tween.stop();
+      });
+
+      function animate() {
+        TWEEN.update();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+  </body>
+</html>
