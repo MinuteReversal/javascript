@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <svg width="400" height="300">
+      <rect x="0" y="0" width="100" height="100" fill="red" />
+      <rect x="110" y="0" width="100" height="100" fill="#00FF00" />
+      <rect x="220" y="0" width="100" height="100" fill="rgb(0,0,255)" />
+      <rect
+        x="0"
+        y="30"
+        width="320"
+        height="40"
+        fill="black"
+        fill-opacity="0.5"
+      />
+      <!-- using linear gradient -->
+      <defs>
+        <linearGradient id="lingrad" gradientTransform="rotate(0)">
+          <stop offset="0%" stop-color="white" />
+          <stop offset="100%" stop-color="black" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="120" width="100" height="100" fill="url('#lingrad')" />
+
+      <!-- using radial gradient -->
+      <defs>
+        <radialGradient id="radgrad">
+          <stop offset="0%" stop-color="#000000" />
+          <stop offset="100%" stop-color="#FFFFFF" />
+        </radialGradient>
+      </defs>
+      <rect x="110" y="120" width="100" height="100" fill="url('#radgrad')" />
+
+      <defs>
+        <pattern id="star" viewBox="0,0,10,10" width="10%" height="10%">
+          <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2" />
+        </pattern>
+      </defs>
+      <rect x="220" y="120" width="100" height="100" fill="url('#star')" />
+    </svg>
+    <canvas width="400" height="300"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "red";
+      ctx.fillRect(0, 0, 100, 100);
+
+      ctx.fillStyle = "#00FF00";
+      ctx.fillRect(110, 0, 100, 100);
+
+      ctx.fillStyle = "rgb(0,0,255)";
+      ctx.fillRect(220, 0, 100, 100);
+
+      ctx.fillStyle = "rgba(0,0,0,0.5)";
+      ctx.fillRect(0, 30, 320, 40);
+
+      //线性渐变
+      const lingrad = ctx.createLinearGradient(0, 120, 100, 120);
+      lingrad.addColorStop(0, "white");
+      lingrad.addColorStop(0.5, "#777777");
+      lingrad.addColorStop(1, "rgb(0,0,0)");
+
+      ctx.fillStyle = lingrad;
+      ctx.fillRect(0, 120, 100, 100);
+
+      //径向渐变
+      const radgrad = ctx.createRadialGradient(160, 170, 0, 160, 170, 50);
+      radgrad.addColorStop(0, "black");
+      radgrad.addColorStop(1, "white");
+
+      ctx.fillStyle = radgrad;
+      ctx.fillRect(110, 120, 100, 100);
+
+      //图案样式
+      const img = new Image();
+      img.onload = () => {
+        const ptrn = ctx.createPattern(img, "repeat");
+        ctx.fillStyle = ptrn;
+        ctx.fillRect(220, 120, 100, 100);
+      };
+      img.src = "../images/Canvas_createpattern.png";
+    </script>
+  </body>
+</html>
