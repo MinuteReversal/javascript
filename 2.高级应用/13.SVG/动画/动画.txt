@@ -1,0 +1,23 @@
+开始点
+过渡由计算机生成（补间，插值）
+结束点
+
+
+平移
+旋转
+歪斜 => 线性变换
+缩放
+
+          tween  time-function curve
+1、过渡 （缓动、时间函数、曲线）
+过渡js事件
+通过js控制过渡
+
+
+2、动画
+
+3、vue中的transition与css库
+原生控制setTimout与多变量
+
+
+

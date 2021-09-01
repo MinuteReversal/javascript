@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <svg width="400" height="300">
+      <defs>
+        <clipPath id="triangle">
+          <path  d="M 50 0 L 100 100 L 0 100 Z" />
+        </clipPath>
+      </defs>
+      <image x="0" y="0" href="../images/rhino.jpg" width="300" height="227" clip-path="url(#triangle)"/>
+    </svg>
+    <canvas width="400" height="300"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.beginPath();
+      ctx.moveTo(50, 0);
+      ctx.lineTo(100, 100);
+      ctx.lineTo(0, 100);
+      ctx.closePath();
+      ctx.clip();
+      const img = new Image();
+      img.addEventListener("load", (evt) => {
+        ctx.drawImage(evt.target, 0, 0);
+      });
+      img.src = "../images/rhino.jpg";
+    </script>
+  </body>
+</html>
