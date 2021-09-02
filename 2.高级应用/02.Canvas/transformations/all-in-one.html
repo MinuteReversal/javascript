@@ -2,17 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
-    <canvas></canvas>
+    <canvas width="800" height="600"></canvas>
     <script>
       const canvas = document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
 
+      ctx.save();
       ctx.rotate(Math.PI / 6);
       ctx.fillRect(0, 0, 100, 100);
+      ctx.restore();
+
+      ctx.save();
+      ctx.scale(1.5, 1.5);
+      ctx.fillRect(0, 110, 100, 100);
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(100, 0);
+      ctx.fillRect(0, 350, 100, 100);
+      ctx.restore();
     </script>
   </body>
 </html>

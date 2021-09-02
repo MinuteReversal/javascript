@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
@@ -11,7 +12,11 @@
       const canvas = document.querySelector("canvas");
       const ctx = canvas.getContext("2d");
 
-      ctx.scale(1.5, 1.5);
+      /**
+       * 先旋转再平移、先平移再旋转
+       */
+      ctx.translate(50, 0);
+      ctx.rotate(Math.PI / 6);
       ctx.fillRect(0, 0, 100, 100);
     </script>
   </body>
