@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas width="1200" height="600"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const text = "abcdefghijklmnopqrstuvwxyz";
+      ctx.font = "60px sans-serif";
+      const metric = ctx.measureText(text);
+      ctx.fillText(text, 0, 60);
+      ctx.fillRect(0, 60, metric.width, 1);
+      ctx.strokeText(text, 0, 120);
+      ctx.fillRect(0, 120, metric.width, 1);
+
+      ctx.beginPath();
+      ctx.moveTo(50, 0);
+      ctx.lineTo(100, 100);
+      ctx.lineTo(0, 100);
+      ctx.closePath();
+      ctx.clip();
+      const image = new Image();
+      image.onload = (evt) => {
+        ctx.drawImage(evt.target, 0, 0);
+      };
+      image.src = "../images/rhino.jpg";
+    </script>
+  </body>
+</html>
