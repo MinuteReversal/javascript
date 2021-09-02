@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      /**
+       * m11 m21
+       * m12 m22
+       */
+      /**
+       * sx c
+       * b  sy
+       */
+
+      // prettier-ignore
+      const matrix = [
+      					1.5, 0, 
+      					0, 1.5, 
+      				];
+      ctx.transform(...matrix, 0, 0); //平移靠最后两个参数
+      ctx.fillRect(0, 0, 100, 100);
+    </script>
+  </body>
+</html>
