@@ -17,14 +17,14 @@
        * m12 m22
        */
       /**
-       * cos(a)  -sin(a)
-       * sin(a)  cos(a)
+       * 1  tan(a)
+       * tan(a)  1
        */
 	  const a=Math.PI/6;
       // prettier-ignore
       const matrix = [
-      					Math.cos(a), Math.sin(a), 
-      					-Math.sin(a), Math.cos(a), 
+      					1, 0, 
+      					 Math.tan(a), 1, 
       				];
       ctx.transform(...matrix, 0, 0); //平移靠最后两个参数
       ctx.fillRect(0, 0, 100, 100);
