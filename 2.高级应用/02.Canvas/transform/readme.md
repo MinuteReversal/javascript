@@ -1,4 +1,6 @@
 > basic
+
+
 1. a
 2. b
 3. c
@@ -11,3 +13,18 @@ const a=123;
 [bing.com](http://bing.com)  
 ![img](https://picsum.photos/200)  
 > extended
+
+
+$$
+\begin{bmatrix}
+   a & b \\
+   c & d
+\end{bmatrix}
+*
+\begin{bmatrix}
+   m11 & m12 \\
+   m21 & m22
+\end{bmatrix}
+$$
+
+[katex](https://katex.org/docs/supported.html)
