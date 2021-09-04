@@ -16,7 +16,6 @@ const a = 123;
 
 **bold**  
 _italic_  
-[bing.com](http://bing.com)  
 ![img](https://picsum.photos/200)  
 [markdownguide.org](https://www.markdownguide.org/cheat-sheet/)
 > # Extended Syntax
@@ -33,12 +32,17 @@ _italic_
 "age": 25
 }
 ```
+Here's a sentence with a footnote. [^1]
+
+[^1]: This is the footnote.
 
 ~~The world is flat.~~
 
 - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media
+
+Gone camping! :tent: Be back soon. That is so funny! :joy:
 
 $$
 \begin{bmatrix}
