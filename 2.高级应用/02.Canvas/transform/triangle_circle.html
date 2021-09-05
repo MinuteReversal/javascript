@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas width="800" height="600"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.font = "18px serif";
+
+      const radius = 240;
+      const center = { x: 400, y: 300 };
+
+      //圆心
+      ctx.strokeText("(0,0)", center.x - 50, center.y + 20);
+
+      //x
+      ctx.beginPath();
+      ctx.moveTo(10, 300);
+      ctx.lineTo(790, 300);
+      ctx.stroke();
+      ctx.strokeText("X", 790, 330);
+
+      //向右
+      ctx.beginPath();
+      ctx.moveTo(790, 300);
+      ctx.lineTo(780, 290);
+      ctx.moveTo(790, 300);
+      ctx.lineTo(780, 310);
+      ctx.stroke();
+
+      //y轴
+      ctx.beginPath();
+      ctx.moveTo(400, 10);
+      ctx.lineTo(400, 790);
+      ctx.stroke();
+      ctx.strokeText("Y", 420, 30);
+
+      //向上
+      ctx.beginPath();
+      ctx.moveTo(400, 10);
+      ctx.lineTo(390, 20);
+      ctx.moveTo(400, 10);
+      ctx.lineTo(410, 20);
+      ctx.stroke();
+
+      //圆型
+      ctx.beginPath();
+      ctx.arc(400, 300, radius, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      /**
+       * x=cos(a)
+       * y=sin(a)
+       * y/x=tan(a)
+       */
+      //三角型
+      const radian = -Math.PI / 6;
+
+      ctx.beginPath();
+      ctx.moveTo(center.x, center.y);
+      ctx.lineTo(
+        center.x + Math.cos(radian) * radius,
+        center.y + Math.sin(radian) * radius
+      );
+      ctx.lineTo(center.x + Math.cos(radian) * radius, center.y);
+      ctx.stroke();
+
+      //角
+      ctx.beginPath();
+      ctx.arc(center.x, center.y, 20, -Math.PI / 6, 0);
+      ctx.stroke();
+      ctx.strokeText("a", center.x + 30, center.y - 5);
+      //r
+      ctx.strokeText("r", center.x + 100, center.y - 70);
+      //x
+      ctx.strokeText("x", center.x + 120, center.y + 20);
+      //y
+      ctx.strokeText("y", center.x + 220, center.y - 50);
+
+      //公式
+      ctx.strokeText("x=cos(a)", 0, 18 * 1);
+      ctx.strokeText("y=sin(a)", 0, 18 * 2);
+      ctx.strokeText("y/x=tan(a)", 0, 18 * 3);
+    </script>
+  </body>
+</html>
