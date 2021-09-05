@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div><input type="range" min="0" max="90" value="0" /></div>
+    <canvas width="800", height="800"></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      const range = document.querySelector("input");
+      const radius = 800;
+
+      function draw(radian) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(Math.cos(radian) * radius, Math.sin(radian) * radius);
+        ctx.stroke();
+      }
+
+      range.addEventListener("input", (evt) => {
+        const radian = (Math.PI / 180) * parseFloat(evt.target.value);
+        draw(radian);
+      });
+    </script>
+  </body>
+</html>
