@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      const html = `<div><span>hello world</span><image src=""/></div>`;
+
+      ctx.font = "16px serif";
+
+      class MyElement {
+        width = 0;
+        height = 0;
+        x = 0;
+        y = 0;
+        children = [];
+        innerHtml = "";
+        constructor(text) {}
+        draw() {}
+      }
+
+      class MySpanElement extends MyElement {
+
+			}
+      class MyImageElement extends MyElement {
+				
+			}
+
+      new MyElement(html).draw();
+    </script>
+  </body>
+</html>
