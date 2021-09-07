@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+
+      function draw() {
+        setTimeout(draw, 1000 / 60);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.rotate(Math.PI / 180);
+        ctx.fillRect(0, 0, 100, 100);
+      }
+      draw();
+    </script>
+  </body>
+</html>

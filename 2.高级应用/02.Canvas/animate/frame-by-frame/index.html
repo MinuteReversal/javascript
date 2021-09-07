@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+
+      let index = 0;
+      let lastTime = new Date();
+      let fps = 1000 / 5;
+
+      function draw() {
+        requestAnimationFrame(draw);
+
+        if (new Date() - lastTime > fps) {
+          lastTime = new Date();
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, index * 64, 0, 64, 64, 0, 0, 128, 128);
+          if (++index > 3) {
+            index = 0;
+          }
+        }
+      }
+
+      img.addEventListener("load", draw);
+      img.src = "./player.png";
+    </script>
+  </body>
+</html>
