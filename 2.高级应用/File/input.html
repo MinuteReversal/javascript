@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="file-choose" type="file" />
+    <img />
+    <a download="123.jpeg">download</a>
+    <script>
+      const input = document.querySelector("input");
+      const img = document.querySelector("img");
+      const a = document.querySelector("a");
+      input.addEventListener("change", async (evt) => {
+        const file = input.files[0];
+        // const txt = await file.text();
+        // alert(txt);
+        const fd = new FileReader();
+        fd.addEventListener("loadend", (evt) => {
+          console.log(fd.result);
+          img.src = fd.result;
+        });
+        fd.readAsDataURL(file);
+        // const objectUrl = URL.createObjectURL(file);
+        // img.src = objectUrl;
+        // a.href = objectUrl;
+      });
+    </script>
+  </body>
+</html>
