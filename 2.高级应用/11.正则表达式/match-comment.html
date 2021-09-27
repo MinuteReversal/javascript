@@ -8,16 +8,20 @@
   </head>
   <body>
     <script>
-      const text = '\
-/**\
-  *class\
-	*/\
-	class Car \
-	{\
-		color = "red";\
-	}\
-';
-      console.log(text);
+      const text = `
+/**
+ * this is Car class
+ */
+class Car 
+{
+ /*
+  * this is it color
+  */
+  color = "red";
+}
+`;
+      const multiline = /(\/\*(?:.|\r?\n)+?\*\/)/.exec(text);
+      console.log(multiline);
     </script>
   </body>
 </html>
