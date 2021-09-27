@@ -20,8 +20,11 @@ class Car
   color = "red";
 }
 `;
-      const multiline = /(\/\*(?:.|\r?\n)+?\*\/)/.exec(text);
-      console.log(multiline);
+      const r = /(\/\*(?:.|\r?\n)+?\*\/)/g;
+      let result;
+      while((result = r.exec(text)) !== null){
+      	console.log(result);
+      }
     </script>
   </body>
 </html>
