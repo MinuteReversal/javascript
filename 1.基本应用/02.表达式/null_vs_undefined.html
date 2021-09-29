@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //空值合并运算符(Nullish_coalescing_operator)
+      //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator
+      console.log(null ?? "hello");
+      console.log(undefined ?? "world");
+
+      //可选链式操作符（?.）(Optional_chaining)
+      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+      const car = null;
+      console.log(car?.color);
+    </script>
+  </body>
+</html>
