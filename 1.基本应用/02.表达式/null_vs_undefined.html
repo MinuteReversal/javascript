@@ -15,8 +15,13 @@
 
       //可选链式操作符（?.）(Optional_chaining)
       //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
-      const car = null;
+      const car = {};
       console.log(car?.color);
+
+      //逻辑空赋值 (??=)(Logical_nullish_assignment)
+      //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Logical_nullish_assignment
+      car.color ??= "red";
+      console.log(car.color);
     </script>
   </body>
 </html>
