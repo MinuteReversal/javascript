@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <canvas></canvas>
+    <script>
+      class Point {
+        x = 0;
+        y = 0;
+        constructor(x, y) {
+          if (x != undefined) {
+            this.x = x;
+          }
+          if (y != undefined) {
+            this.y = y;
+          }
+        }
+      }
+      const canvas = document.querySelector("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const downPoint = new Point();
+      const currentPoint = new Point();
+      let isMove = false;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        // prettier-ignore
+        const matrix = [
+					1, 0,
+					0, 1,
+				];
+        ctx.transform(...matrix, currentPoint.x, currentPoint.y); //平移靠最后两个参数
+        ctx.beginPath();
+        for (let i = 0; i < canvas.width; i += 10) {
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, canvas.height);
+        }
+        for (let j = 0; j < canvas.height; j += 10) {
+          ctx.moveTo(0, j);
+          ctx.lineTo(canvas.width, j);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      draw();
+
+      canvas.addEventListener("mousedown", (evt) => {
+        downPoint.x = evt.clientX;
+        downPoint.y = evt.clientY;
+        isMove = true;
+      });
+      canvas.addEventListener("mousemove", (evt) => {
+        currentPoint.x = evt.clientX - downPoint.x;
+        currentPoint.y = evt.clientY - downPoint.y;
+        if (isMove) {
+          draw();
+        }
+      });
+      canvas.addEventListener("mouseup", (evt) => {
+        downPoint.x = currentPoint.x;
+        downPoint.y = currentPoint.y;
+        isMove = false;
+      });
+    </script>
+  </body>
+</html>
