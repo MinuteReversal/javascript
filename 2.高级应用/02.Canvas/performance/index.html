@@ -25,9 +25,9 @@
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const downPoint = new Point();
+      const oldPoint = new Point();
       const currentPoint = new Point();
-      let isMove = false;
+      let locked = true;
 
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,21 +54,18 @@
       draw();
 
       canvas.addEventListener("mousedown", (evt) => {
-        downPoint.x = evt.clientX;
-        downPoint.y = evt.clientY;
-        isMove = true;
+        locked = false;
       });
       canvas.addEventListener("mousemove", (evt) => {
-        currentPoint.x = evt.clientX - downPoint.x;
-        currentPoint.y = evt.clientY - downPoint.y;
-        if (isMove) {
+        currentPoint.x = evt.clientX - oldPoint.x;
+        currentPoint.y = evt.clientY - oldPoint.y;
+        if (!locked) {
           draw();
         }
       });
       canvas.addEventListener("mouseup", (evt) => {
-        downPoint.x = currentPoint.x;
-        downPoint.y = currentPoint.y;
-        isMove = false;
+        Object.assign(oldPoint, currentPoint);
+        locked = true;
       });
     </script>
   </body>
