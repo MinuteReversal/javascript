@@ -7,9 +7,13 @@
 	<title>Document</title>
 <body>
  <script>
-	 const s="kabob-case-hello-world";
-	const r=/(?:-|^)([a-z])/g;
-	console.log(s.replace(r,(_,p1)=>p1.toUpperCase()));
+	const s="kabob-case-hello-world";
+  const r=/(?:-|^)([a-z])/g;
+  console.log(s.replace(r,(_,p1)=>p1.toUpperCase()));
+
+  const r2=/(-|^)[a-z]/g;
+  console.log(s.match(r2));
+
  </script>	
 </body>
 </html>
