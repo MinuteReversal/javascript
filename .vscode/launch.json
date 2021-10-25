@@ -4,8 +4,8 @@
     {
       "type": "mock",
       "request": "launch",
-      "name": "Ask for file name",
-      "program": "${workspaceFolder}/${command:AskForProgramName}",
+      "name": "Mock Debug(.md file)",
+      "program": "${workspaceFolder}/${relativeFile}",
       "stopOnEntry": true
     },
     {
