@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const keywords = [
+        "break",
+        "case",
+        "catch",
+        "class",
+        "const",
+        "continue",
+        "default",
+        "delete",
+        "do",
+        "else",
+        "extends",
+        "finally",
+        "for",
+        "function",
+        "if",
+        "in",
+        "instanceof",
+        "let",
+        "new",
+        "return",
+        "switch",
+        "this",
+        "throw",
+        "try",
+        "typeof",
+        "var",
+        "while",
+      ];
+			console.log(keywords.length);
+			const output=[];
+      for (let i = 0; i < 6; i++) {
+        const a = [];
+        for (let j = 0; j < 5; j++) {
+          a.push(keywords[i * 5 + j]);
+        }
+        output.push(a.join("\t"));
+      }
+			console.log(output.join("\r\n"));
+    </script>
+  </body>
+</html>
