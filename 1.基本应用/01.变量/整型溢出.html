@@ -1,8 +1,17 @@
 <html>
   <body>
     <script>
+      var i;
       var i = Math.pow(2, 53) - 1;
+      console.log(i.toString(2));
+
       i = i + 1;
+      console.log(i.toString(2));
+
+      i = -(Math.pow(2, 53) - 1);
+      console.log(i.toString(2));
+
+      i = i - 1;
       console.log(i.toString(2));
     </script>
   </body>
