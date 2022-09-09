@@ -9,6 +9,13 @@
       "file": "${file}"
     },
     {
+      //https://github.com/Microsoft/vscode-chrome-debug
+      "name": "Launch Edge(local)",
+      "type": "msedge",
+      "request": "launch",
+      "file": "${file}"
+    },
+    {
       "name": "Launch Chrome(network)",
       "request": "launch",
       "type": "chrome",
