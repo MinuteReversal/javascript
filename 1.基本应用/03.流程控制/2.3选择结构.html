@@ -6,13 +6,13 @@
 <body>
     <script type="text/javascript">
 
-        var x = "B";
+        var x = 1;
 
         /*if语句*/
-        if ("A" === x) {
+        if (1 === x) {
             console.log("A");
         }
-        else if ("B" === x) {
+        else if (2 === x) {
             console.log("B");
         }
         else {
@@ -21,10 +21,10 @@
 
         /*switch语句*/
         switch (x) {
-            case "A":
+            case 1:
                 console.log("A");
                 break;
-            case "B":
+            case 2:
                 console.log("B");
                 break;
             default:
@@ -33,13 +33,13 @@
 
         /*switch贯穿*/
         switch (x) {
-            case "A":
-            case "B":
-            case "C":
+            case 1:
+            case 2:
+            case 3:
                 console.log("ABC");
                 break;
             default:
-                console.log("C");
+                console.log("D");
         }
 
         /*三目表达式*/

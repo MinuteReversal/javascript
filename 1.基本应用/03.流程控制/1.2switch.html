@@ -1,5 +1,5 @@
 <script>
-  var days = {
+  var dayType = {
     monday: "monday",
     tuesday: "tuesday",
     wednesday: "wednesday",
@@ -9,13 +9,68 @@
     sunday: "sunday",
   };
 
-  var weekday = days.monday;
+  var weekday = dayType.monday;
 
   switch (weekday) {
-    case "monday":
+    case dayType.monday:
+      console.log("星期一");
       break;
-
+    case dayType.tuesday:
+      console.log("星期二");
+      break;
+    case dyas.wednesday:
+      console.log("星期三");
+      break;
+    case dayType.thursday:
+      console.log("星期四");
+      break;
+    case dayType.friday:
+      console.log("星期五");
+      break;
+    case dayType.tuesday:
+      console.log("星期六");
+      break;
+    case dayType.sunday:
+      console.log("星期日");
+      break;
     default:
+      throw new Error("不支持的类型");
       break;
   }
+
+  switch (expression) {
+    case label1:
+      statements1;
+      break;
+    case label2:
+      statements2;
+      break;
+    // …
+    default:
+      statementsDefault;
+  }
+
+  switch (fruitType) {
+    case "Oranges":
+      console.log("Oranges are $0.59 a pound.");
+      break;
+    case "Apples":
+      console.log("Apples are $0.32 a pound.");
+      break;
+    case "Bananas":
+      console.log("Bananas are $0.48 a pound.");
+      break;
+    case "Cherries":
+      console.log("Cherries are $3.00 a pound.");
+      break;
+    case "Mangoes":
+      console.log("Mangoes are $0.56 a pound.");
+      break;
+    case "Papayas":
+      console.log("Mangoes and papayas are $2.79 a pound.");
+      break;
+    default:
+      console.log(`Sorry, we are out of ${fruitType}.`);
+  }
+  console.log("Is there anything else you'd like?");
 </script>
