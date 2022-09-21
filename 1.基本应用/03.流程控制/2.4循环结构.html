@@ -1,44 +1,78 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+  <head>
     <title></title>
-</head>
-<body>
+  </head>
+  <body>
     <script type="text/javascript">
-        /*for*/
-        for (var i = 0; i < 10; i++) {
-            console.log(i);
+      /*for*/
+      for (var i = 0; i < 10; i++) {
+        console.log(i);
+      }
+
+      /*while*/
+      var count = 0;
+      console.log("=====华丽的分隔线=====");
+      count = 0;
+
+      while (count < 10) {
+        console.log(count++);
+        break; //跳出循环
+        continue; //跳过一次循环
+      }
+
+      /*do while*/
+      console.log("=====华丽的分隔线=====");
+      count = 0;
+
+      do {
+        console.log(count++);
+      } while (count < 10);
+
+      /*for in*/
+      console.log("=====华丽的分隔线=====");
+      var Cat = { name: "mimi", age: 3, sex: "male" };
+
+      for (var p in Cat) {
+        console.log(Cat[p]);
+      }
+
+for ([initial]; [condition]; [increment])
+  statement;
+
+
+for ([initial1]; [condition1]; [increment1]){
+  statement1;
+  for ([initial2]; [condition2]; [increment2]){
+    statement2;
+    for ([initial3]; [condition3]; [increment3]){
+      statement3;
+    }
+  }
+}
+
+      console.log(0);
+      console.log(1);
+      console.log(2);
+      console.log(3);
+      console.log(4);
+
+      var i = 0;
+      for (;;) {
+        i = +1;
+        if (i == 5) {
+          break;
         }
+      }
+      console.log(i);
 
-
-        /*while*/
-        var count = 0;
-        console.log("=====华丽的分隔线=====");
-        count = 0;
-
-        while (count < 10) {
-            console.log(count++);
-            break;    //跳出循环
-            continue; //跳过一次循环
+      for (let i = 0; i < 5; i++) {
+        if (i == 3) {
+          //如果是3则跳过
+          continue;
         }
-
-        /*do while*/
-        console.log("=====华丽的分隔线=====");
-        count = 0;
-
-        do {
-            console.log(count++);
-        } while (count < 10);
-
-
-        /*for in*/
-        console.log("=====华丽的分隔线=====");
-        var Cat = { name: 'mimi', age: 3, sex: 'male' };
-
-        for (var p in Cat) {
-            console.log(Cat[p]);
-        }
-
+        console.log(i);
+      }
     </script>
-</body>
+  </body>
 </html>

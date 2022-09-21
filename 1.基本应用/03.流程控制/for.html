@@ -1,0 +1,18 @@
+<script>
+  console.log(Date.now());
+  for (let i = 1; i < 10; i++) {
+    var words = "";
+    for (let j = 1; j <= i; j++) {
+      words += `\t${i}*${j}=${i * j}`;
+    }
+    console.log(words);
+  }
+  console.log(Date.now());
+
+  var sum = 0;
+  for (let number = 1; number <= 100; number++) {2
+    console.log(`sum:${sum}, number:${number},result:${sum + number}`);
+    sum = sum + number;
+  }
+  console.log(sum);
+</script>
