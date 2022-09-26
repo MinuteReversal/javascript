@@ -1,0 +1,35 @@
+<script>
+  // 辗转法
+  var m = 49;
+  var n = 35;
+
+  var product = m * n; //m为a,b乘积
+  var remainder = 0; //余数
+
+  while ((remainder = m % n)) {
+    m = n;
+    n = remainder;
+  }
+  console.log(`它们的最大公约数为：${n}`);
+  console.log(`它们的最小公倍数为:${product / n}`);
+
+  // 暴力法
+  m = 49;
+  n = 35;
+  var min = n;
+  while (m % min != 0 || n % min != 0) {
+    min--;
+  }
+
+  console.log(`它们的最大公约数为：${min}`);
+  console.log(`它们的最小公倍数为:${product / min}`);
+
+  //迭乘法
+  m = 49;
+  n = 35;
+  var index = 1;
+  while ((m * index) % n != 0) {
+    index++;
+  }
+  console.log(`它们的最小公倍数为:${index * m}`);
+</script>a

@@ -9,6 +9,7 @@
       for (var i = 0; i < 10; i++) {
         console.log(i);
       }
+      while (condition) statement;
 
       /*while*/
       var count = 0;
@@ -21,9 +22,28 @@
         continue; //跳过一次循环
       }
 
+      let n = 0;
+
+      while (n < 3) {
+        n++;
+      }
+
+      console.log(n);
+
       /*do while*/
       console.log("=====华丽的分隔线=====");
       count = 0;
+while (condition1){
+  statement1
+  while (condition2){
+    statement2
+  }
+}
+
+do
+  statement
+while (condition);
+
 
       do {
         console.log(count++);
@@ -37,19 +57,17 @@
         console.log(Cat[p]);
       }
 
-for ([initial]; [condition]; [increment])
-  statement;
+      for ([initial]; [condition]; [increment]) statement;
 
-
-for ([initial1]; [condition1]; [increment1]){
-  statement1;
-  for ([initial2]; [condition2]; [increment2]){
-    statement2;
-    for ([initial3]; [condition3]; [increment3]){
-      statement3;
-    }
-  }
-}
+      for ([initial1]; [condition1]; [increment1]) {
+        statement1;
+        for ([initial2]; [condition2]; [increment2]) {
+          statement2;
+          for ([initial3]; [condition3]; [increment3]) {
+            statement3;
+          }
+        }
+      }
 
       console.log(0);
       console.log(1);

@@ -1,0 +1,13 @@
+<script>
+  var m = 49; // 1,7,49
+  var n = 35; // 1,5,7,35
+
+  var remainder = 0;
+  var count = 0;
+  while ((remainder = m % n)) {
+    m = n;
+    n = remainder;
+    console.log(`$${count++}`);
+  }
+  console.log(n);
+</script>
