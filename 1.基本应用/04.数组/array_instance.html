@@ -1,0 +1,39 @@
+<script>
+  var fruits = ["apple", "banana", "orange"];
+  var years = new Array(2022, 2021, 2020, 2019);
+
+  var scores = [78, 66, 99, 100];
+
+
+  数组[下标 / 索引号]; //[]叫索引器 indexer,方括号内的数字叫下标/索引号
+
+  var aaa = scores[0]; //取值
+  console.log(scores[0]); //索引从0开始
+  console.log(scores.length); //数组长度
+  console.log(scores[scores.length - 1]); //访问最后一个元素
+
+  scores.push(83); //增加 add
+  scores.splice(1, 1); //删除 delete
+  scores.indexOf(99); //查询 search
+  scores[2] = 88; //赋值 //修改 change/modify
+
+  for (let index = 0; index < fruits.length; index++) {
+    const element = fruits[index];
+    console.log(element);
+  }
+
+  for (const iterator of years) {
+    console.log(iterator);
+  }
+
+  var matrix = [
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10],
+    [11, 12, 13, 14, 15],
+    [16, 17, 18, 19, 20],
+  ];
+
+  matrix[0][0];
+  matrix[3][5];
+  //二维数组
+</script>
