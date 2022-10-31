@@ -1,0 +1,21 @@
+<script>
+  var code1 = "abcdefghijklmnopqrstuvwxyz";
+  var code2 = "zyxwvutsrqponmlkjihgfedcba";
+  var code3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var code4 = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
+
+  var text = "Hello World!";
+
+  var newText = "";
+  for (let index = 0; index < text.length; index++) {
+    const char = text.charAt(index);
+    if (char >= "A" && char <= "Z") {
+      newText += code4[index];
+    } else if (char >= "a" && char <= "z") {
+      newText += code2[index];
+    } else {
+      newText += char;
+    }
+  }
+  console.log(newText);
+</script>

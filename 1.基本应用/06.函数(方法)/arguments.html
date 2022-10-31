@@ -1,0 +1,11 @@
+<script>
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions#the_arguments_object
+function fn1() {
+  console.log(arguments[0]);
+}
+function fn2(...args) {
+  console.log(args[0]);
+}
+fn1(1, 2, 3);
+fn2(1, 2, 3);
+</script>

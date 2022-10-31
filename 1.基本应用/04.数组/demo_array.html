@@ -1,0 +1,22 @@
+<script>
+  // 批量操作数据
+  //              0         1          2            3
+  var fruits = ["apple", "banana", "strawberry", "orange"];
+  var scores = new Array(99, 73, 66, 48, 100);
+  // 索引号 ，具体值，数组长度
+  var sum = 0;
+  var max = scores[0];
+  var min = scores[0];
+  for (let index = 0; index < scores.length; index++) {
+    const element = scores[index];
+    sum = sum + element;
+    if (max < element) {
+      max = element;
+    }
+    if (min > element) {
+      min = element;
+    }
+  }
+  console.log(sum / scores.length);
+  console.log(max);
+</script>

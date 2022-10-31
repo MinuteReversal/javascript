@@ -1,42 +1,85 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <meta charset="utf-8" />
-</head>
-<body>
+  </head>
+  <body>
     <div id="abc"></div>
     <script>
-        //定义一个write方法
-        /*
-        * @pram text {string}
-        */
-        function write(text) {
-            console.write(text);
-        }
+      //定义一个write方法
+      /*
+       * @pram text {string}
+       */
+      function write(text) {
+        console.write(text);
+      }
 
-        //使用
-        //定义变量
-        var a = "abc";
+      //使用
+      //定义变量
+      var a = "abc";
 
-        //定义函数
-        function name() {
-            return "abc";
-        }
+      //定义函数
+      function name() {
+        return "abc";
+      }
 
-        //定义
-        var o = { name: "abc" };
-        write("abc");
-        write(a);
-        write(name());
-        write(o.name);
+      //定义
+      var o = { name: "abc" };
+      write("abc");
+      write(a);
+      write(name());
+      write(o.name);
 
+      var a = document.getElementById("abc");
+      var b = document.getElementById(a);
+      var c = document.getElementById(name());
+      var d = document.getElementById(o.name);
 
-        var a = document.getElementById("abc");
-        var b = document.getElementById(a);
-        var c = document.getElementById(name());
-        var d = document.getElementById(o.name);
+      // 定义
+      function 方法名字() {
+        // 方法签名
+        //具体的实现...
+      }
+
+      // 使用
+      方法名字();
+
+      //无参无返
+      function fn1() {
+        console.log("call fn1");
+      }
+
+      //无参有返
+      function fn2() {
+        return 222;
+      }
+
+      var result = fn2();
+
+      //有参无返
+      function fn3(x) {
+        console.log(`call fn${x}`);
+      }
+      fn3(111);
+      var a = 666;
+      fn3(a);
+
+      //有参有返
+      function fn4(x) {
+        return x;
+      }
+
+      alert("hello world");
+      var isYes = confirm("are you ok?");
+      var result = prompt("please input some data");
+
+      console.log("科学家问第1只企鹅");
+      console.log("企鹅回答");
+      console.log("吃饭");
+      console.log("睡觉");
+      console.log("打豆豆");
     </script>
-</body>
+  </body>
 </html>

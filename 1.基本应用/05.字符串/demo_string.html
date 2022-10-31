@@ -1,0 +1,35 @@
+<script>
+  var text = "hello world";
+  var line = "how are your";
+  var words = `nice to meet your`;
+
+  var age = 38;
+  var string1 = "im " + age + " years old";
+  var string2 = `im ${age} years old`;
+
+  console.log(text[10]);
+
+  console.log(String.fromCharCode(1));
+
+  console.log("😊");
+
+  console.log("\u2705");
+
+  console.log("\thello\tworld");
+  console.log("\t11\t22");
+  console.log("☆*: .｡. o(≧▽≦)o .｡.:*☆(●'◡'●)");
+
+  var string3 = "";
+  for (var index = 0; index < string1.length; index++) {
+    if (index != 1) {
+      string3 = string3 + string1[index];
+    } else {
+      string3 = string3 + "n";
+    }
+  }
+  console.log(string3);
+  const array = Array.from("Hello world");
+  console.log(array);
+  array[1]="n";
+  console.log(array.join());
+</script>
