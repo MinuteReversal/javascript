@@ -1,0 +1,10 @@
+<script>
+  function fnA(x) {
+    if (x == 100) {
+      return x;
+    } else {
+      return x + fnA(x + 1);
+    }
+  }
+  console.log(fnA(1));
+</script>

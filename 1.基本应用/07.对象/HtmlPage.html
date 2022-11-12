@@ -10,13 +10,13 @@
     /*#region 定义*/
 
     //特点
-    //一个东西，有属性（变量），有方法（函数）
-    var cat = {
-        name: "coffee",
-        eat: function(something) {
-            console.log(this.name +" eat " + something);
-        }
-    };
+    //一个东西，有字段（变量），有方法（函数）
+var cat = {
+    name: "coffee",
+    eat: function(something) {
+        console.log(this.name +" eat " + something);
+    }
+};
     /*#endregion*/
 
 
@@ -26,8 +26,10 @@
     cat.name = "Tom";
     console.log(cat.name);
 
-    cat.eat("fish");
+    cat["name"]="Kitty";
+    console.log(cat["name"]);
 
+    cat.eat("fish");
     /*#endregion*/
 
 </script>
