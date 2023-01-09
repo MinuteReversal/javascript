@@ -8,33 +8,33 @@
     </head>
     <body>
         <script>
-            class Fish {
-                color = "black";
-                constructor(color) {
-                    if (color) this.color = color;
-                }
-                eat() {
-                    console.log(`${this.color} fish like eat kelp.`);
-                }
-            }
+class Fish {
+    color = "black";
+    constructor(color) {
+        if (color) this.color = color;
+    }
+    eat() {
+        console.log(`${this.color} fish like eat kelp.`);
+    }
+}
 
-            class FlyFish extends Fish {
-                constructor(color) {
-                    super(color);
-                }
-                eat() {
-                    console.log(`${this.color} flyfish like eat shrimp.`);
-                }
-            }
+class FlyFish extends Fish {
+    constructor(color) {
+        super(color);
+    }
+    eat() {
+        console.log(`${this.color} flyfish like eat shrimp.`);
+    }
+}
 
-            class Shark extends Fish{
-                constructor(color) {
-                    super(color);
-                }
-                eat() {
-                    console.log(`${this.color} shark like eat meet.`);
-                }
-            }
+class Shark extends Fish{
+    constructor(color) {
+        super(color);
+    }
+    eat() {
+        console.log(`${this.color} shark like eat fish.`);
+    }
+}
 
             let fish = new Fish();
             fish.eat();

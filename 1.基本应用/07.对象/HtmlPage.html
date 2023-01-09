@@ -1,37 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <meta charset="utf-8" />
-</head>
-<body>
-<script>
-    /*#region 定义*/
+  </head>
+  <body>
+    <script>
+      /*#region 定义*/
 
-    //特点
-    //一个东西，有字段（变量），有方法（函数）
-var cat = {
-    name: "coffee",
-    eat: function(something) {
-        console.log(this.name +" eat " + something);
-    }
-};
-    /*#endregion*/
+      //特点
+      //一个东西，有字段（变量），有方法（函数）
+      var cat = {
+        name: "coffee",
+        eat: function (something) {
+          console.log(this.name + " eat " + something);
+        },
+      };
+      cat.eat("fish");
+      /*#endregion*/
 
+      /*#region 使用*/
+      //成员访问
 
-    /*#region 使用*/
-    //成员访问
+      cat.name = "Tom";
+      console.log(cat.name);
 
-    cat.name = "Tom";
-    console.log(cat.name);
+      cat["name"] = "Kitty";
+      console.log(cat["name"]);
 
-    cat["name"]="Kitty";
-    console.log(cat["name"]);
-
-    cat.eat("fish");
-    /*#endregion*/
-
-</script>
-</body>
+      /*#endregion*/
+    </script>
+  </body>
 </html>

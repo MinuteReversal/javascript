@@ -1,0 +1,31 @@
+<script>
+  class Fish {
+    color = "green";
+    eat() {
+      console.log("fish like eat shrimp.");
+    }
+  }
+
+  class FlyFish extends Fish {
+    fly() {
+      console.log("fly are fly away.");
+    }
+    eat() {
+      console.log("flyfish like eat seaweed.");
+    }
+  }
+
+  class Shark extends Fish {
+    eat() {
+      console.log("shark like eat meat or fish.");
+    }
+  }
+
+  var fish;
+  fish = new Fish();
+  fish.eat();
+  fish = new FlyFish();
+  fish.eat();
+  fish = new Shark();
+  fish.eat();
+</script>

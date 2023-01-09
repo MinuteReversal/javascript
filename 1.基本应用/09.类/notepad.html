@@ -1,0 +1,28 @@
+<script>
+  class Notepad {
+    content = "";
+  }
+  var a1 = new Notepad();
+  a1.content = "111111";
+
+  var a2 = new Notepad();
+  a2.content = a1.content;
+
+  console.log(a1.content);
+  console.log(a2.content);
+  a2.content = "22222";
+  console.log(a1.content);
+  console.log(a2.content);
+  console.log("---------------");
+
+  var aa = a1;
+  var ab = aa;
+
+  console.log(a1.content);
+  console.log(aa.content);
+  console.log(ab.content);
+  aa.content = "aaaaa";
+  console.log(a1.content);
+  console.log(aa.content);
+  console.log(ab.content);
+</script>

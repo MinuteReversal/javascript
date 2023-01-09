@@ -1,0 +1,50 @@
+<script>
+  class EventModel {
+    events = new Map();
+    addEventListener(eventName, fn) {
+      const hasList = this.events[eventName];
+      if (!hasList) {
+        this.events[eventName] = new Array();
+      }
+      this.events[eventName].push(fn);
+    }
+    removeEventListener(eventName, fn) {
+      const events = this.events[eventName];
+      if (!events) return;
+      const index = events.indexOf(fn);
+      if (index > -1) {
+        events.splice(index, 1);
+      }
+    }
+    dispatchEvent(eventName, eventData) {
+      const listeners = this.events[eventName];
+      for (const listener of listeners) {
+        listener(eventData);
+      }
+    }
+  }
+
+  class NewsPapperOffice extends EventModel {}
+  class Person {
+    name = "";
+    constructor(name) {
+      this.name = name;
+    }
+    recivePapper(papper) {
+      console.log(`person ${this.name} recive ${papper}`);
+    }
+  }
+
+  const newsPapperOffice = new NewsPapperOffice();
+  const person1 = new Person("1");
+  const person2 = new Person("2");
+
+  newsPapperOffice.addEventListener("publish", function (data) {
+    person1.recivePapper(data);
+  });
+  newsPapperOffice.addEventListener("publish", function (data) {
+    person2.recivePapper(data);
+  });
+
+  newsPapperOffice.dispatchEvent("publish", "news paper 1");
+</script>

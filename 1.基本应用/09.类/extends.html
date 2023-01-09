@@ -1,0 +1,28 @@
+<script>
+class Car {
+  color = "red";
+  go() {
+    print(`${color} car are go.`);
+  }
+}
+
+class FlyCar extends Car {
+  fly() {
+    print(`${color} car are fly`);
+  }
+
+  go() {
+    print(`${color} car are FlyCar.`);
+  }
+}
+
+class BoatCar extends FlyCar {
+  swim() {
+    print(`${color} car are swiming.`);
+  }
+
+  go() {
+    print(`${color} car are BoatCar.`);
+  }
+}
+</script>

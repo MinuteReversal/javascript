@@ -1,0 +1,11 @@
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<button id="btnPlay">play</button>
+<script>
+  const btn = document.getElementById("btnPlay");
+  const jsConfetti = new JSConfetti();
+  btn.addEventListener("click", function () {
+    jsConfetti.addConfetti({
+      emojis: ["🌈", "⚡️", "💥", "✨", "💫", "🌸", "😓"],
+    });
+  });
+</script>

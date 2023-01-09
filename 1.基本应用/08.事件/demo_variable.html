@@ -1,0 +1,13 @@
+<button id="btn1">hello world</button>
+<script>
+  var btn1 = document.querySelector("#btn1");
+  var fn1 = function () {
+    alert("you click hello world button");
+  };
+  //监听/订阅
+  btn1.addEventListener("click", fn1);
+  //事件触发/派发
+  btn1.dispatchEvent(new Event("click"));
+  //移除事件/订阅
+  btn1.removeEventListener("click", fn1);
+</script>

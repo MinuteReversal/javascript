@@ -1,0 +1,14 @@
+<script>
+  class NotePad {
+    content = "";
+    constructor(content) {
+      this.content = content;
+    }
+  }
+
+  var n1 = new NotePad("11111");
+  var n2 = new NotePad(n1.content);
+
+  var na = new NotePad("aaaaa");
+  var nb = na;
+</script>

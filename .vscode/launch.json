@@ -6,7 +6,11 @@
       "name": "Launch Chrome(local)",
       "type": "chrome",
       "request": "launch",
-      "file": "${file}"
+      "file": "${file}",
+      "runtimeArgs": [
+        "--disable-web-security"
+      ],
+     "webRoot": "${workspaceRoot}"
     },
     {
       //https://github.com/Microsoft/vscode-chrome-debug
