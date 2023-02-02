@@ -2,21 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>ctrl+p</title>
+    <title>print a 4 size page</title>
     <style>
+      /*https://stackoverflow.com/questions/16649943/css-to-set-a4-paper-size*/
       @page {
-        size: A4;
-        margin: 0;
+        size: A4;/* A4 纸大小 */
+        margin: 0;/* 隐藏网址等信息 */
       }
-
+      /* 打印时对元素的控制 */
       @media print {
         html,
         body {
-          width: 210mm;
-          height: 297mm;
+          width: 210mm;/*毫米*/
+          height: 297mm;/*毫米*/
         }
         /* ... the rest of the rules ... */
-        /*https://stackoverflow.com/questions/16649943/css-to-set-a4-paper-size*/
+        
+        /* 不显示打印按钮 */
+        .btn-print {
+          display: none;
+        }
+      }
+
+      body {
+        margin: 0;/* 去掉默认8px的外边距 */
+        font-size: 0.5cm;/* 字高厘米 */
       }
 
       .a {
@@ -58,6 +68,13 @@
         left: 2cm;
         top: 0;
       }
+
+      .btn-print {
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
     </style>
   </head>
   <body>
@@ -67,5 +84,6 @@
     <div class="d">bottom right</div>
     <div class="top2cm">top:2cm</div>
     <div class="left2cm">left:2cm</div>
+    <button class="btn-print" onclick="window.print();">打印</button>
   </body>
 </html>

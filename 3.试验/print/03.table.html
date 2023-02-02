@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>print table</title>
+    <style>
+      /*https://stackoverflow.com/questions/16649943/css-to-set-a4-paper-size*/
+      @page {
+        size: A4; /* A4 纸大小 */
+        margin: 0;/* 隐藏网址等信息 */
+      }
+      /* 打印时对元素的控制 */
+      @media print {
+        html,
+        body {
+          width: 210mm; /*毫米*/
+          height: 297mm; /*毫米*/
+        }
+        /* ... the rest of the rules ... */
+
+        .btn-print {
+          /*display: none;/* 打印时不显示 */
+          visibility: hidden; /*不显示只占位*/
+        }
+      }
+
+      body {
+        margin: 0;
+        font-size: 0.5cm; /* 字高厘米 */
+        /* https://stackoverflow.com/questions/3893986/css-media-print-issues-with-background-color */
+
+        -webkit-print-color-adjust:exact;/* 打印背景色 */
+        print-color-adjust:exact;/* 打印背景色 */
+      }
+
+      .table {
+        width: 210mm;
+        border-collapse: collapse; /*合并边线*/
+        border: 1px solid #000;
+      }
+
+      .table th {
+        border: 1px solid #000;
+      }
+
+      .table td {
+        border: 1px solid #000;
+      }
+      /* 第三列右对齐 */
+      .table td:nth-child(3) {
+        text-align: right;
+      }
+      /* 第三列剧中对齐 */
+      .table td:nth-child(4) {
+        text-align: center;
+      }
+      
+      /* 奇(odd)偶(even)行选择 */
+      .table tbody tr:nth-child(even){
+        background-color: #aaa;
+      }
+
+      .total {
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn-print" onclick="window.print();">打印</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Li Lei</td>
+          <td>14</td>
+          <td>Male</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Han Meimei</td>
+          <td>13</td>
+          <td>Female</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Jim</td>
+          <td>14</td>
+          <td>Male</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Kate</td>
+          <td>13</td>
+          <td>Female</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Lily</td>
+          <td>14</td>
+          <td>Female</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Lily</td>
+          <td>13</td>
+          <td>Female</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Ann</td>
+          <td>14</td>
+          <td>Female</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Tom</td>
+          <td>13</td>
+          <td>Male</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="total" colspan="4">Total:8</td>
+        </tr>
+      </tfoot>
+    </table>
+  </body>
+</html>

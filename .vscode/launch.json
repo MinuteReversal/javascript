@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       //https://github.com/Microsoft/vscode-chrome-debug
       "name": "Launch Chrome(local)",
