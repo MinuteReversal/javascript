@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function print() {
+        const iframe = document.getElementById("otherPage");
+        iframe.contentWindow.print();
+      }
+
+      function printA4() {
+        const iframe = document.createElement("iframe");
+        // iframe.style = "display:none";
+        //监听内容加载完成
+        iframe.addEventListener("load", (event) => {
+          //第一次加载空页面
+          if (iframe.src != "") {
+            iframe.contentWindow.print(); //打印
+            //打印完成后删除iframe元素
+            iframe.contentWindow.addEventListener("afterprint", (event) => {
+              document.body.removeChild(iframe);
+            });
+          }
+        });
+        document.body.appendChild(iframe); //将iframe插入body中
+        iframe.src = "02.A4.html"; //加载页面
+      }
+    </script>
+    <div>这是父页面</div>
+    <div>
+      <button onclick="print();">打印03.table.html页面</button>
+      <button onclick="printA4();">打印02.A4.html页面</button>
+    </div>
+    <div>下面是另外一个页面</div>
+    <div>
+      <iframe id="otherPage" src="03.table.html"></iframe>
+    </div>
+  </body>
+</html>

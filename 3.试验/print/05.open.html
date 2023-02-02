@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function print() {
+        const url = document.querySelector("#textUrl").value;
+        const otherPage = window.open(url, "打印", "height=400,width=400");
+        otherPage.print();
+        otherPage.close();
+      }
+    </script>
+    <div>
+      <input id="textUrl" type="url" value="03.table.html" />
+    </div>
+    <div>
+      <button onclick="print();">打印其他页面</button>
+    </div>
+  </body>
+</html>
