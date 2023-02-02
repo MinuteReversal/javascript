@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <style media="print">
+    <style>
         @page {
             size: auto;
-            margin: 0mm;
+            margin: 0mm;/*隐藏标题和底部网址*/
         }
     </style>
 </head>
 <body>
     <p>this content will be print</p>
-    <a href="javascript:print();">print</a>
+    <button onclick="window.print();">打印</button>
 </body>
 </html>
