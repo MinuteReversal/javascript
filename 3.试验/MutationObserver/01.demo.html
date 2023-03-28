@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .a {
+        display: block;
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="show();">显示</button>
+    <button onclick="hide();">隐藏</button>
+    <div id="a" class="a"></div>
+    <script>
+      const a = document.getElementById("a");
+      const b = document.createElement("div");
+      b.innerText = "bbbb";
+      a.appendChild(b);
+      const observer = new MutationObserver((mutationList, o) => {
+        console.log(mutationList, o);
+      });
+      const config = { attributes: true, childList: true, subtree: true };
+      observer.observe(a, config);
+
+      function show() {
+        a.style = "display:block";
+      }
+      function hide() {
+        a.style = "display:none;";
+      }
+    </script>
+  </body>
+</html>
