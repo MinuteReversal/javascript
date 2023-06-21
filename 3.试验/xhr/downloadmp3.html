@@ -1,0 +1,22 @@
+<script>
+  (() => {
+    var formdata = new FormData();
+    formdata.append("bizData[resource_id]", "p_5c08be3157f1f_eimzjdjX");
+    formdata.append("bizData[page_index]", 3);
+    formdata.append("bizData[page_size]", 8);
+    formdata.append("bizData[sort]", "desc");
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function (evt) {
+      if (xhr.status == 200) {
+        console.log(xhr.responseText);
+      }
+    };
+    xhr.open(
+      "POST",
+      "https://appymk8ms6i9430.h5.xiaoeknow.com/xe.course.business.column.items.get/2.0.0"
+    );
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Accept", "application/json, text/plain, */*");
+    xhr.send(formdata);
+  })();
+</script>

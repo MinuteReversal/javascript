@@ -1,0 +1,18 @@
+<div>Page a</div>
+<a href="b.html">go to B Page</a>
+<button id="btnGoToB">go to B page</button>
+<script>
+    window.addEventListener("pageshow", function (event) {
+        var div = document.createElement("div");
+        div.innerText = "Page A is show";
+        document.body.appendChild(div);
+    });
+    
+    document.querySelector("#btnGoToB").addEventListener("click", function (event) {
+        open("b.html", "_self");
+    });
+
+    window.addEventListener('popstate', function (event) {
+        // Handle back navigation here
+    });
+</script>

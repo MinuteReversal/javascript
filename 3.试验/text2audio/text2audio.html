@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text to Speech Example</title>
+  </head>
+  <body>
+    <input type="text" id="text-input" value="hello world" />
+    <button onclick="speak()">Speak and Download</button>
+
+    <script>
+      async function speak() {
+        var textInput = document.getElementById("text-input");
+
+        const blob = await new Promise(async (resolve) => {
+          console.log("picking system audio");
+          const stream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: true,
+          });
+          const track = stream.getAudioTracks()[0];
+          if (!track) throw "System audio not available";
+
+          stream.getVideoTracks().forEach((track) => track.stop());
+
+          const mediaStream = new MediaStream();
+          mediaStream.addTrack(track);
+
+          const chunks = [];
+          const mediaRecorder = new MediaRecorder(mediaStream, {
+            bitsPerSecond: 128000,
+          });
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) chunks.push(event.data);
+          };
+          mediaRecorder.onstop = () => {
+            stream.getTracks().forEach((track) => track.stop());
+            mediaStream.removeTrack(track);
+            resolve(new Blob(chunks));
+          };
+          mediaRecorder.start();
+
+          const utterance = new SpeechSynthesisUtterance(textInput.value);
+          utterance.onend = () => mediaRecorder.stop();
+          window.speechSynthesis.speak(utterance);
+          console.log("speaking...");
+        });
+
+        // Wait for the speech to finish before downloading the audio file
+
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "speech.wav";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    </script>
+  </body>
+</html>
