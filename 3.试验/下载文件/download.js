@@ -116,6 +116,7 @@ function download(url, headers, body, method, fileName, fnProgress, fnSuccess, f
                 });
 
                 document.body.appendChild(anchor);
+                anchor.fileName="下载"
                 anchor.click();
                 document.body.removeChild(anchor);
                 settings.fuSuccess(me);

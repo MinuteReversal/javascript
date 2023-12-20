@@ -1,0 +1,17 @@
+<script>
+  (() => {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function (evt) {
+      if (xhr.status == 200) {
+        console.log(xhr.responseText);
+      }
+    };
+    xhr.open(
+      "GET",
+      "https://siteconfig.ynrsks.vip/qingcloudappconfig.json"
+    );
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.send(null);
+  })();
+</script>
