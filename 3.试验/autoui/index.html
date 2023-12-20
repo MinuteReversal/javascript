@@ -11,7 +11,8 @@
       <div class="operator">
         <button onClick="toTable()">Table&gt;&gt;</button>
         <button onclick="toForm()">Form&gt;&gt;</button>
-        <button onClick="toValiate()">Validate&gt;&gt;</button>
+        <button onClick="toValiate()">Validate Rule&gt;&gt;</button>
+        <button onClick="toDefaultValue()">DefaultValue&gt;&gt;</button>
       </div>
       <textarea id="output"></textarea>
     </div>
@@ -21,107 +22,109 @@
 
       const str = `
       export interface CustomerDto {
-          /**
-           * id
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'id'?: string;
-          /**
-           * 创建时间
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'gmtCreated'?: string;
-          /**
-           * 更新时间
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'gmtModified'?: string;
-          /**
-           * 删除标志
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'isDelete'?: number;
-          /**
-           * 昵称
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'nickname'?: string;
-          /**
-           * 名称
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'name'?: string;
-          /**
-           * 性别;1--男 2--女 3--保密
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'gender'?: number;
-          /**
-           * 头像
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'head'?: string;
-          /**
-           * 电话
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'telephone'?: string;
-          /**
-           * 生日
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'birthday'?: string;
-          /**
-           * 个性签名
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'synopsis'?: string;
-          /**
-           * 类型;1--自然注册 2--推荐注册
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'type'?: number;
-          /**
-           * 推荐人
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'recommendId'?: string;
-          /**
-           * 注册城市
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'city'?: string;
-          /**
-           * 等级;1--会员
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'level'?: number;
-          /**
-           * 宠物数量
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'petNum'?: number;
-      }`;
+    /**
+     * id
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'id'?: string;
+    /**
+     * 创建时间
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'gmtCreated'?: string;
+    /**
+     * 更新时间
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'gmtModified'?: string;
+    /**
+     * 删除标志
+     * @type {number}
+     * @memberof CustomerDto
+     */
+    'isDelete'?: number;
+    /**
+     * 昵称
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'nickname'?: string;
+    /**
+     * 名称
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'name'?: string;
+    /**
+     * 性别; 1--男 0--女 2--保密
+     * @type {number}
+     * @memberof CustomerDto
+     */
+    'gender'?: number;
+    /**
+     * 头像
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'avatar'?: string;
+    /**
+     * 电话
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'telephone'?: string;
+    /**
+     * 生日
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'birthday'?: string;
+    /**
+     * 个性签名
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'synopsis'?: string;
+    /**
+     * 类型;1--自然注册 2--推荐注册
+     * @type {number}
+     * @memberof CustomerDto
+     */
+    'type'?: number;
+    /**
+     * 推荐人
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'recommendId'?: string;
+    /**
+     * 注册城市
+     * @type {string}
+     * @memberof CustomerDto
+     */
+    'city'?: string;
+    /**
+     * 等级;1--会员
+     * @type {number}
+     * @memberof CustomerDto
+     */
+    'level'?: number;
+    /**
+     * 宠物数量
+     * @type {number}
+     * @memberof CustomerDto
+     */
+    'petNum'?: number;
+}
+`;
 
       input.value = str;
-      const regex =
-        /\/\*\*\s*\n\s*\*\s*(.*?)\s*\n\s*\*\s*@type\s*\{(.*?)\}\s*\n\s*\*\s*@memberof\s*(.*?)\s*\n\s*\*\/\s*\n\s*(.*?)\?:\s*(.*?);/g;
+
+      // prettier-ignore
+      const regex = /\/\*\*\s*\n\s*\*\s*(.*?)\s*\n\s*\*\s*@type\s*\{(.*?)\}\s*\n\s*\*\s*@memberof\s*(.*?)\s*\n\s*\*\/\s*\n\s*'?(.*?)'?\?:\s*(.*?);/g;
 
       class Model {
         constructor(
@@ -167,13 +170,60 @@
         const fields = getFields(input.value);
         const template = [];
         for (const field of fields) {
+          //prettier-ignore
           template.push(
             `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
-            `  <el-input v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
+            `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
             `</el-form-item>`
           );
         }
         output.innerHTML = template.join("\n");
+      }
+
+      function toDefaultValue() {
+        const fields = getFields(input.value);
+        const template = [];
+        for (const field of fields) {
+          template.push(
+            `${field.fieldName}: ${getDefaultValue(field.fieldType)},`
+          );
+        }
+        output.innerHTML = template.join("\n");
+      }
+
+      function getDefaultValue(type) {
+        switch (type) {
+          case "string":
+            return '""';
+          case "number":
+            return 0;
+          case "boolean":
+            return false;
+          case "Date":
+            return "new Date()";
+          default:
+            return '""';
+        }
+      }
+
+      function getInputType(type, name) {
+        if (name.startsWith("gmt")) {
+          return "el-date-picker";
+        } else {
+          // existing conditions...
+          switch (type) {
+            case "string":
+              return "el-input";
+            case "number":
+              return "el-input-number";
+            case "boolean":
+              return "el-switch";
+            case "Date":
+              return "el-date-picker";
+            default:
+              return "el-input";
+          }
+        }
       }
 
       function toValiate() {
@@ -190,12 +240,24 @@
       }
     </script>
     <style>
-      .main {
+      html {
+        color-scheme: light dark;
+      }
+
+      body {
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+      }
+
+      .main {
+        flex: 1 1 0;
         display: flex;
         flex-direction: row;
         overflow: hidden;
