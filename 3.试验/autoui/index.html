@@ -21,7 +21,7 @@
       const output = document.getElementById("output");
 
       const str = `
-      export interface CustomerDto {
+export interface CustomerDto {
     /**
      * id
      * @type {string}
@@ -121,7 +121,7 @@
 }
 `;
 
-      input.value = str;
+      input.innerHTML = str;
 
       // prettier-ignore
       const regex = /\/\*\*\s*\n\s*\*\s*(.*?)\s*\n\s*\*\s*@type\s*\{(.*?)\}\s*\n\s*\*\s*@memberof\s*(.*?)\s*\n\s*\*\/\s*\n\s*'?(.*?)'?\?:\s*(.*?);/g;
@@ -146,7 +146,7 @@
         const lines = text.split("\n");
         let out = [];
         let match;
-        while ((match = regex.exec(str)) !== null) {
+        while ((match = regex.exec(text)) !== null) {
           out.push(new Model(match[1], match[2], match[3], match[4], match[5]));
         }
         return out;
@@ -208,7 +208,7 @@
 
       function getInputType(type, name) {
         if (name.startsWith("gmt")) {
-          return "el-date-picker";
+          return "el-date-picker type=\"date\" value-format=\"YYYY-MM-DD\"";
         } else {
           // existing conditions...
           switch (type) {
@@ -219,7 +219,7 @@
             case "boolean":
               return "el-switch";
             case "Date":
-              return "el-date-picker";
+              return "el-date-picker value-format=\"YYYY-MM-DD\"";
             default:
               return "el-input";
           }
