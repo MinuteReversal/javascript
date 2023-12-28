@@ -21,105 +21,105 @@
       const output = document.getElementById("output");
 
       const str = `
-      export interface CustomerDto {
-          /**
-           * id
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'id'?: string;
-          /**
-           * 创建时间
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'gmtCreated'?: string;
-          /**
-           * 更新时间
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'gmtModified'?: string;
-          /**
-           * 删除标志
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'isDelete'?: number;
-          /**
-           * 昵称
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'nickname'?: string;
-          /**
-           * 名称
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'name'?: string;
-          /**
-           * 性别; 1--男 0--女 2--保密
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'gender'?: number;
-          /**
-           * 头像
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'avatar'?: string;
-          /**
-           * 电话
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'telephone'?: string;
-          /**
-           * 生日
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'birthday'?: string;
-          /**
-           * 个性签名
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'synopsis'?: string;
-          /**
-           * 类型;1--自然注册 2--推荐注册
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'type'?: number;
-          /**
-           * 推荐人
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'recommendId'?: string;
-          /**
-           * 注册城市
-           * @type {string}
-           * @memberof CustomerDto
-           */
-          'city'?: string;
-          /**
-           * 等级;1--会员
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'level'?: number;
-          /**
-           * 宠物数量
-           * @type {number}
-           * @memberof CustomerDto
-           */
-          'petNum'?: number;
-      }
-      `;
+            export interface CustomerDto {
+                /**
+                 * id
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'id'?: string;
+                /**
+                 * 创建时间
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'gmtCreated'?: string;
+                /**
+                 * 更新时间
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'gmtModified'?: string;
+                /**
+                 * 删除标志
+                 * @type {number}
+                 * @memberof CustomerDto
+                 */
+                'isDelete'?: number;
+                /**
+                 * 昵称
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'nickname'?: string;
+                /**
+                 * 名称
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'name'?: string;
+                /**
+                 * 性别; 1--男 0--女 2--保密
+                 * @type {number}
+                 * @memberof CustomerDto
+                 */
+                'gender'?: number;
+                /**
+                 * 头像
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'avatar'?: string;
+                /**
+                 * 电话
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'telephone'?: string;
+                /**
+                 * 生日
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'birthday'?: string;
+                /**
+                 * 个性签名
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'synopsis'?: string;
+                /**
+                 * 类型;1--自然注册 2--推荐注册
+                 * @type {number}
+                 * @memberof CustomerDto
+                 */
+                'type'?: number;
+                /**
+                 * 推荐人
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'recommendId'?: string;
+                /**
+                 * 注册城市
+                 * @type {string}
+                 * @memberof CustomerDto
+                 */
+                'city'?: string;
+                /**
+                 * 等级;1--会员
+                 * @type {number}
+                 * @memberof CustomerDto
+                 */
+                'level'?: number;
+                /**
+                 * 宠物数量
+                 * @type {number}
+                 * @memberof CustomerDto
+                 */
+                'petNum'?: number;
+            }
+            `;
 
       input.innerHTML = str;
 
@@ -166,7 +166,18 @@
             template.push(
               `<el-table-column prop="${field.fieldName}" label="${label}" width="120">`,
               `  <template #default="{ row: { ${field.fieldName} } }">`,
-              `    <SmartEnum :options="${options}" :value="${field.fieldName}" />`,
+              `    <SmartEnum :options="${options}" :model-value="${field.fieldName}" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (
+            field.fieldName.includes("Pic") ||
+            field.fieldName.includes("avatar")
+          ) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <SmartImage :src="${field.fieldName}" class="w-4 h-4" />`,
               `  </template>`,
               `</el-table-column>`
             );
@@ -229,10 +240,10 @@
           } else {
             //prettier-ignore
             template.push(
-              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
-              `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
-              `</el-form-item>`
-            );
+                    `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+                    `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
+                    `</el-form-item>`
+                  );
           }
         }
         output.innerHTML = template.join("\n");
