@@ -159,18 +159,7 @@
           `<el-table-column type="index" label="序列" align="center" width="80" />`
         );
         for (const field of fields) {
-          if (
-            field.fieldName.includes("gmt") ||
-            field.fieldName.includes("Time")
-          ) {
-            template.push(
-              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120" />`,
-              `  <template #default="{ row: { ${field.fieldName} } }">`,
-              `    <FormaterDateTime :model-value="${field.fieldName}" />`,
-              `  </template>`,
-              `</el-table-column>`
-            );
-          } else if (field.comment.includes(";")) {
+          if (field.comment.includes(";")) {
             const { label, options } = getLabelAndEnumsValueFromComment(
               field.comment
             );
@@ -178,6 +167,25 @@
               `<el-table-column prop="${field.fieldName}" label="${label}" width="120">`,
               `  <template #default="{ row: { ${field.fieldName} } }">`,
               `    <SmartEnum :options="${options}" :value="${field.fieldName}" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (field.fieldName.endsWith("Id")) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <SmartEnum :model-value="${field.fieldName}" value-field="name" auto-load :load-method="(): any => ({data: {records: [{ id: 1, name: 'AAA' },{ id: 2, name: 'BBB' }]}})"/>`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (
+            field.fieldName.includes("gmt") ||
+            field.fieldName.includes("Time")
+          ) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <FormaterDateTime :model-value="${field.fieldName}" />`,
               `  </template>`,
               `</el-table-column>`
             );
@@ -203,12 +211,29 @@
         const fields = getFields(input.value);
         const template = [];
         for (const field of fields) {
-          //prettier-ignore
-          template.push(
-          `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
-          `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
-          `</el-form-item>`
-          );
+          if (field.comment.includes(";")) {
+            const { label, options } = getLabelAndEnumsValueFromComment(
+              field.comment
+            );
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${label}">`,
+              `  <SmartSelect :options="${options}" v-model="state.model.${field.fieldName}" />`,
+              `</el-form-item>`
+            );
+          } else if (field.fieldName.endsWith("Id")) {
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+              `  <SmartSelect v-model="state.model.${field.fieldName}" value-field="name" auto-load :load-method="(): any => ({data: {records: [{ id: 1, name: 'AAA' },{ id: 2, name: 'BBB' }]}})"/>`,
+              `</el-form-item>`
+            );
+          } else {
+            //prettier-ignore
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+              `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
+              `</el-form-item>`
+            );
+          }
         }
         output.innerHTML = template.join("\n");
       }
