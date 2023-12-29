@@ -170,6 +170,14 @@
               `  </template>`,
               `</el-table-column>`
             );
+          } else if (field.fieldName == "gis") {
+            template.push(
+              `<el-table-column prop="gis" label="gis" width="120">`,
+              `  <template #default="{ row: { gis } }">`,
+              `    <FormaterGis :model-value="gis" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
           } else if (
             field.fieldName.includes("Pic") ||
             field.fieldName.includes("avatar")
@@ -231,9 +239,16 @@
               `  <SmartSelect :options="${options}" v-model="state.model.${field.fieldName}" />`,
               `</el-form-item>`
             );
+          } else if (field.fieldName == "gis") {
+            template.push(
+              `<el-form-item prop="gis" label="gis">`,
+              `  <el-input-number v-model="state.model.gis!.lat" placeholder="纬度" />`,
+              `  <el-input-number v-model="state.model.gis!.lng" placeholder="经度" />`,
+              `</el-form-item>`
+            );
           } else if (field.fieldName.startsWith("is")) {
             template.push(
-              `<el-form-item prop="${field.fieldName}" label="${label}">`,
+              `<el-form-item prop="${field.fieldName}" label="${comment}">`,
               `  <el-switch v-model="state.model.${field.fieldName}" :active-value="1" :inactive-value="0" />`,
               `</el-form-item>`
             );
@@ -244,12 +259,16 @@
               `</el-form-item>`
             );
           } else {
-            //prettier-ignore
             template.push(
-                    `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
-                    `  <${getInputType(field.fieldType,field.fieldName)} v-model="state.model.${field.fieldName}" placeholder="${field.comment}" />`,
-                    `</el-form-item>`
-                  );
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+              `  <${getInputType(
+                field.fieldType,
+                field.fieldName
+              )} v-model="state.model.${field.fieldName}" placeholder="${
+                field.comment
+              }" />`,
+              `</el-form-item>`
+            );
           }
         }
         output.innerHTML = template.join("\n");
