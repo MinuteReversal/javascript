@@ -283,7 +283,7 @@
 
       function getInputType(type, name) {
         if (name.startsWith("gmt") || name.includes("Time")) {
-          return 'el-date-picker type="date" value-format="YYYY-MM-DD"';
+          return 'el-date-picker type="date" value-format="YYYY-MM-DDTHH:mm:ss"';
         } else {
           // existing conditions...
           switch (type) {
@@ -294,7 +294,7 @@
             case "boolean":
               return "el-switch";
             case "Date":
-              return 'el-date-picker value-format="YYYY-MM-DD"';
+              return 'el-date-picker value-format="YYYY-MM-DDTHH:mm:ss"';
             default:
               return "el-input";
           }
