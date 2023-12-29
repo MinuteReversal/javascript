@@ -231,6 +231,12 @@
               `  <SmartSelect :options="${options}" v-model="state.model.${field.fieldName}" />`,
               `</el-form-item>`
             );
+          } else if (field.fieldName.startsWith("is")) {
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${label}">`,
+              `  <el-switch v-model="state.model.${field.fieldName}" :active-value="1" :inactive-value="0" />`,
+              `</el-form-item>`
+            );
           } else if (field.fieldName.endsWith("Id")) {
             template.push(
               `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
