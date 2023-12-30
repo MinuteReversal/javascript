@@ -248,7 +248,7 @@
             );
           } else if (field.fieldName.startsWith("is")) {
             template.push(
-              `<el-form-item prop="${field.fieldName}" label="${comment}">`,
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
               `  <el-switch v-model="state.model.${field.fieldName}" :active-value="1" :inactive-value="0" />`,
               `</el-form-item>`
             );
