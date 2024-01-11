@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>typescript interface to element-plus user interface</title>
+  </head>
+  <body>
+    <div class="main">
+      <textarea id="input"></textarea>
+      <div class="operator">
+        <button onClick="toTable()">Table&gt;&gt;</button>
+        <button onclick="toForm()">Form&gt;&gt;</button>
+        <button onClick="toValiate()">Validate Rule&gt;&gt;</button>
+        <button onClick="toDefaultValue()">DefaultValue&gt;&gt;</button>
+      </div>
+      <textarea id="output"></textarea>
+    </div>
+    <script>
+      const input = document.getElementById("input");
+      const output = document.getElementById("output");
+
+      const str = `
+export interface CustomerAddressDto {
+    /**
+     * id
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'id'?: string;
+    /**
+     * 创建时间
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'gmtCreated'?: string;
+    /**
+     * 更新时间
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'gmtModified'?: string;
+    /**
+     * 客户id
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'customerId'?: string;
+    /**
+     * 
+     * @type {GeoPoint}
+     * @memberof CustomerAddressDto
+     */
+    'gis'?: GeoPoint;
+    /**
+     * 详细地址
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'address'?: string;
+    /**
+     * 联系人
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'contactName'?: string;
+    /**
+     * 电话
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'contactTelephone'?: string;
+    /**
+     * 城市区域id
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'regionId'?: string;
+    /**
+     * 是否默认;1--是 0--否
+     * @type {number}
+     * @memberof CustomerAddressDto
+     */
+    'isDefault'?: number;
+    /**
+     * 停车位置
+     * @type {string}
+     * @memberof CustomerAddressDto
+     */
+    'parkPosition'?: string;
+}
+            `;
+
+      input.innerHTML = str;
+
+      // prettier-ignore
+      const regex = /\/\*\*\s*\n\s*\*\s*(.*?)\s*\n\s*\*\s*@type\s*\{(.*?)\}\s*\n\s*\*\s*@memberof\s*(.*?)\s*\n\s*\*\/\s*\n\s*'?(.*?)'?\?:\s*(.*?);/g;
+
+      class Model {
+        constructor(
+          comment = "",
+          type = "",
+          interfaceName = "",
+          fieldName = "",
+          fieldType = ""
+        ) {
+          this.comment = comment;
+          this.type = type;
+          this.interfaceName = interfaceName;
+          this.fieldName = fieldName;
+          this.fieldType = fieldType;
+        }
+      }
+
+      function getFields(text) {
+        const lines = text.split("\n");
+        let out = [];
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+          out.push(new Model(match[1], match[2], match[3], match[4], match[5]));
+        }
+        return out;
+      }
+
+      function toTable() {
+        const fields = getFields(input.value);
+        const template = [];
+        template.push(
+          `<el-table-column type="index" label="序列" align="center" width="80" />`
+        );
+        for (const field of fields) {
+          if (field.comment.includes(";")) {
+            const { label, options } = getLabelAndEnumsValueFromComment(
+              field.comment
+            );
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${label}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <SmartEnum :options="${options}" :model-value="${field.fieldName}" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (field.fieldName == "gis") {
+            template.push(
+              `<el-table-column prop="gis" label="gis" width="120">`,
+              `  <template #default="{ row: { gis } }">`,
+              `    <FormaterGis :model-value="gis" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (
+            field.fieldName.includes("Pic") ||
+            field.fieldName.includes("avatar")
+          ) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <SmartImage :src="${field.fieldName}" class="w-4 h-4" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (field.fieldName.endsWith("Id")) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <SmartEnum :model-value="${field.fieldName}" value-field="name" auto-load :load-method="(): any => ({data: {records: [{ id: 1, name: 'AAA' },{ id: 2, name: 'BBB' }]}})"/>`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else if (
+            field.fieldName.includes("gmt") ||
+            field.fieldName.includes("Time")
+          ) {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120">`,
+              `  <template #default="{ row: { ${field.fieldName} } }">`,
+              `    <FormaterDateTime :model-value="${field.fieldName}" />`,
+              `  </template>`,
+              `</el-table-column>`
+            );
+          } else {
+            template.push(
+              `<el-table-column prop="${field.fieldName}" label="${field.comment}" width="120" />`
+            );
+          }
+        }
+        output.innerHTML = template.join("\n");
+      }
+
+      function getLabelAndEnumsValueFromComment(commnet) {
+        const [label, enums] = commnet.split(";");
+        const options = enums.replace(
+          /(-?\d+)([^\d]*)(?=\s|$)/g,
+          `{ id: $1, value: '$2' },`
+        );
+        return { label, options: `[${options}]` };
+      }
+
+      function toForm() {
+        const fields = getFields(input.value);
+        const template = [];
+        for (const field of fields) {
+          if (field.comment.includes(";")) {
+            const { label, options } = getLabelAndEnumsValueFromComment(
+              field.comment
+            );
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${label}">`,
+              `  <SmartSelect :options="${options}" v-model="state.model.${field.fieldName}" />`,
+              `</el-form-item>`
+            );
+          } else if (field.fieldName == "gis") {
+            template.push(
+              `<el-form-item prop="gis" label="gis">`,
+              `  <el-input-number v-model="state.model.gis!.lat" placeholder="纬度" />`,
+              `  <el-input-number v-model="state.model.gis!.lng" placeholder="经度" />`,
+              `</el-form-item>`
+            );
+          } else if (field.fieldName.startsWith("is")) {
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+              `  <el-switch v-model="state.model.${field.fieldName}" :active-value="1" :inactive-value="0" />`,
+              `</el-form-item>`
+            );
+          } else if (field.fieldName.endsWith("Id")) {
+            template.push(
+              `<el-form-item prop="${field.fieldName}" label="${field.comment}">`,
+              `  <SmartSelect v-model="state.model.${field.fieldName}" value-field="name" auto-load :load-method="(): any => ({data: {records: [{ id: 1, name: 'AAA' },{ id: 2, name: 'BBB' }]}})"/>`,
+              `</el-form-item>`
+            );
+          } else {
+            template.push(
+              `<uni-forms-item label="${field.comment}" required name="${field.fieldName}">`,
+              `<uni-easyinput`,
+              `  :inputBorder="false"`,
+              `  v-model="state.formData.${field.fieldName}"`,
+              `  type="number"`,
+              `  placeholder="输入${field.comment}"`,
+              `/>`,
+              `</uni-forms-item>`
+            );
+          }
+        }
+        output.innerHTML = template.join("\n");
+      }
+
+      function toDefaultValue() {
+        const fields = getFields(input.value);
+        const template = [];
+        for (const field of fields) {
+          template.push(
+            `${field.fieldName}: ${getDefaultValue(field.fieldType)},`
+          );
+        }
+        output.innerHTML = template.join("\n");
+      }
+
+      function getDefaultValue(type) {
+        switch (type) {
+          case "string":
+            return '""';
+          case "number":
+            return 0;
+          case "boolean":
+            return false;
+          case "Date":
+            return "new Date()";
+          default:
+            return '""';
+        }
+      }
+
+      function getInputType(type, name) {
+        if (name.startsWith("gmt") || name.includes("Time")) {
+          return 'el-date-picker type="date" value-format="YYYY-MM-DDTHH:mm:ss"';
+        } else {
+          // existing conditions...
+          switch (type) {
+            case "string":
+              return "el-input";
+            case "number":
+              return "el-input-number";
+            case "boolean":
+              return "el-switch";
+            case "Date":
+              return 'el-date-picker value-format="YYYY-MM-DDTHH:mm:ss"';
+            default:
+              return "el-input";
+          }
+        }
+      }
+
+      function toValiate() {
+        const fields = getFields(input.value);
+        const template = [];
+        for (const field of fields) {
+          template.push(
+            `${field.fieldName}: {`,
+            ` rules:[`,
+            `  { required: true, errorMessage: "${field.comment}不能为空", trigger: "blur" },`,
+            ` ]`,
+            `},`
+          );
+        }
+        output.innerHTML = template.join("\n");
+      }
+    </script>
+    <style>
+      html {
+        color-scheme: light dark;
+      }
+
+      body {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+      }
+
+      .main {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+      }
+
+      .main textarea {
+        flex: 1 1 0;
+      }
+
+      .main .operator {
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+      }
+    </style>
+  </body>
+</html>
