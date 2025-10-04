@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>Start Recognition</button>
+  <div class="output"></div>
+  <script>
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    const diagnostic = document.querySelector(".output");
+    const bg = document.querySelector("html");
+    const startBtn = document.querySelector("button");
+
+    startBtn.onclick = () => {
+      recognition.start();
+      console.log("Ready to receive a color command.");
+    };
+
+    recognition.onresult = (event) => {
+      const color = event.results[0][0].transcript;
+      diagnostic.textContent = `Result received: ${color}`;
+      bg.style.backgroundColor = color;
+    };
+  </script>
+</body>
+
+</html>
