@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>每10秒钟更换背景色</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      transition: background 5s ease-in-out;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      height: 100vh;
+      /*cursor: none;*/
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript" id="worker-script">
+    (function () {
+      const INTERVAL = 5 * 60 * 1000; // 5分钟
+
+      class ColorModel {
+        constructor(color, time) {
+          this.color = color;
+          this.time = time;
+        }
+      }
+
+      const DB_NAME = 'mydb';
+      // 控制是否保存到数据库的全局变量
+      let shouldSaveToDB = false;
+
+      // 保存数据到 IndexedDB
+      function save(key, value) {
+        if (!shouldSaveToDB) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(DB_NAME, 1);
+          request.onupgradeneeded = function (e) {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+              db.createObjectStore(STORE_NAME);
+            }
+          };
+          request.onsuccess = function (e) {
+            const db = e.target.result;
+            const tx = db.transaction(STORE_NAME, 'readwrite');
+            tx.objectStore(STORE_NAME).put(value, key);
+            tx.oncomplete = function () {
+              db.close();
+              resolve();
+            };
+            tx.onerror = function (err) {
+              db.close();
+              reject(err);
+            };
+          };
+          request.onerror = reject;
+        });
+      }
+
+      // 从 IndexedDB 读取数据
+      function restore(key) {
+        return new Promise((resolve, reject) => {
+          if (!shouldSaveToDB) return resolve(null);
+          const request = indexedDB.open(DB_NAME, 1);
+          request.onupgradeneeded = function (e) {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+              db.createObjectStore(STORE_NAME);
+            }
+          };
+          request.onsuccess = function (e) {
+            const db = e.target.result;
+            const tx = db.transaction(STORE_NAME, 'readonly');
+            const req = tx.objectStore(STORE_NAME).get(key);
+            req.onsuccess = function () {
+              db.close();
+              resolve(req.result);
+            };
+            req.onerror = function (err) {
+              db.close();
+              reject(err);
+            };
+          };
+          request.onerror = reject;
+        });
+      }
+
+      function randomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+
+
+      async function broadcastColor() {
+        let colorModel = await restore('color');
+        if (!colorModel || (Date.now() - colorModel.time > INTERVAL)) {
+          colorModel = new ColorModel(randomColor(), Date.now());
+          await save('color', colorModel);
+        }
+        self.postMessage({ color: colorModel.color });
+      }
+
+      // 初始广播
+      broadcastColor();
+
+      // 每10秒广播一次
+      setInterval(broadcastColor, INTERVAL);
+    })();
+  </script>
+  <script>
+    // 启动 worker.js
+    if (window.Worker) {
+      if (!window.bgColorWorker) {
+        const code = document.querySelector('#worker-script').textContent;
+        const blob = new Blob([code], { type: 'application/javascript' });
+        window.bgColorWorker = new Worker(URL.createObjectURL(blob));
+        window.bgColorWorker.onmessage = (event) => {
+          document.body.style.background = event.data.color;
+        };
+      }
+    }
+    document.body.addEventListener('click', () => {
+     //requestFullscreen();
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        document.documentElement.requestFullscreen();
+      }
+    });
+  </script>
+</body>
+
+</html>

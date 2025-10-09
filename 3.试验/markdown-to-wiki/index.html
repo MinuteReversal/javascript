@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Markdown to Wiki Converter</title>
+  <!--尝试更换 marked.js 库的版本。你可以在 https://cdn.jsdelivr.net/npm/marked/ 这个地址找到所有可用的版本。-->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <!--尝试更换 html-to-wikitext 库的版本。你可以在 https://cdn.jsdelivr.net/npm/html-to-wikitext/ 这个地址找到所有可用的版本。-->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-wikitext/dist/index.umd.js"></script>
+</head>
+<body>
+  <textarea id="markdownInput" placeholder="Enter Markdown here..."></textarea>
+  <div class="button-panel"><button id="convertButton">Convert>></button></div>
+  <textarea id="wikiOutput" placeholder="Wiki text will appear here..." readonly></textarea>
+
+  <script>
+    document.getElementById('convertButton').addEventListener('click', function() {
+      var markdownInput = document.getElementById('markdownInput').value;
+      var html = marked.parse(markdownInput);
+      var wikiText = htmlToWikitext(html);
+      document.getElementById('wikiOutput').value = wikiText;
+    });
+  </script>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    textarea {
+      flex:1 1 0;
+    }
+
+    .button-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Service Worker Push Demo</title>
+</head>
+
+<body>
+  <h1>Service Worker Push Demo</h1>
+  <script>
+    (async () => {
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+        try {
+          const reg = await navigator.serviceWorker.register('sw.js');
+          console.log('Service Worker 注册成功:', reg);
+
+          const permission = await Notification.requestPermission();
+          if (permission === 'granted') {
+            const subscription = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: 'BK1HSehpV-HVPtC2niYJeu2yLv3LqMyW7ClH4dSZylw6Xe1pT0Bw_FSZgJSZnadoIoKVDlSmcCWFcz9DgNSdulY'
+            });
+            console.log('已订阅:', JSON.stringify(subscription));
+
+            const res = await fetch('http://localhost:3000/subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(subscription)
+            });
+            if (res.ok) {
+              console.log('订阅信息已发送到服务器');
+            }
+          }
+        } catch (err) {
+          console.error('发生错误:', err);
+        }
+      }
+    })();
+  </script>
+</body>
+
+</html>

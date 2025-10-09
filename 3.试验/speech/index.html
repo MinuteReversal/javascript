@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div><button onclick="speak()">speak</button></div>
+  <div><textarea id="inputText">你好，今天天气真好！</textarea></div>
+  <div>
+    <button onclick="listenStart()">listen start</button>
+    <button onclick="listenStop()">listen stop</button>
+  </div>
+  <div><textarea id="outputText"></textarea></div>
+  <script>
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+    const lang = 'zh-CN';
+
+    function speak() {
+      const msg = new SpeechSynthesisUtterance();
+      msg.text = inputText.value;
+      msg.lang = lang;
+      window.speechSynthesis.speak(msg);
+    }
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechGrammarList =
+      window.SpeechGrammarList || window.webkitSpeechGrammarList;
+    const SpeechRecognitionEvent =
+      window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = lang;
+    recognition.onresult = function (event) {
+      outputText.value += event.results[0][0].transcript + '\n';
+    }
+    recognition.onerror = function (event) {
+      console.error('Speech recognition error', event.error);
+    };
+    recognition.onend = function () {
+      console.log('Speech recognition service disconnected');
+    };
+    function listenStart() {
+      if (recognition.running) {
+        return;
+      }
+      recognition.start();
+    }
+    function listenStop() {
+      recognition.stop();
+    }
+  </script>
+</body>
+
+</html>

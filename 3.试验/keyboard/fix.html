@@ -1,0 +1,156 @@
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 0;
+    }
+
+    .wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrapper" class="wrapper">
+    <div class="flex flex-row justify-between">
+      <div class="size-[80] bg-red-500"></div>
+      <div class="size-[80] bg-green-500"></div>
+    </div>
+    <div class="flex-1 overflow-y-auto">
+      <div class="p-4">
+        <p id="info"></p>
+        <p>这里是内容区域，可以滚动。</p>
+        <p>多添加一些内容以便测试滚动效果。</p>
+        <p>内容1</p>
+        <p>内容2</p>
+        <p>内容3</p>
+        <p>内容4</p>
+        <p>内容5</p>
+        <p>内容6</p>
+        <p>内容7</p>
+        <p>内容8</p>
+        <p>内容9</p>
+        <p>内容10</p>
+        <p>这里是内容区域，可以滚动。</p>
+        <p>多添加一些内容以便测试滚动效果。</p>
+        <p>内容1</p>
+        <p>内容2</p>
+        <p>内容3</p>
+        <p>内容4</p>
+        <p>内容5</p>
+        <p>内容6</p>
+        <p>内容7</p>
+        <p>内容8</p>
+        <p>内容9</p>
+        <p>内容10</p>
+        <p>这里是内容区域，可以滚动。</p>
+        <p>多添加一些内容以便测试滚动效果。</p>
+        <p>内容1</p>
+        <p>内容2</p>
+        <p>内容3</p>
+        <p>内容4</p>
+        <p>内容5</p>
+        <p>内容6</p>
+        <p>内容7</p>
+        <p>内容8</p>
+        <p>内容9</p>
+        <p>内容10</p>
+      </div>
+    </div>
+    <div class="flex flex-row justify-between items-center gap-4">
+      <div class="size-[80] bg-blue-500"></div>
+      <input id="input" class="flex-1 border" type="text" />
+      <div class="size-[80] bg-yellow-500"></div>
+    </div>
+  </div>
+  <script>
+    const inputRef = document.getElementById('input');
+    const wrapperRef = document.getElementById('wrapper');
+    const infoRef = document.getElementById('info');
+
+    function fixScroll() {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+
+    function getKeyboardHeight() {
+      const viewportHeight = window.innerHeight;
+      const visualViewportHeight = window.visualViewport ? window.visualViewport.height : viewportHeight;
+      // 键盘高度 = 视口高度 - 当前可视高度
+      return viewportHeight - visualViewportHeight;
+    }
+
+    function updateInfo() {
+      const wrapperHeight = wrapperRef.getBoundingClientRect().height;
+      const inputHeight = inputRef.getBoundingClientRect().height;
+      const viewportHeight = window.innerHeight;
+      const visualViewportHeight = window.visualViewport ? window.visualViewport.height : viewportHeight;
+      // 键盘高度 = 视口高度 - 当前可视高度
+      const keyboardHeight = getKeyboardHeight();
+      infoRef.innerHTML = `
+        <div>键盘高度: ${keyboardHeight}px</div>
+        <div>当前可视高度: ${visualViewportHeight}px</div>
+        <div>wrapper高度: ${wrapperHeight}px</div>
+      `;
+    }
+
+    function getVisualViewportHeightHeight() {
+      let viewportHeight = window.innerHeight;
+      if (window.visualViewport && window.visualViewport.height) {
+        visibleHeight = window.visualViewport.height
+      } else if (document.documentElement && document.documentElement.clientHeight) {
+        visibleHeight = document.documentElement.clientHeight
+      } else {
+        visibleHeight = window.innerHeight
+      }
+      return viewportHeight;
+    }
+
+    inputRef.addEventListener('focus', () => {
+      setTimeout(() => {
+        fixScroll();
+        //限制wrapper高度不超过可视高度
+        const visualViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        const wrapperHeight = wrapperRef.getBoundingClientRect().height;
+        if (wrapperHeight > visualViewportHeight) {
+          wrapperRef.style.height = `${visualViewportHeight}px`;
+          wrapperRef.style.maxHeight = `${visualViewportHeight}px`;
+        }
+        wrapperRef.style.position = 'fixed'; // 固定位置，避免滚动
+        wrapperRef.style.overflow = 'auto';
+        updateInfo();
+      }, 500); // 等待键盘弹出
+    });
+    inputRef.addEventListener('blur', () => {
+      setTimeout(() => {
+        wrapperRef.style.maxHeight = 'none'; // 重置最大高度
+        updateInfo();
+      }, 0); // 等待键盘弹出
+    });
+    window.addEventListener('resize', () => {
+      fixScroll();
+      updateInfo();
+    });
+    window.addEventListener('orientationchange', () => {
+      updateInfo();
+    });
+    window.addEventListener('load', () => {
+      updateInfo();
+    });
+  </script>
+</body>
+
+</html>

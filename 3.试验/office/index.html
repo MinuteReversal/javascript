@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Office Add-in</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+  <div id="container" style="height: 600px;"></div>
+  <script>
+    Office.onReady((info) => {
+      if (info.host === Office.HostType.Word) {
+        Office.context.document.addHandlerAsync(Office.EventType.DocumentSelectionChanged, (eventArgs) => {
+          console.log("Document selection changed:", eventArgs);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

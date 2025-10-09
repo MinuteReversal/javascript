@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>发送消息给服务器</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    #response { margin-top: 20px; color: green; }
+    label, textarea, input { display: block; margin-bottom: 10px; }
+    textarea { width: 400px; height: 100px; }
+    button { padding: 6px 16px; }
+  </style>
+</head>
+<body>
+  <h2>发送消息给服务器</h2>
+  <form id="messageForm">
+    <label for="message">消息内容：</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">发送</button>
+  </form>
+  <div id="response"></div>
+
+  <script>
+    document.getElementById('messageForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const message = document.getElementById('message').value;
+      document.getElementById('response').textContent = '正在发送...';
+
+      try {
+        // 假设服务器接口为 /api/send
+        const res = await fetch('http://localhost:3000/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({title:'hello world', body:message })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('response').textContent = '发送成功: ' + (data.reply || '服务器已收到消息');
+        } else {
+          document.getElementById('response').textContent = '发送失败: ' + (data.error || res.statusText);
+        }
+      } catch (err) {
+        document.getElementById('response').textContent = '发送失败: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

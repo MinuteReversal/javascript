@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>A4五角星底纹</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    html,
+    body {
+      height: 297mm;
+      width: 210mm;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    body {
+      position: relative;
+      height: 297mm;
+      width: 210mm;
+      box-sizing: border-box;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      /* 打印背景色 */
+      print-color-adjust: exact;
+      /* 打印背景色 */
+    }
+
+    .star-bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .controls {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 12px 16px;
+      border-radius: 8px;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    @media print {
+      .controls {
+        display: none !important;
+      }
+
+      body {
+        background: var(--print-bg, #ffff00) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        overflow: hidden;
+      }
+
+      html,
+      body {
+        background: unset !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <label>
+      背景色
+      <input type="color" id="bgColor" value="#ffff00">
+    </label>
+    <label style="margin-left:16px;">
+      五角星色
+      <input type="color" id="starColor" value="#e0e0e0">
+    </label>
+    <button onclick="window.print()" style="margin-left:16px;">打印</button>
+  </div>
+  <canvas class="star-bg" id="starCanvas" width="794" height="1123"></canvas>
+  <script>
+    // 初始参数
+    let backgroundColor = "#ffff00";
+    let starFillColor = "#e0e0e0";
+
+    // 设置背景色
+    function setBackground(color) {
+      backgroundColor = color;
+    }
+
+    setBackground(backgroundColor);
+
+    // A4尺寸: 210mm x 297mm，像素约 794 x 1123（72dpi）
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawStar(cx, cy, spikes, outerRadius, innerRadius, color, alpha) {
+      let rot = Math.PI / 2 * 3;
+      let x = cx;
+      let y = cy;
+      let step = Math.PI / spikes;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+      }
+      ctx.closePath();
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 底纹参数
+    const starSize = 18; // 五角星外径
+    const starInner = 7; // 五角星内径
+    const gapX = 40;     // 横向间距
+    const gapY = 40;     // 纵向间距
+    const alpha = 0.25;  // 透明度
+
+    function drawPattern() {
+      // 绘制背景色到 canvas
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+
+      // 绘制五角星底纹
+      for (let y = gapY / 2; y < canvas.height; y += gapY) {
+        for (let x = gapX / 2; x < canvas.width; x += gapX) {
+          drawStar(x, y, 5, starSize, starInner, starFillColor, alpha);
+        }
+      }
+    }
+
+    drawPattern();
+
+    // 控制面板事件
+    document.getElementById('bgColor').addEventListener('input', function (e) {
+      backgroundColor = e.target.value;
+      setBackground(backgroundColor);
+    });
+    document.getElementById('starColor').addEventListener('input', function (e) {
+      starFillColor = e.target.value;
+      drawPattern();
+    });
+  </script>
+</body>
+
+</html>

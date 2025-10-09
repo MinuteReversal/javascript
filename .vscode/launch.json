@@ -8,9 +8,9 @@
       "type": "chrome",
       "request": "launch",
       "file": "${file}",
-      "runtimeArgs": [
-        "--disable-web-security"
-      ],
+      // "runtimeArgs": [
+      //   "--disable-web-security"
+      // ],
      "webRoot": "${workspaceRoot}"
     },
     {

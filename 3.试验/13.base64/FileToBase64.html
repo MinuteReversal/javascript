@@ -6,19 +6,16 @@
     <meta content="yes" name="apple-touch-fullscreen" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="viewport" content="width=device-width,user-scalable=no" />
-    <script src="../14.clipborad/javascript/JavaScript.js"></script>
 </head>
 <body>
     <input type="file" /><br />
     <label for="outputBase64">base64:</label><br />
     <textarea id="outputBase64" rows="10" cols="40"></textarea><br />
-    <button id="copyToClipboard">复制至剪贴版</button>
     <button id="btnShow">将base64显示在图片里</button><br />
     <img id="img" src="#" />
     <script>
         var ifile = document.querySelector("[type=\"file\"]");
-        var outputBase64 = document.querySelector("#outputBase64");
-        var btnCopy = document.querySelector("#copyToClipboard");
+        var outputBase64 = document.querySelector("#outputBase64");        
         var btnShow = document.querySelector("#btnShow");
 
         var img = document.querySelector("#img");
@@ -34,10 +31,6 @@
             });
             if (file) fr.readAsDataURL(file);//读取为base64
             ifile.value = "";
-        });
-
-        btnCopy.addEventListener("click", function (e) {
-            clipboard.setData(outputBase64.value);
         });
 
         btnShow.addEventListener("click", function (e) {

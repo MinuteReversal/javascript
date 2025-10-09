@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>键盘弹出测试</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    body {
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+
+    .wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      height: 48px;
+      background: #2196f3;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .content {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .input-bar {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      background: #fafafa;
+      border-top: 1px solid #e0e0e0;
+      flex-shrink: 0;
+    }
+
+    .input-bar input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 16px;
+      outline: none;
+      margin-right: 8px;
+      background: #fff;
+    }
+
+    .input-bar button {
+      padding: 8px 16px;
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* 适配 iPhone X 等底部安全区 */
+    @media (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+      .input-bar {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="navbar">测试键盘弹出布局</div>
+    <div class="content" id="content">
+      <p>这里是内容区域，可以滚动。</p>
+      <p>多添加一些内容以便测试滚动效果。</p>
+      <p>内容1</p>
+      <p>内容2</p>
+      <p>内容3</p>
+      <p>内容4</p>
+      <p>内容5</p>
+      <p>内容6</p>
+      <p>内容7</p>
+      <p>内容8</p>
+      <p>内容9</p>
+      <p>内容10</p>
+    </div>
+    <div class="input-bar">
+      <input type="text" placeholder="请输入内容..." id="input">
+      <button id="sendBtn">发送</button>
+    </div>
+  </div>
+  <script>
+    // 简单的发送功能，发送后内容追加到中间区域
+    document.getElementById('sendBtn').onclick = function () {
+      var input = document.getElementById('input');
+      var content = document.getElementById('content');
+      if (input.value.trim()) {
+        var p = document.createElement('p');
+        p.textContent = input.value;
+        content.appendChild(p);
+        content.scrollTop = content.scrollHeight;
+        input.value = '';
+      }
+    };
+
+    let initialHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    let keyboardVisible = false;
+
+    function getKeyboardHeight() {
+      const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const keyboardHeight = initialHeight - currentHeight;
+      // 只有当键盘弹出时才有意义
+      return keyboardHeight > 0 ? keyboardHeight : 0;
+    }
+
+    function checkKeyboard() {
+      const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      const threshold = 50; // 阈值，避免误判（像素）
+      if (!keyboardVisible && initialHeight - currentHeight > threshold) {
+        keyboardVisible = true;
+        console.log('键盘弹出');
+        // 这里可以触发你的键盘弹出逻辑
+      } else if (keyboardVisible && initialHeight - currentHeight <= threshold) {
+        keyboardVisible = false;
+        console.log('键盘收回');
+        // 这里可以触发你的键盘收回逻辑
+      }
+    }
+
+    function adjustWrapperHeight() {
+      const wrapper = document.querySelector('.wrapper');
+      const keyboardHeight = getKeyboardHeight();
+      if (keyboardHeight > 0) {
+        // 键盘弹出，wrapper高度=screen.height-键盘高度
+        wrapper.style.height = (window.screen.height - keyboardHeight) + 'px';
+        window.scrollTop(0,0); // 确保页面滚动到顶部
+      } else {
+        // 键盘收回，恢复全屏
+        wrapper.style.height = '';
+      }
+    }
+
+    // 监听键盘弹出/收起
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        const kbHeight = getKeyboardHeight();
+        console.log('键盘高度:', kbHeight);
+        // 你可以在这里根据 kbHeight 做自适应布局
+        // checkKeyboard();
+        // adjustWrapperHeight();
+      });
+    }
+  </script>
+</body>
+
+</html>
