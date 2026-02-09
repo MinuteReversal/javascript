@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>读书卡（通用）</title>
+  <style>
+    @media print {
+      body {
+        margin: 0;
+        size: auto;
+        margin: 0mm;
+
+        -webkit-print-color-adjust: exact;
+        /* 打印背景色 */
+        print-color-adjust: exact;
+        /* 打印背景色 */
+        /*隐藏标题和底部网址*/
+      }
+
+      .container {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto;
+      }
+    }
+
+    body {
+      font-family: "微软雅黑", Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+    }
+
+    .container {
+      width: 800px;
+      margin: 0 auto;
+      padding: 32px 0 0 0;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: right;
+      font-size: 18px;
+      margin-bottom: 24px;
+      margin-right: 40px;
+    }
+
+    .row {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .row input {
+      border: none;
+      border-bottom: 1px solid #bbb;
+      background: none;
+      font-size: 18px;
+      width: 80px;
+      margin: 0 4px;
+      outline: none;
+    }
+
+    .row .long-input {
+      width: 180px;
+    }
+
+    .row .short-input {
+      width: 80px;
+    }
+
+    .label {
+      display: inline-block;
+      min-width: 80px;
+    }
+
+    .section {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .grid-wrap {
+      margin-bottom: 12px;
+    }
+
+    .tianzige {
+      display: flex;
+      flex-wrap: wrap;
+      width: 520px;
+      border: 2px solid #bbb;
+      margin-bottom: 8px;
+    }
+
+    .tianzige-cell {
+      width: 40px;
+      height: 40px;
+      box-sizing: border-box;
+      border: 1px solid #bbb;
+      border-color: #bbb;
+      position: relative;
+      background: none;
+    }
+
+    .tianzige-cell .hline,
+    .tianzige-cell .vline {
+      position: absolute;
+      background: repeating-linear-gradient(to right,
+          #bbb 0px,
+          #bbb 1px,
+          transparent 1px,
+          transparent 3px);
+      opacity: 0.5;
+    }
+
+    .tianzige-cell .hline {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+    }
+
+    .tianzige-cell .vline {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+
+    .lines {
+      margin-bottom: 12px;
+    }
+
+    .line {
+      border-bottom: 1px solid #bbb;
+      height: 32px;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .line-label {
+      display: inline-block;
+      width: 24px;
+      font-size: 18px;
+    }
+
+    .long-line {
+      border-bottom: 1px solid #bbb;
+      height: 32px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">读书卡</div>
+    <div class="subtitle">（通用）</div>
+    <div class="row">
+      <span class="label">____年</span>
+      <span class="label">____月</span>
+      <span class="label">____日</span>
+      <span class="label">星期____</span>
+      <span class="label">天气____</span>
+    </div>
+    <div class="row">
+      <span class="label">阅读书目：</span>
+      <input class="long-input" type="text" />
+      <span class="label">阅读页数：</span>
+      <input class="short-input" type="text" />
+    </div>
+    <div class="section">
+      <div class="section-title">积累的好词：（3-5个）</div>
+      <div class="grid-wrap">
+        <div class="tianzige">
+          <!-- 16田字格 -->
+          <script>
+            for (i = 0; i < 26; i++)
+              document.writeln(`
+          <div class="tianzige-cell">
+            <div class="hline"></div>
+            <div class="vline"></div>
+          </div>
+            `)
+          </script>
+        </div>
+      </div>
+      <div class="grid-wrap">
+        <div class="tianzige">
+          <!-- 16田字格 -->
+          <script>
+            for (i = 0; i < 26; i++)
+              document.writeln(`
+          <div class="tianzige-cell">
+            <div class="hline"></div>
+            <div class="vline"></div>
+          </div>
+            `)
+          </script>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">积累的好句子：（2-3句）</div>
+      <div class="lines">
+        <div class="line"><span class="line-label">1.</span></div>
+        <div class="line"><span class="line-label">2.</span></div>
+        <div class="line"><span class="line-label">3.</span></div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">最喜欢的部分：</div>
+      <div class="long-line"></div>
+    </div>
+    <div class="section">
+      <div class="section-title">感想与总结：</div>
+      <div class="long-line"></div>
+    </div>
+    <div class="section">
+      <div class="section-title">家长评语并签字：</div>
+      <div class="long-line"></div>
+    </div>
+  </div>
+</body>
+
+</html>
