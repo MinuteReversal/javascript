@@ -1,0 +1,61 @@
+<canvas id="polygonCanvas" width="1240" height="1752"></canvas>
+<script>
+const canvas = document.getElementById('polygonCanvas');
+const ctx = canvas.getContext('2d');
+
+function randomColor() {
+  // 暖色调：橙、黄、红
+  const colors = [
+    'rgba(255, 165, 0, 0.6)', // orange
+    'rgba(255, 215, 0, 0.6)', // gold
+    'rgba(255, 69, 0, 0.6)',  // red-orange
+    'rgba(255, 140, 0, 0.6)', // dark orange
+    'rgba(255, 255, 0, 0.6)', // yellow
+    'rgba(255, 99, 71, 0.6)'  // tomato
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function randomPolygon(centerX, centerY, radius, sides) {
+  const points = [];
+  const angleStep = (Math.PI * 2) / sides;
+  for (let i = 0; i < sides; i++) {
+    const angle = i * angleStep + Math.random() * 0.2;
+    const r = radius * (0.7 + Math.random() * 0.3);
+    points.push([
+      centerX + Math.cos(angle) * r,
+      centerY + Math.sin(angle) * r
+    ]);
+  }
+  return points;
+}
+
+  // 正态分布采样函数
+  function gaussianRandom(mean, stdDev) {
+    let u = 0, v = 0;
+    while(u === 0) u = Math.random();
+    while(v === 0) v = Math.random();
+    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    return mean + num * stdDev;
+  }
+
+  for (let i = 0; i < 800; i++) {
+    // 以画布中心为均值，标准差为画布宽/4和高/4
+    const centerX = gaussianRandom(canvas.width / 2, canvas.width / 4);
+    const centerY = gaussianRandom(canvas.height / 2, canvas.height / 4);
+  const radius = 30 + Math.random() * 40;
+  const sides = 3 + Math.floor(Math.random() * 3); // 3~5边形
+  const points = randomPolygon(centerX, centerY, radius, sides);
+
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (let j = 1; j < points.length; j++) {
+    ctx.lineTo(points[j][0], points[j][1]);
+  }
+  ctx.closePath();
+  ctx.fillStyle = randomColor();
+  ctx.globalAlpha = 0.6;
+  ctx.fill();
+}
+ctx.globalAlpha = 1;
+</script>

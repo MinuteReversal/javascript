@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Green Gradient Print Test</title>
+	<style>
+		:root {
+			--paper-w-mm: 210;
+			--paper-h-mm: 297;
+			--page-bg: #f3f4f6;
+			--ink: #1f2937;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+			background:
+				radial-gradient(circle at 20% 10%, #e3f7e8 0%, transparent 35%),
+				radial-gradient(circle at 80% 90%, #d8eef7 0%, transparent 32%),
+				var(--page-bg);
+			color: var(--ink);
+			display: grid;
+			place-items: center;
+			padding: 20px;
+		}
+
+		.wrap {
+			width: min(100%, 900px);
+			display: grid;
+			gap: 14px;
+			justify-items: center;
+		}
+
+		.toolbar {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		button {
+			border: 1px solid #1b5e20;
+			background: linear-gradient(180deg, #43a047, #2e7d32);
+			color: #fff;
+			border-radius: 999px;
+			padding: 8px 14px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		.paper {
+			width: calc(var(--paper-w-mm) * 1mm);
+			max-width: 100%;
+			background: #fff;
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+			border-radius: 8px;
+			padding: 10px;
+		}
+
+		canvas {
+			width: 100%;
+			height: auto;
+			display: block;
+			border: 1px solid #d1d5db;
+		}
+
+		.hint {
+			font-size: 13px;
+			opacity: 0.8;
+			text-align: center;
+		}
+
+		@media print {
+			body {
+				background: #fff;
+				padding: 0;
+			}
+
+			.toolbar,
+			.hint {
+				display: none;
+			}
+
+			.paper {
+				width: calc(var(--paper-w-mm) * 1mm);
+				box-shadow: none;
+				border-radius: 0;
+				padding: 0;
+			}
+
+			canvas {
+				border: 0;
+			}
+
+			@page {
+				size: A4 portrait;
+				margin: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="toolbar">
+			<button id="redraw" type="button">Redraw</button>
+			<button id="print" type="button">Print</button>
+			<button id="download" type="button">Save PNG</button>
+		</div>
+
+		<div class="paper">
+			<canvas id="test" width="2480" height="3508" aria-label="printer test canvas"></canvas>
+		</div>
+
+		<div class="hint">
+			A4 test page. Main target: green gradients to other colors for printer calibration.
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			var canvas = document.getElementById("test");
+			var ctx = canvas.getContext("2d");
+
+			function drawRegistrationMarks() {
+				var w = canvas.width;
+				var h = canvas.height;
+				var m = 30;
+				var len = 90;
+
+				ctx.save();
+				ctx.strokeStyle = "#000";
+				ctx.lineWidth = 3;
+
+				function mark(x, y, dx, dy) {
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					ctx.lineTo(x + dx * len, y);
+					ctx.moveTo(x, y);
+					ctx.lineTo(x, y + dy * len);
+					ctx.stroke();
+				}
+
+				mark(m, m, 1, 1);
+				mark(w - m, m, -1, 1);
+				mark(m, h - m, 1, -1);
+				mark(w - m, h - m, -1, -1);
+				ctx.restore();
+			}
+
+			function drawGreenBands() {
+				var bands = [
+					{ label: "Green -> Yellow", to: "#ffff00" },
+					{ label: "Green -> Cyan", to: "#00ffff" },
+					{ label: "Green -> Blue", to: "#0000ff" },
+					{ label: "Green -> Magenta", to: "#ff00ff" },
+					{ label: "Green -> Red", to: "#ff0000" },
+					{ label: "Green -> White", to: "#ffffff" },
+					{ label: "Green -> Gray", to: "#808080" },
+					{ label: "Green -> Black", to: "#000000" }
+				];
+
+				var x = 140;
+				var y = 180;
+				var barW = canvas.width - x * 2;
+				var barH = 250;
+				var gap = 120;
+
+				ctx.textBaseline = "middle";
+				ctx.font = "48px sans-serif";
+
+				for (var i = 0; i < bands.length; i++) {
+					var top = y + i * (barH + gap);
+					var g = ctx.createLinearGradient(x, top, x + barW, top);
+					g.addColorStop(0, "#00ff00");
+					g.addColorStop(1, bands[i].to);
+
+					ctx.fillStyle = g;
+					ctx.fillRect(x, top, barW, barH);
+
+					ctx.strokeStyle = "#111";
+					ctx.lineWidth = 1;
+					ctx.strokeRect(x, top, barW, barH);
+
+					ctx.fillStyle = "#111";
+					ctx.fillText(bands[i].label, x, top - 35);
+				}
+			}
+
+			function drawGrayScale() {
+				var x = 140;
+				var y = canvas.height - 520;
+				var w = canvas.width - x * 2;
+				var h = 170;
+				var blocks = 16;
+				var bw = w / blocks;
+
+				ctx.font = "42px sans-serif";
+				ctx.fillStyle = "#111";
+				ctx.fillText("Grayscale 0% -> 100%", x, y - 28);
+
+				for (var i = 0; i < blocks; i++) {
+					var v = Math.round((i / (blocks - 1)) * 255);
+					var c = "rgb(" + v + "," + v + "," + v + ")";
+					ctx.fillStyle = c;
+					ctx.fillRect(x + i * bw, y, bw, h);
+					ctx.strokeStyle = "#111";
+					ctx.strokeRect(x + i * bw, y, bw, h);
+				}
+			}
+
+			function drawTitle() {
+				ctx.fillStyle = "#0f172a";
+				ctx.font = "700 62px sans-serif";
+				ctx.fillText("Printer Test - Green Gradient", 140, 88);
+
+				ctx.font = "36px sans-serif";
+				ctx.fillStyle = "#334155";
+				ctx.fillText("Check smoothness, banding, hue shift, and detail retention.", 140, 134);
+			}
+
+			function clearCanvas() {
+				ctx.fillStyle = "#fff";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+			}
+
+			function render() {
+				clearCanvas();
+				drawTitle();
+				drawGreenBands();
+				drawGrayScale();
+				drawRegistrationMarks();
+			}
+
+			function savePng() {
+				var a = document.createElement("a");
+				a.href = canvas.toDataURL("image/png");
+				a.download = "green-gradient-printer-test.png";
+				a.click();
+			}
+
+			document.getElementById("redraw").addEventListener("click", render);
+			document.getElementById("print").addEventListener("click", function () {
+				window.print();
+			});
+			document.getElementById("download").addEventListener("click", savePng);
+
+			render();
+		})();
+	</script>
+</body>
+</html>
