@@ -115,6 +115,10 @@
       height: 9mm;
       font-size: var(--font-size);
     }
+    .vertical .row span{
+      padding: 0 1mm;
+      text-align: center;
+    }
 
     .vertical .line {
       border-top: 2px solid #000;
@@ -142,12 +146,21 @@
     }
 
     function generateProblem() {
-      // 只生成两位数
-      let a = randomInt(10, 99);
-      let b = randomInt(10, 99);
-      let op = Math.random() > 0.5 ? '+' : '-';
-      // 保证减法不出现负数
-      if (op === '-' && b > a) [a, b] = [b, a];
+      let a, b, op, result;
+      while (true) {
+        a = randomInt(10, 99);
+        b = randomInt(10, 99);
+        op = Math.random() > 0.5 ? '+' : '-';
+        if (op === '+') {
+          result = a + b;
+          if (result >= 0 && result <= 100) break;
+        } else {
+          // 保证减法不出现负数
+          if (b > a) [a, b] = [b, a];
+          result = a - b;
+          if (result >= 0 && result <= 100) break;
+        }
+      }
       return { a, b, op };
     }
 
