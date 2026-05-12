@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>CMYK Print Test</title>
+	<style>
+		:root {
+			--paper-w-mm: 210;
+			--page-bg: #eef2f7;
+			--ink: #0f172a;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+			background:
+				radial-gradient(circle at 12% 18%, rgba(0, 180, 255, 0.14) 0%, transparent 28%),
+				radial-gradient(circle at 88% 82%, rgba(0, 255, 140, 0.12) 0%, transparent 26%),
+				linear-gradient(180deg, #f8fafc, var(--page-bg));
+			color: var(--ink);
+			display: grid;
+			place-items: center;
+			padding: 20px;
+		}
+
+		.wrap {
+			width: min(100%, 960px);
+			display: grid;
+			gap: 14px;
+			justify-items: center;
+		}
+
+		.toolbar {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		button {
+			border: 1px solid #0f172a;
+			background: linear-gradient(180deg, #1e293b, #0f172a);
+			color: #fff;
+			border-radius: 999px;
+			padding: 8px 14px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		.paper {
+			width: calc(var(--paper-w-mm) * 1mm);
+			max-width: 100%;
+			background: #fff;
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+			border-radius: 8px;
+			padding: 10px;
+		}
+
+		canvas {
+			width: 100%;
+			height: auto;
+			display: block;
+			border: 1px solid #d1d5db;
+		}
+
+		.hint {
+			font-size: 13px;
+			opacity: 0.82;
+			text-align: center;
+		}
+
+		@media print {
+			body {
+				background: #fff;
+				padding: 0;
+			}
+
+			.toolbar,
+			.hint {
+				display: none;
+			}
+
+			.paper {
+				width: calc(var(--paper-w-mm) * 1mm);
+				box-shadow: none;
+				border-radius: 0;
+				padding: 0;
+			}
+
+			canvas {
+				border: 0;
+			}
+
+			@page {
+				size: A4 portrait;
+				margin: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="toolbar">
+			<button id="redraw" type="button">Redraw</button>
+			<button id="print" type="button">Print</button>
+			<button id="download" type="button">Save PNG</button>
+		</div>
+
+		<div class="paper">
+			<canvas id="test" width="2480" height="3508" aria-label="cmyk printer test canvas"></canvas>
+		</div>
+
+		<div class="hint">
+			A4 CMYK test page. Use it to check color separation, saturation, overprint look, banding, and gray balance.
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			var canvas = document.getElementById("test");
+			var ctx = canvas.getContext("2d");
+
+			function clearCanvas() {
+				ctx.fillStyle = "#fff";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+			}
+
+			function drawTitle() {
+				ctx.fillStyle = "#0f172a";
+				ctx.font = "700 62px sans-serif";
+				ctx.fillText("CMYK Printer Test", 140, 88);
+
+				ctx.font = "36px sans-serif";
+				ctx.fillStyle = "#334155";
+				ctx.fillText("Check cyan, magenta, yellow, black, overprints, and neutral grays.", 140, 134);
+			}
+
+			function drawRegistrationMarks() {
+				var w = canvas.width;
+				var h = canvas.height;
+				var m = 30;
+				var len = 90;
+
+				ctx.save();
+				ctx.strokeStyle = "#000";
+				ctx.lineWidth = 3;
+
+				function mark(x, y, dx, dy) {
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					ctx.lineTo(x + dx * len, y);
+					ctx.moveTo(x, y);
+					ctx.lineTo(x, y + dy * len);
+					ctx.stroke();
+				}
+
+				mark(m, m, 1, 1);
+				mark(w - m, m, -1, 1);
+				mark(m, h - m, 1, -1);
+				mark(w - m, h - m, -1, -1);
+				ctx.restore();
+			}
+
+			function drawSwatchGrid() {
+				var x = 120;
+				var y = 190;
+				var cellW = 260;
+				var cellH = 170;
+				var gap = 24;
+				var labels = [
+					{ name: "C", color: "#00b7eb" },
+					{ name: "M", color: "#ff2da1" },
+					{ name: "Y", color: "#ffe600" },
+					{ name: "K", color: "#111111" },
+					{ name: "C+M", color: "#006cff" },
+					{ name: "C+Y", color: "#00c86b" },
+					{ name: "M+Y", color: "#ff6f00" },
+					{ name: "C+M+Y", color: "#5a3cff" }
+				];
+
+				ctx.font = "44px sans-serif";
+				ctx.fillStyle = "#111";
+				ctx.fillText("Solid swatches and overprints", x, y - 32);
+
+				for (var i = 0; i < labels.length; i++) {
+					var col = i % 4;
+					var row = Math.floor(i / 4);
+					var left = x + col * (cellW + gap);
+					var top = y + row * (cellH + 64);
+
+					ctx.fillStyle = labels[i].color;
+					ctx.fillRect(left, top, cellW, cellH);
+
+					ctx.strokeStyle = "#111";
+					ctx.lineWidth = 1;
+					ctx.strokeRect(left, top, cellW, cellH);
+
+					ctx.fillStyle = "#111";
+					ctx.font = "38px sans-serif";
+					ctx.fillText(labels[i].name, left + 16, top + cellH + 42);
+				}
+			}
+
+			function drawGradients() {
+				var x = 120;
+				var top = 650;
+				var w = canvas.width - x * 2;
+				var h = 190;
+				var rows = [
+					{ label: "Cyan -> White", from: "#00b7eb", to: "#ffffff" },
+					{ label: "Magenta -> White", from: "#ff2da1", to: "#ffffff" },
+					{ label: "Yellow -> White", from: "#ffe600", to: "#ffffff" },
+					{ label: "Black -> White", from: "#111111", to: "#ffffff" },
+					{ label: "Cyan -> Magenta", from: "#00b7eb", to: "#ff2da1" },
+					{ label: "Yellow -> Black", from: "#ffe600", to: "#111111" }
+				];
+
+				ctx.font = "44px sans-serif";
+				ctx.fillStyle = "#111";
+				ctx.fillText("Smooth gradients", x, top - 32);
+
+				for (var i = 0; i < rows.length; i++) {
+					var y = top + i * (h + 30);
+					var g = ctx.createLinearGradient(x, y, x + w, y);
+					g.addColorStop(0, rows[i].from);
+					g.addColorStop(1, rows[i].to);
+
+					ctx.fillStyle = g;
+					ctx.fillRect(x, y, w, h);
+
+					ctx.strokeStyle = "#111";
+					ctx.strokeRect(x, y, w, h);
+
+					ctx.font = "38px sans-serif";
+					ctx.fillStyle = "#111";
+					ctx.fillText(rows[i].label, x, y - 12);
+				}
+			}
+
+			function drawTints() {
+				var x = 120;
+				var y = 2170;
+				var w = canvas.width - x * 2;
+				var h = 160;
+				var steps = 12;
+				var colors = [
+					{ name: "Cyan tints", color: [0, 183, 235] },
+					{ name: "Magenta tints", color: [255, 45, 161] },
+					{ name: "Yellow tints", color: [255, 230, 0] },
+					{ name: "Black tints", color: [17, 17, 17] }
+				];
+
+				ctx.font = "44px sans-serif";
+				ctx.fillStyle = "#111";
+				ctx.fillText("Tint ramps", x, y - 32);
+
+				for (var r = 0; r < colors.length; r++) {
+					var rowY = y + r * (h + 48);
+					ctx.font = "38px sans-serif";
+					ctx.fillStyle = "#111";
+					ctx.fillText(colors[r].name, x, rowY - 12);
+
+					for (var s = 0; s < steps; s++) {
+						var pct = 1 - s / (steps - 1);
+						var rgba = "rgba(" + colors[r].color[0] + "," + colors[r].color[1] + "," + colors[r].color[2] + "," + pct + ")";
+						var bw = w / steps;
+
+						ctx.fillStyle = rgba;
+						ctx.fillRect(x + s * bw, rowY, bw, h);
+
+						ctx.strokeStyle = "#111";
+						ctx.strokeRect(x + s * bw, rowY, bw, h);
+					}
+				}
+			}
+
+			function drawGrayScale() {
+				var x = 120;
+				var y = 3140;
+				var w = canvas.width - x * 2;
+				var h = 170;
+				var blocks = 16;
+				var bw = w / blocks;
+
+				ctx.font = "44px sans-serif";
+				ctx.fillStyle = "#111";
+				ctx.fillText("Neutral gray balance", x, y - 32);
+
+				for (var i = 0; i < blocks; i++) {
+					var v = Math.round((i / (blocks - 1)) * 255);
+					var c = "rgb(" + v + "," + v + "," + v + ")";
+					ctx.fillStyle = c;
+					ctx.fillRect(x + i * bw, y, bw, h);
+					ctx.strokeStyle = "#111";
+					ctx.strokeRect(x + i * bw, y, bw, h);
+				}
+			}
+
+			function render() {
+				clearCanvas();
+				drawTitle();
+				drawSwatchGrid();
+				drawGradients();
+				drawTints();
+				drawGrayScale();
+				drawRegistrationMarks();
+			}
+
+			function savePng() {
+				var a = document.createElement("a");
+				a.href = canvas.toDataURL("image/png");
+				a.download = "cmyk-printer-test.png";
+				a.click();
+			}
+
+			document.getElementById("redraw").addEventListener("click", render);
+			document.getElementById("print").addEventListener("click", function () {
+				window.print();
+			});
+			document.getElementById("download").addEventListener("click", savePng);
+
+			render();
+		})();
+	</script>
+</body>
+</html>

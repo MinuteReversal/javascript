@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>100以内竖式计算</title>
+  <style>
+    @media print {
+      body {
+        margin: 0;
+      }
+
+      .page {
+        page-break-after: always;
+        width: 210mm;
+        height: 297mm;
+        box-sizing: border-box;
+        padding: 15mm 10mm 10mm 10mm;
+      }
+
+      #toggleVertical {
+        display: none;
+      }
+    }
+
+    body {
+      font-family: 'Times New Roman', '宋体', 'Arial', 'Microsoft YaHei', sans-serif;
+      background: #fff;
+      --font-size: 30px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto 10mm auto;
+      box-sizing: border-box;
+      padding: 15mm 10mm 10mm 10mm;
+      background: #fff;
+      border: none;
+      position: relative;
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 6mm;
+      border-bottom: 2px solid #222;
+      padding-bottom: 2mm;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      flex: 1;
+    }
+
+    .info {
+      font-size: 16px;
+      min-width: 120px;
+      text-align: right;
+    }
+
+    .info span {
+      margin-left: 12px;
+    }
+
+    .problems {
+      width: 100%;
+      margin-top: 8mm;
+    }
+
+    table.problem-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8mm;
+    }
+
+    table.problem-table td {
+      width: 25%;
+      vertical-align: top;
+      text-align: center;
+      font-size: 22px;
+      padding: 0;
+    }
+
+    .problem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+      min-width: 52mm;
+    }
+
+    .problem .expr {
+      font-size: var(--font-size);
+      letter-spacing: 2px;
+      margin-bottom: 3mm;
+      display: block;
+      text-align: center;
+    }
+
+    .vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: right;
+      min-width: 40mm;
+    }
+
+    .vertical .row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 9mm;
+      font-size: var(--font-size);
+    }
+
+    .vertical .line {
+      border-top: 2px solid #000;
+      margin-top: 0;
+      margin-bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="title">100以内竖式计算<input type="checkbox" id="toggleVertical"></div>
+      <div class="info">
+        班级__________<span>姓名__________</span>
+      </div>
+    </div>
+    <div class="problems" id="problems"></div>
+  </div>
+  <script>
+    // 生成竖式题目
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateProblem() {
+      // 只生成两位数
+      let a = randomInt(10, 99);
+      let b = randomInt(10, 99);
+      let op = Math.random() > 0.5 ? '+' : '-';
+      // 保证减法不出现负数
+      if (op === '-' && b > a) [a, b] = [b, a];
+      return { a, b, op };
+    }
+
+    function renderVertical({ a, b, op }) {
+      let aStr = a.toString();
+      let bStr = b.toString();
+      let len = Math.max(aStr.length, bStr.length);
+      aStr = aStr.padStart(len, ' ');
+      bStr = bStr.padStart(len, ' ');
+      return `
+		<div class="vertical">
+			<div class="row"><span>&nbsp;</span><span>${aStr.split('').join('</span><span>')}</span></div>
+			<div class="row"><span>${op}</span><span>${bStr.split('').join('</span><span>')}</span></div>
+			<div class="row line">&nbsp;</div>
+			<div class="row">&nbsp;</div>
+		</div>
+		`;
+    }
+
+    function renderProblems() {
+      const container = document.getElementById('problems');
+      let html = '<table class="problem-table">';
+      let col = 4, row = 5, idx = 1;
+      for (let r = 0; r < row; r++) {
+        html += '<tr>';
+        for (let c = 0; c < col; c++) {
+          let prob = generateProblem();
+          html += `<td><div class="problem"><span class="expr">${prob.a}${prob.op}${prob.b}=</span>${renderVertical(prob)}</div></td>`;
+          idx++;
+        }
+        html += '</tr>';
+      }
+      html += '</table>';
+      container.innerHTML = html;
+    }
+
+    renderProblems();
+
+    document.querySelector('#toggleVertical').addEventListener('change', function () {
+      document.querySelectorAll('.vertical').forEach(el => {
+        el.style.visibility = this.checked ? 'hidden' : 'visible';
+      });
+    });
+  </script>
+</body>
+
+</html>
